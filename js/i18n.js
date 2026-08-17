@@ -72,7 +72,7 @@ const STRINGS = {
     'hint.field': 'The First Hint · Their Calling',
     'hint.deed': 'The Second Hint · Their Deed',
     'hint.initials': 'The Third Hint · Their Initials',
-    'hint.initialsBody': 'Initials {initials}. {counts}.',
+    'hint.initialsBody': 'Initials {initials} · {counts}.',
     'hint.letters': '{n} letters',
     'hint.letters.one': '{n} letter',
 
@@ -227,7 +227,7 @@ const STRINGS = {
     'hint.field': 'A Primeira Pista · Seu Ofício',
     'hint.deed': 'A Segunda Pista · Seu Feito',
     'hint.initials': 'A Terceira Pista · Suas Iniciais',
-    'hint.initialsBody': 'Iniciais {initials}. {counts}.',
+    'hint.initialsBody': 'Iniciais {initials} · {counts}.',
     'hint.letters': '{n} letras',
     'hint.letters.one': '{n} letra',
 

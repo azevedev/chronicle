@@ -229,6 +229,52 @@ export function stopMusic() {
   if (music && !music.paused) fadeMusic(0, 600);
 }
 
+/* ── page visibility ───────────────────────────────────────────────────────
+   Music playing out of a tab the player has switched away from is a nuisance,
+   and on mobile a backgrounded tab that keeps audio alive also keeps the page
+   from being frozen. So the bed pauses the moment the tab is hidden and picks
+   up where it left off on return.
+
+   `pausedByHiding` exists so returning to the tab never starts music the
+   player had switched off, or that was never playing to begin with.
+   ------------------------------------------------------------------------ */
+
+let pausedByHiding = false;
+
+function handleVisibility() {
+  if (document.hidden) {
+    if (music && !music.paused) {
+      // Cut rather than fade: nobody is listening to the fade.
+      music.pause();
+      pausedByHiding = true;
+    }
+    // Idle the graph too, so no one-shot can fire into a hidden tab.
+    if (ctx && ctx.state === 'running') ctx.suspend().catch(() => {});
+    return;
+  }
+
+  if (ctx && ctx.state === 'suspended') ctx.resume().catch(() => {});
+  if (pausedByHiding && musicOn) {
+    pausedByHiding = false;
+    startMusic();
+  } else {
+    pausedByHiding = false;
+  }
+}
+
+/** Registered once at boot. Also covers the tab being closed or the phone locked. */
+export function installVisibilityHandling() {
+  document.addEventListener('visibilitychange', handleVisibility);
+  // Safari on iOS does not always fire visibilitychange when the app is
+  // backgrounded, but it does fire pagehide.
+  window.addEventListener('pagehide', () => {
+    if (music && !music.paused) {
+      music.pause();
+      pausedByHiding = true;
+    }
+  });
+}
+
 /** Duck the bed while a verdict sting plays, then bring it back. */
 export function duck(ms = 1400) {
   if (!music || music.paused) return;
@@ -253,6 +299,7 @@ export function setMusic(on) {
     startMusic();
   } else {
     stopMusic();
+    pausedByHiding = false;
   }
   return musicOn;
 }

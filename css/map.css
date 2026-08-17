@@ -6,10 +6,14 @@
    both the main plate and the inset at completely different scales.
    ========================================================================= */
 
-.plate { margin-top: 1.25rem; }
+.plate { margin-top: 0.85rem; }
 
 .plate__frame {
   position: relative;
+  /* Height-capped, width derived, centred. The map shrinks rather than
+     cropping, so no pin is ever pushed off the plate. */
+  max-width: calc(var(--plate-max-h) * var(--plate-ratio));
+  margin-inline: auto;
   /* Double border reads as the engraved neatline of a printed map. */
   border: 1px solid var(--ink-2);
   outline: 4px solid var(--paper-lit);
@@ -172,7 +176,7 @@
     position: static;
     inset: auto;
     width: 100%;
-    aspect-ratio: 5 / 2;
+    aspect-ratio: 3 / 1;
     border-radius: 0;
     border: 0;
     border-top: 1px solid var(--ink-3);

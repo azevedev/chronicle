@@ -40,6 +40,12 @@
   --f-antique: 'IM Fell English', Georgia, serif;
   --f-type:    'Special Elite', 'Courier New', monospace;
 
+  /* The committed map viewBox is 2000 x 780.6, so the plate is this wide for
+     every unit of height. Capping the height and deriving the width from it
+     keeps the whole map visible while stopping it eating the viewport. */
+  --plate-ratio: 2.562;
+  --plate-max-h: min(30vh, 360px);
+
   /* — measure & rhythm — */
   --measure: 68ch;
   --gap: clamp(0.75rem, 2vw, 1.5rem);

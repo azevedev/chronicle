@@ -196,8 +196,18 @@ function renderRound() {
   hideSuggestions();
   hideNotice();
 
-  if (!reduced()) setTimeout(() => input.focus({ preventScroll: true }), 350);
-  else input.focus({ preventScroll: true });
+  // Only take focus on a pointer-driven screen. On a phone, focusing the field
+  // throws up the on-screen keyboard the instant the round opens, which covers
+  // the map and the dates before the player has read either of them.
+  // Tested as "wide AND not touch-primary" rather than "has a fine pointer":
+  // some desktop environments report `pointer: none`, and requiring `fine`
+  // would silently drop the focus there too.
+  const wide = matchMedia('(min-width: 48rem)').matches;
+  const touchPrimary = matchMedia('(pointer: coarse)').matches;
+  if (wide && !touchPrimary) {
+    if (reduced()) input.focus({ preventScroll: true });
+    else setTimeout(() => input.focus({ preventScroll: true }), 350);
+  }
 }
 
 /**
@@ -996,6 +1006,7 @@ export async function boot() {
   const saved = store.getSettings();
   setLang(saved.lang ?? detectLang());
   audio.initFromSettings();
+  audio.installVisibilityHandling();
 
   applyI18n();
   syncSettingsUI();

@@ -141,8 +141,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: var(--pad);
+  gap: 0.4rem;
+  padding: clamp(0.9rem, 2.4vw, 1.75rem);
   text-align: center;
 }
 
@@ -216,11 +216,42 @@
   color: var(--red);
 }
 
+/* ── mode cards on a phone ─────────────────────────────────────────────────
+   Three stacked cards with full descriptions run past a phone screen before
+   the third one is reachable. The kicker on each card already states the mode
+   in a line ("Five subjects. No reprieve."), and How to Play carries the rules
+   in full, so the long description is the part that gives way. Everything else
+   just tightens.
+   ------------------------------------------------------------------------ */
+@media (max-width: 40rem) {
+  .chip { padding: 0.26rem 0.52rem; font-size: 0.64rem; letter-spacing: 0.12em; }
+
+  .mode-card { gap: 0.25rem; padding: 0.85rem 0.9rem 1rem; }
+
+  .mode-card__body { display: none; }
+
+  /* No neighbours to line up with once the columns stack. */
+  .mode-card__kicker {
+    min-height: 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+  }
+
+  .mode-card__title { font-size: 1.5rem; }
+
+  .mode-card__meta { margin: 0.3rem 0 0.7rem; gap: 1.1rem; }
+  .mode-card__meta dd { font-size: 1.05rem; }
+
+  .mode-card .btn { padding: 0.5rem 1rem; }
+  .mode-card.is-done .mode-card__stamp { width: 3.2rem; height: 3.2rem; top: 0.7rem; }
+  .mode-card.is-done .mode-card__stamp::after { font-size: 1.3rem; }
+}
+
 /* ── record cards (born / died) ────────────────────────────────────────── */
 
 .record {
   position: relative;
-  padding: 1rem 1.1rem 1.1rem;
+  padding: 0.7rem 1rem 0.8rem;
   border: 1px solid var(--ink-4);
   background: linear-gradient(180deg, rgba(255, 252, 240, 0.6), transparent 55%);
   text-align: center;
@@ -238,7 +269,7 @@
   line-height: 1;
 }
 
-.record__label { margin: 0.15rem 0 0.5rem; }
+.record__label { margin: 0.1rem 0 0.35rem; }
 
 .record__place {
   margin: 0 0 0.2rem;
@@ -250,7 +281,7 @@
 /* Modern country beneath the historical place name. Set quietly: the
    settlement is the clue, the country is orientation. */
 .record__country {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.25rem;
   font-family: var(--f-antique);
   font-size: 0.74rem;
   letter-spacing: 0.18em;
@@ -271,25 +302,30 @@
 /* ── hints ─────────────────────────────────────────────────────────────── */
 
 .hint {
-  padding: 0.7rem 0.95rem;
+  padding: 0.5rem 0.9rem 0.55rem;
   border-left: 3px solid var(--red);
   background: var(--red-wash);
 }
 
 .hint__title {
   font-family: var(--f-antique);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--red);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
 }
 
+/* The hints are the thing a player actually reads and weighs, so they are set
+   larger than body copy rather than smaller. The box around them was tightened
+   by the same amount the type grew, so this costs no vertical space. */
 .hint__body {
   margin: 0;
   font-family: var(--f-body);
-  font-size: 1.06rem;
+  font-size: clamp(1.1rem, 1.05rem + 0.35vw, 1.35rem);
+  line-height: 1.4;
   font-style: italic;
+  color: var(--ink);
 }
 
 /* ── attempts ──────────────────────────────────────────────────────────── */
@@ -299,8 +335,8 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.4rem 0.7rem;
-  margin-bottom: 0.9rem;
+  gap: 0.3rem 0.7rem;
+  margin-bottom: 0.6rem;
 }
 
 .attempts__label {
@@ -359,10 +395,13 @@
 }
 .combo__input:disabled { opacity: 0.55; }
 
-/* The suggestion list is a slip of paper laid over the sheet. */
+/* The suggestion list is a slip of paper laid over the sheet.
+   It opens UPWARD: on a phone the on-screen keyboard covers everything below
+   the field, so a list rendered beneath it can only be reached by dismissing
+   the keyboard first. */
 .combo__list {
   position: absolute;
-  top: calc(100% + 3px);
+  bottom: calc(100% + 3px);
   left: 0;
   right: 0;
   z-index: 40;
@@ -414,8 +453,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.4rem;
-  margin: 0.9rem 0 0;
+  gap: 0.3rem;
+  margin: 0.45rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -466,8 +505,8 @@
    ------------------------------------------------------------------------ */
 
 .portrait {
-  margin: 0 auto 1rem;
-  width: clamp(7rem, 30%, 10.5rem);
+  margin: 0 auto 0.7rem;
+  width: clamp(6rem, 24%, 9rem);
 }
 .portrait[hidden] { display: none; }
 
@@ -541,15 +580,15 @@
   font-size: 1.12rem;
   font-style: italic;
   max-width: 38ch;
-  margin: 0 auto 1.1rem;
+  margin: 0 auto 0.85rem;
 }
 
 .broadside__ledger {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
   gap: 0.8rem;
-  margin: 0 0 1.1rem;
-  padding: 0.9rem 0;
+  margin: 0 0 0.85rem;
+  padding: 0.7rem 0;
   border-top: 1px solid var(--ink-4);
   border-bottom: 1px solid var(--ink-4);
 }
@@ -588,7 +627,7 @@
 .award {
   display: grid;
   gap: 0.15rem;
-  margin: 1.2rem 0 0.4rem;
+  margin: 0.8rem 0 0.3rem;
 }
 .award__label {
   font-family: var(--f-antique);
@@ -612,7 +651,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
   gap: 0.9rem;
-  margin: 1.2rem 0;
+  margin: 0.9rem 0;
 }
 
 .tally__item { display: grid; gap: 0.15rem; }
@@ -636,7 +675,7 @@
 
 .scorelist {
   list-style: none;
-  margin: 1.2rem 0 0;
+  margin: 0.9rem 0 0;
   padding: 0;
   text-align: left;
   border-top: 1px solid var(--ink-4);

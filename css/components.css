@@ -226,6 +226,10 @@
 @media (max-width: 40rem) {
   .chip { padding: 0.26rem 0.52rem; font-size: 0.64rem; letter-spacing: 0.12em; }
 
+  .portrait { width: clamp(4.5rem, 22%, 6.5rem); margin-bottom: 0.5rem; }
+  .portrait figcaption { font-size: 0.52rem; margin-top: 0.3rem; }
+  .broadside__stamp { font-size: 0.62rem; padding: 0.3rem 0.6rem; border-width: 3px; }
+
   .mode-card { gap: 0.25rem; padding: 0.85rem 0.9rem 1rem; }
 
   .mode-card__body { display: none; }
@@ -251,6 +255,9 @@
 
 .record {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 0.7rem 1rem 0.8rem;
   border: 1px solid var(--ink-4);
   background: linear-gradient(180deg, rgba(255, 252, 240, 0.6), transparent 55%);
@@ -644,6 +651,35 @@
   font-variant-numeric: lining-nums tabular-nums;
 }
 .award.is-empty .award__value { color: var(--ink-4); }
+
+/* ── the verdict on a phone ────────────────────────────────────────────────
+   These override base declarations that live in this file, so they must live
+   here too: css/layout.css is linked BEFORE components.css, and at equal
+   specificity the later file wins. The same rules sitting in layout.css did
+   nothing at all.
+   ------------------------------------------------------------------------ */
+@media (max-width: 40rem) {
+  .broadside__name { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+  .broadside__span { font-size: 0.88rem; }
+  .broadside__deed { font-size: 0.98rem; margin-bottom: 0.45rem; }
+
+  /* auto-fit dropped Lifespan onto a second row, which costs more height than
+     three narrow columns ever save. */
+  .broadside__ledger {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.3rem;
+    margin-bottom: 0.55rem;
+    padding: 0.5rem 0;
+  }
+  .broadside__ledger dt { font-size: 0.56rem; letter-spacing: 0.1em; }
+  .broadside__ledger dd { font-size: 0.74rem; line-height: 1.25; }
+
+  .broadside__attempts { font-size: 0.82rem; }
+  .readmore { margin-top: 0.4rem; }
+  .readmore a { font-size: 0.72rem; }
+  .award { margin: 0.35rem 0 0.15rem; }
+  .award__value { font-size: clamp(2rem, 11vw, 2.8rem); }
+}
 
 /* ── tallies ───────────────────────────────────────────────────────────── */
 

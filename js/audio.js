@@ -217,12 +217,36 @@ function fadeMusic(to, ms = 900) {
 
 export function startMusic() {
   const el = ensureMusicElement();
+
+  // Already running: just make sure it is at level. Calling play() again would
+  // restart the fade every time a gesture arrives.
+  if (!el.paused) {
+    if (el.volume < MUSIC_VOLUME) fadeMusic(MUSIC_VOLUME);
+    return;
+  }
+
   el.play().then(
     () => fadeMusic(MUSIC_VOLUME),
     () => {
-      /* blocked until a gesture; unlock() will retry */
+      /* Blocked for want of a user activation. The caller keeps retrying. */
     },
   );
+}
+
+/** Is the bed actually audible right now? */
+export const isMusicPlaying = () => Boolean(music && !music.paused);
+
+/**
+ * Has audio finished starting up, so callers can stop retrying?
+ *
+ * True when there is nothing left to start: either the player has both
+ * switches off, or the graph is running and the bed is either playing or
+ * deliberately off.
+ */
+export function isAudioSettled() {
+  if (!soundOn && !musicOn) return true;
+  if (!ctx || ctx.state !== 'running') return false;
+  return !musicOn || isMusicPlaying();
 }
 
 export function stopMusic() {

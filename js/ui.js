@@ -980,14 +980,30 @@ function wire() {
     if (e.target === dialog) dialog.close();
   });
 
-  // Any first gesture unlocks audio, whatever it was.
-  const unlockOnce = () => {
+  /**
+   * Start audio on the player's first real interaction.
+   *
+   * Browsers refuse to start audio without a user activation, and not every
+   * event carries one: a modifier key, a Tab press, a scroll, or anything
+   * dispatched programmatically fires the handler while the activation is
+   * withheld. The previous version removed its listener on the first event of
+   * any kind, so a stray one of those spent the unlock and left the music
+   * silent for the rest of the session.
+   *
+   * This keeps listening until audio has actually started, then unhooks.
+   */
+  const ACTIVATION_EVENTS = ['pointerdown', 'pointerup', 'click', 'touchend', 'keydown'];
+
+  const kickAudio = () => {
     audio.unlock();
-    window.removeEventListener('pointerdown', unlockOnce);
-    window.removeEventListener('keydown', unlockOnce);
+    // unlock() resumes asynchronously, so check on the next turn.
+    setTimeout(() => {
+      if (!audio.isAudioSettled()) return;
+      for (const ev of ACTIVATION_EVENTS) window.removeEventListener(ev, kickAudio);
+    }, 250);
   };
-  window.addEventListener('pointerdown', unlockOnce);
-  window.addEventListener('keydown', unlockOnce);
+
+  for (const ev of ACTIVATION_EVENTS) window.addEventListener(ev, kickAudio);
 }
 
 function goHome() {
@@ -1016,6 +1032,11 @@ export async function boot() {
   wire();
   renderHome();
   showScreen('home', { sound: false });
+
+  // Try immediately. Most browsers will refuse without a gesture, but a player
+  // who has allowed autoplay for this origin gets music from the first frame,
+  // and the gesture listeners above cover everyone else.
+  audio.unlock();
 
   document.body.classList.remove('is-loading');
   $('boot').hidden = true;

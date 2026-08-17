@@ -233,7 +233,10 @@ body.is-playing .screens { margin-top: 0; margin-bottom: clamp(0.75rem, 2vw, 1.5
 .records {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  align-items: center;
+  /* Stretch, not center: a one-line place name next to a three-line one used
+     to produce two visibly different cards. The row is now as tall as its
+     tallest card and both fill it. */
+  align-items: stretch;
   gap: var(--gap);
   margin-top: 0.75rem;
 }
@@ -242,6 +245,7 @@ body.is-playing .screens { margin-top: 0; margin-bottom: clamp(0.75rem, 2vw, 1.5
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.35rem;
   min-width: 4.5rem;
 }
@@ -270,15 +274,18 @@ body.is-playing .screens { margin-top: 0; margin-bottom: clamp(0.75rem, 2vw, 1.5
   .records {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      'birth death'
-      'span  span';
+      'birth  death'
+      'bridge bridge';
     gap: 0.5rem;
     margin-top: 0.6rem;
   }
   .record--birth { grid-area: birth; }
   .record--death { grid-area: death; }
+  /* Named `bridge`, not `span`: `span` is a reserved keyword in grid
+     placement, so `grid-area: span` is invalid and the age line silently
+     auto-placed into the first column instead of crossing both. */
   .records__span {
-    grid-area: span;
+    grid-area: bridge;
     flex-direction: row;
     width: 100%;
     min-height: 0;
@@ -383,4 +390,16 @@ body.is-playing .screens { margin-top: 0; margin-bottom: clamp(0.75rem, 2vw, 1.5
 @media (max-width: 30rem) {
   .broadside__actions { flex-direction: column; }
   .broadside__actions .btn { width: 100%; }
+}
+
+/* ── the verdict on a phone ────────────────────────────────────────────────
+   Portrait, name, dates, deed, ledger, award and a button is a lot of sheet
+   for 844 px. The typography half of this lives in components.css, next to the
+   rules it overrides, because that file loads after this one.
+   ------------------------------------------------------------------------ */
+@media (max-width: 40rem) {
+  #screen-verdict .broadside { padding-top: 1.75rem; }
+  .broadside { padding: 0.9rem 0.85rem 0.8rem; }
+  .rule--ornate { margin: 0.7rem 0 0.9rem; }
+}
 }

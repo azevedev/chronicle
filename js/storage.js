@@ -9,7 +9,11 @@
 
 const KEY = 'chronicle.v1';
 
+/** Bump when a saved blob needs adjusting rather than just merging. */
+const SCHEMA = 2;
+
 const DEFAULTS = () => ({
+  version: SCHEMA,
   settings: { lang: null, sound: true, music: true },
   daily: {},        // 'YYYY-MM-DD' -> { won, attempts, score, figureId, guesses }
   stats: {
@@ -57,6 +61,23 @@ function merge(base, saved) {
   return out;
 }
 
+/**
+ * Bring an older saved blob up to date.
+ *
+ * v1 -> v2: music used to default to OFF, so almost every v1 save carries
+ * `music: false` as the old default rather than as a decision anyone made.
+ * Merging alone would leave every returning player silent forever, with no
+ * clue why. The new default is adopted once and the save is stamped, so a
+ * player who then switches music off keeps it off.
+ */
+function migrate(state, savedVersion) {
+  if (!savedVersion || savedVersion < 2) {
+    state.settings.music = true;
+  }
+  state.version = SCHEMA;
+  return state;
+}
+
 export function load() {
   if (memory) return memory;
   const base = DEFAULTS();
@@ -66,7 +87,16 @@ export function load() {
   }
   try {
     const raw = localStorage.getItem(KEY);
-    memory = raw ? merge(base, JSON.parse(raw)) : base;
+    if (raw) {
+      const saved = JSON.parse(raw);
+      // Pass the RAW version: the merged copy already carries the new
+      // default from DEFAULTS, so checking it would always look up to date.
+      memory = migrate(merge(base, saved), saved.version);
+      // Persist the migration so it only ever happens once.
+      if (saved.version !== SCHEMA) save();
+    } else {
+      memory = base;
+    }
   } catch (err) {
     console.warn('[storage] could not parse saved state, starting fresh', err);
     memory = base;

@@ -5,10 +5,14 @@
  * falling back to English if a key is missing so a gap shows up as plain
  * English rather than an empty box.
  *
- * House style: the copy is written as a Victorian broadsheet would set it —
- * "DISPATCH", "VERDICT", "THE SUBJECT" — in both languages. The Portuguese is
- * not a literal translation of the English; both are written to read naturally
- * in period register.
+ * House style: the paper's Victorian voice is kept where it is decoration —
+ * the masthead, the answer sheet, the occupation clues below — and dropped
+ * everywhere it would cost a player clarity. Menus, buttons, notices and the
+ * how-to-play sheet say plainly what they do: a label has to be understood
+ * before it can be charming. The Portuguese is written to read naturally in
+ * pt-BR rather than translated word for word, but it says exactly the same
+ * things, so a player switching languages mid-game is never told two different
+ * rules.
  */
 
 export const LANGS = ['en', 'pt'];
@@ -16,7 +20,7 @@ export const LANG_NAMES = { en: 'English', pt: 'Português' };
 
 const STRINGS = {
   en: {
-    // — masthead / chrome —
+    // — masthead / chrome — the one place the period voice is kept whole —
     'app.title': 'The Chronicle',
     'app.tagline': 'Wherein the Dead Are Named',
     'app.motto': 'Two Pins Upon the Map · One Life Between',
@@ -24,182 +28,183 @@ const STRINGS = {
     'app.price': 'One Penny',
 
     // — modes —
-    'mode.daily': 'The Daily Dispatch',
-    'mode.daily.sub': 'One subject. All readers. Until midnight.',
+    'mode.daily': 'Daily Puzzle',
+    'mode.daily.sub': 'One figure a day, the same for everyone.',
     'mode.daily.desc':
-      'A single figure, the same for every reader in the world, drawn afresh each day at midnight by Greenwich reckoning. Your streak is recorded.',
-    'mode.gauntlet': 'The Gauntlet',
-    'mode.gauntlet.sub': 'Five subjects. No reprieve.',
+      'One historical figure, identical for every player in the world. A new one arrives at midnight UTC. This is the only mode that builds a streak.',
+    'mode.gauntlet': 'Five Rounds',
+    'mode.gauntlet.sub': 'Five figures in a row. Points added up.',
     'mode.gauntlet.desc':
-      'Five figures in succession, scored in sum. There is no second attempt at a subject once it is closed.',
-    'mode.infinite': 'The Perpetual Edition',
-    'mode.infinite.sub': 'Without end. Until three are lost.',
+      'Five figures one after another, their points added into a single score. Once a figure is over you cannot go back to it.',
+    'mode.infinite': 'Endless Mode',
+    'mode.infinite.sub': 'Keep going until you miss three.',
     'mode.infinite.desc':
-      'Figures without number, drawn until three have defeated you. Your longest run is preserved.',
-    'mode.play': 'Begin',
+      'Figures keep coming until three of them defeat you, getting harder as you go. Your best run is saved.',
+    'mode.play': 'Play',
     'mode.resume': 'Resume',
-    'mode.done': 'Completed today',
-    'mode.daily.note': 'Always drawn from the Hundred.',
+    'mode.done': 'Played today',
+    'mode.daily.note': 'Always one of the 100 best-known figures.',
+    'home.roster': 'figures in the game',
 
-    // — the register / difficulty —
-    'diff.title': 'The Register',
-    'diff.remarkable': 'Remarkable Only',
-    'diff.overall': 'The Whole Register',
-    'diff.remarkable.short': 'Remarkable',
-    'diff.overall.short': 'Overall',
-    'diff.remarkable.note': 'The Hundred best known figures — names a reader may fairly be expected to know.',
-    'diff.overall.note': 'All {n} figures, the obscure alongside the celebrated. Deeper cuts pay more.',
+    // — difficulty —
+    'diff.title': 'Difficulty',
+    'diff.remarkable': 'Famous only',
+    'diff.overall': 'All figures',
+    'diff.remarkable.short': 'Famous',
+    'diff.overall.short': 'All',
+    'diff.remarkable.note': 'The 100 best-known figures — names most people will recognise.',
+    'diff.overall.note': 'All {n} figures, famous and obscure alike. The less famous are worth more points.',
     'diff.applies':
-      'Applies to the Gauntlet and the Perpetual Edition. The Daily Dispatch is always drawn from the Hundred.',
-    'hundred.badge': 'One of the Hundred',
-    'hundred.rank': 'No. {n} of the Hundred',
+      'Applies to Five Rounds and Endless Mode. The Daily Puzzle always uses the 100 best-known figures.',
+    'hundred.badge': 'One of the 100 best known',
+    'hundred.rank': 'No. {n} of the 100 best known',
 
     // — round —
-    'round.dispatch': 'Dispatch',
+    'round.dispatch': 'Round',
     'round.of': 'of',
     'round.born': 'Born',
     'round.died': 'Died',
-    'round.bornAt': 'Born at',
-    'round.diedAt': 'Died at',
+    'round.bornAt': 'Born in',
+    'round.diedAt': 'Died in',
     'round.question': 'Who was this person?',
-    'round.placeholder': 'Name the subject…',
-    'round.submit': 'Submit',
-    'round.skip': 'Skip',
-    'round.guessesLeft': 'Attempts remaining',
+    'round.placeholder': 'Type a name…',
+    'round.submit': 'Guess',
+    'round.skip': 'Skip · −1 attempt',
+    'round.skipped': 'Skipped',
+    'round.guessesLeft': 'Attempts left',
     'round.attempt': 'Attempt',
-    'round.hint': 'Hint',
-    'round.hints': 'Intelligence Received',
-    'round.noHints': 'No intelligence yet received.',
-    'round.tradition': 'Dates by tradition',
+    'round.hints': 'Clues',
+    'round.noHints': 'No clues yet. Each wrong guess or skip reveals one.',
+    'round.tradition': 'Traditional dates',
     'round.traditionNote':
-      'The record for this figure is traditional rather than documentary; dates and places are those handed down.',
+      'The dates and places for this figure are traditional rather than documented — they are what history has handed down.',
     'round.aged': 'aged',
-    'round.unknownAge': 'age unrecorded',
-    'round.score': 'Score',
+    'round.unknownAge': 'age unknown',
+    'round.score': 'Points',
     'round.total': 'Total',
-    'round.lives': 'Losses',
-    'round.noMatch': 'No such figure in the register.',
-    'round.worth': 'worth {n}',
-    'round.alreadyTried': 'You have already offered that name.',
+    'round.noMatch': 'That name is not in the game — this costs you nothing. Try another spelling or another name.',
+    'round.worth': 'worth {n} now',
+    'round.alreadyTried': 'You have already guessed that name.',
 
-    // — hint ladder —
-    'hint.field': 'The First Hint · Their Calling',
-    'hint.deed': 'The Second Hint · Their Deed',
-    'hint.initials': 'The Third Hint · Their Initials',
+    // — clue ladder —
+    'hint.field': 'Clue 1 · Occupation',
+    'hint.deed': 'Clue 2 · What they are known for',
+    'hint.initials': 'Clue 3 · Initials and name length',
     'hint.initialsBody': 'Initials {initials} · {counts}.',
     'hint.letters': '{n} letters',
     'hint.letters.one': '{n} letter',
 
-    // — verdict —
-    'verdict.correct': 'Identified',
-    'verdict.failed': 'Unidentified',
-    'verdict.wasBorn': 'The subject was',
-    'verdict.inAttempts': 'Named in {n} attempts',
-    'verdict.inAttempt': 'Named on the first attempt',
-    'verdict.pointsAwarded': 'Points awarded',
-    'verdict.noPoints': 'No points awarded',
-    'verdict.next': 'Next Dispatch',
-    'verdict.finish': 'Close the Edition',
-    'verdict.lifespan': 'Lifespan',
-    'verdict.readMore': 'Read further on Wikipedia',
+    // — the answer sheet — period voice kept, but every label states its meaning —
+    'verdict.correct': 'Correct',
+    'verdict.failed': 'Not identified',
+    'verdict.wasBorn': 'The answer was',
+    'verdict.inAttempts': 'Identified on attempt {n} of {max}',
+    'verdict.inAttempt': 'Identified on the first attempt',
+    'verdict.pointsAwarded': 'Points earned',
+    'verdict.noPoints': 'No points earned',
+    'verdict.next': 'Next round',
+    'verdict.finish': 'See results',
+    'verdict.lifespan': 'Lived',
+    'verdict.readMore': 'Read more on Wikipedia',
     'verdict.portraitCredit': 'Portrait via Wikimedia Commons',
     'verdict.years': 'years',
 
-    // — session summary —
-    'summary.title': 'The Final Edition',
-    'summary.daily': 'Daily Dispatch',
-    'summary.gauntlet': 'The Gauntlet',
-    'summary.infinite': 'The Perpetual Edition',
-    'summary.totalScore': 'Total Score',
+    // — end of a session —
+    'summary.title': 'Results',
+    'summary.daily': 'Daily Puzzle',
+    'summary.gauntlet': 'Five Rounds',
+    'summary.infinite': 'Endless Mode',
+    'summary.totalScore': 'Total score',
     'summary.solved': 'Identified',
-    'summary.attempts': 'Attempts Spent',
-    'summary.streak': 'Current Streak',
-    'summary.bestRun': 'Longest Run',
-    'summary.share': 'Copy Result',
+    'summary.attempts': 'Attempts used',
+    'summary.streak': 'Current streak',
+    'summary.bestRun': 'Best run',
+    'summary.share': 'Copy result',
     'summary.shared': 'Copied to clipboard',
-    'summary.again': 'Play Again',
-    'summary.home': 'Return to the Front Page',
-    'summary.perfect': 'A flawless edition.',
-    'summary.tomorrow': 'The next dispatch arrives in {time}.',
-    'summary.next': 'Next edition',
+    'summary.again': 'Play again',
+    'summary.home': 'Back to menu',
+    'summary.perfect': 'Perfect — every figure on the first guess.',
+    'summary.tomorrow': 'Next daily puzzle in {time}.',
+    'summary.next': 'Next in',
 
-    // — stats —
-    'stats.title': 'The Ledger',
-    'stats.played': 'Played',
-    'stats.winRate': 'Win Rate',
+    // — statistics —
+    'stats.title': 'Statistics',
+    'stats.played': 'Dailies played',
+    'stats.winRate': 'Win rate',
     'stats.streak': 'Streak',
-    'stats.maxStreak': 'Longest Streak',
-    'stats.distribution': 'Attempts to Identify',
-    'stats.failed': 'Lost',
-    'stats.bestGauntlet': 'Best Gauntlet',
-    'stats.bestInfinite': 'Longest Perpetual Run',
-    'stats.empty': 'The ledger is empty. Play a dispatch to begin it.',
-    'stats.reset': 'Erase the Ledger',
-    'stats.resetConfirm': 'Erase all recorded results? This cannot be undone.',
+    'stats.maxStreak': 'Best streak',
+    'stats.distribution': 'Attempts needed to identify',
+    'stats.failed': 'Not identified',
+    'stats.bestGauntlet': 'Best Five Rounds',
+    'stats.bestInfinite': 'Best Endless run',
+    'stats.empty': 'Nothing recorded yet. Play a daily puzzle to start.',
+    'stats.reset': 'Erase all statistics',
+    'stats.resetConfirm': 'Erase every recorded result? This cannot be undone.',
 
-    // — archive —
-    'archive.title': 'The Archive',
+    // — past dailies —
+    'archive.title': 'Past Dailies',
     'archive.sub':
-      'Back numbers. A day you have already met is named here; the rest keep their counsel. Reading one is practice only and is not scored.',
-    'archive.empty': 'No back numbers yet.',
-    'archive.play': 'Read',
-    'archive.replay': 'Read again',
-    'archive.solved': 'Identified',
-    'archive.lost': 'Unidentified',
-    'archive.unplayed': 'Unread',
-    'archive.seen': 'Read in practice',
-    'archive.practice': 'Practice only, not scored',
-    'archive.withheld': 'Withheld until read',
+      'The last 30 daily puzzles. Days you have already seen show their answer; the rest stay hidden. Playing one here is practice — no points, no streak.',
+    'archive.empty': 'No past puzzles yet.',
+    'archive.play': 'Play',
+    'archive.replay': 'Play again',
+    'archive.solved': 'Solved',
+    'archive.lost': 'Missed',
+    'archive.unplayed': 'Not played',
+    'archive.seen': 'Answer seen',
+    'archive.practice': 'Practice · not scored',
+    'archive.withheld': 'Hidden until you play it',
 
     // — how to play —
-    'help.title': 'How to Read This Paper',
+    'help.title': 'How to Play',
     'help.lead':
-      'A dispatch names no one. It gives you a life reduced to its two ends — a place of birth and a place of death, each with its year — and asks you whose it was.',
-    'help.evidence.title': 'I · The Evidence',
+      'Each puzzle shows one historical figure’s life reduced to two facts: where and when they were born, and where and when they died. Name that person in four attempts or fewer.',
+    'help.evidence.title': '1 · What you are given',
     'help.evidence':
-      'Two pins are set upon the map: one where the subject was born, one where they died. Beneath them stand both years and the age between. That is the whole of the record. Where a life is known by tradition rather than by document, the dispatch says so plainly.',
-    'help.attempts.title': 'II · The Attempts',
+      'Two pins on the map: one where the person was born, one where they died. Under them are both years and the age they reached. That is everything you start with. Where a life is known by tradition rather than by record, the puzzle says so.',
+    'help.attempts.title': '2 · Your four attempts',
     'help.attempts':
-      'You have four. A name that is not in the register costs you nothing — offer another. A name that is in the register but is the wrong person costs one attempt, and so does skipping. Each attempt spent releases the next hint: first the subject’s calling, then their deed, then their initials and the length of their name.',
-    'help.award.title': 'III · The Award',
+      'A name the game does not know costs you nothing — just try another. A real figure who is the wrong answer costs one attempt, and so does pressing Skip. Every attempt you spend reveals the next clue: first the occupation, then what the person is known for, then their initials and the length of their name.',
+    'help.award.title': '3 · Points',
     'help.award':
-      'Name the subject on the first attempt, before any hint, and the dispatch pays in full. Each attempt after that is worth less than the one before. Miss on the fourth and it closes unscored.',
+      'Guessing right on the first attempt, before any clue, pays the most; every attempt after that pays less. Miss on the fourth and the round scores nothing.',
     'help.award.attempt': 'Attempt',
-    'help.award.pays': 'Pays',
+    'help.award.pays': 'Points',
     'help.award.note':
-      'Figures drawn from beyond the Hundred pay a premium, being the harder to place.',
-    'help.editions.title': 'IV · The Editions',
+      'Figures from outside the 100 best known pay more, because they are harder to place.',
+    'help.editions.title': '4 · Game modes',
     'help.editions':
-      'The Daily Dispatch is a single figure, the same for every reader in the world, changing at midnight by Greenwich reckoning; it alone keeps a streak. The Gauntlet sets five subjects in succession, scored in sum. The Perpetual Edition runs without end until three have defeated you.',
-    'help.register.title': 'V · The Register',
+      'Daily Puzzle: one figure a day, the same for every player, changing at midnight UTC — the only mode that builds a streak. Five Rounds: five figures in a row, points added up. Endless Mode: figures keep coming until you miss three.',
+    'help.register.title': '5 · Difficulty',
     'help.register':
-      'You may choose how deep the paper draws. Remarkable Only keeps to the Hundred: the most widely known figures in the register, ranked in order. The Whole Register admits all {n}, obscure and celebrated alike. A figure of the Hundred is marked as such wherever they appear, so you always know which you have met.',
-    'help.begin': 'Begin Reading',
+      'Famous only draws from the 100 best-known figures. All figures draws from all {n}, famous and obscure alike, and pays more for the harder ones. A figure from the best-known 100 is marked wherever they appear, so you always know which you met. The Daily Puzzle ignores this setting and always uses the best-known 100.',
+    'help.begin': 'Start playing',
     'help.privacy':
-      'Your results and settings are kept in this browser only. There are no accounts, no cookies and no analytics. The one thing that leaves your device is the portrait on the verdict sheet, which loads from Wikimedia; if you would rather it did not, the game works perfectly well offline without it.',
+      'Your results and settings stay in this browser. There are no accounts, no cookies and no analytics. The only thing that leaves your device is the portrait on the answer sheet, which loads from Wikimedia; without it the game still works perfectly, offline included.',
     'help.close': 'Close',
 
-    // — settings —
+    // — settings and menus —
     'set.sound': 'Sound',
     'set.music': 'Music',
     'set.language': 'Language',
     'set.on': 'On',
     'set.off': 'Off',
-    'set.stats': 'Ledger',
-    'set.archive': 'Archive',
+    'set.stats': 'Stats',
+    'set.archive': 'Past Dailies',
     'set.help': 'How to Play',
     'set.back': 'Back',
-    'set.leave': 'Leave this dispatch',
+    'set.leave': 'Quit this game',
 
     // — misc —
-    'ui.loading': 'Setting the type…',
-    'ui.error': 'The press has jammed.',
-    'ui.errorBody': 'Something went wrong while loading the edition. Try reloading the page.',
+    'ui.loading': 'Loading…',
+    'ui.error': 'Something went wrong.',
+    'ui.errorBody': 'The game could not be loaded. Try reloading the page.',
     'ui.close': 'Close',
+    'ui.skipLink': 'Skip to content',
+    'ui.toolbar': 'Settings and menus',
     'ui.circa': 'c.',
     'ui.bc': 'BC',
     'ui.ad': 'AD',
-    'ui.present': 'present',
   },
 
   pt: {
@@ -211,189 +216,191 @@ const STRINGS = {
     'app.price': 'Um Vintém',
 
     // — modos —
-    'mode.daily': 'O Despacho Diário',
-    'mode.daily.sub': 'Um vulto. Todos os leitores. Até a meia-noite.',
+    'mode.daily': 'Desafio Diário',
+    'mode.daily.sub': 'Uma figura por dia, a mesma para todo mundo.',
     'mode.daily.desc':
-      'Uma única figura, a mesma para todos os leitores do mundo, sorteada a cada dia à meia-noite pelo meridiano de Greenwich. Sua sequência fica registrada.',
-    'mode.gauntlet': 'A Provação',
-    'mode.gauntlet.sub': 'Cinco vultos. Sem clemência.',
+      'Uma figura histórica, igual para todos os jogadores do mundo. Uma nova aparece à meia-noite (UTC). É o único modo que forma sequência.',
+    'mode.gauntlet': 'Cinco Rodadas',
+    'mode.gauntlet.sub': 'Cinco figuras seguidas. Pontos somados.',
     'mode.gauntlet.desc':
-      'Cinco figuras em sucessão, somadas ao final. Não há segunda tentativa depois que um vulto se encerra.',
-    'mode.infinite': 'A Edição Perpétua',
-    'mode.infinite.sub': 'Sem fim. Até que três se percam.',
+      'Cinco figuras uma após a outra, com os pontos somados em uma pontuação só. Rodada encerrada não volta.',
+    'mode.infinite': 'Modo Infinito',
+    'mode.infinite.sub': 'Continue até errar três.',
     'mode.infinite.desc':
-      'Figuras sem número, sorteadas até que três o derrotem. Sua melhor sequência é preservada.',
-    'mode.play': 'Começar',
-    'mode.resume': 'Retomar',
-    'mode.done': 'Concluído hoje',
-    'mode.daily.note': 'Sorteado sempre entre os Cem.',
+      'As figuras continuam vindo até três delas derrotarem você, ficando mais difíceis ao longo do caminho. Sua melhor sequência fica salva.',
+    'mode.play': 'Jogar',
+    'mode.resume': 'Continuar',
+    'mode.done': 'Jogado hoje',
+    'mode.daily.note': 'Sempre uma das 100 figuras mais conhecidas.',
+    'home.roster': 'figuras no jogo',
 
-    // — o registro / dificuldade —
-    'diff.title': 'O Registro',
-    'diff.remarkable': 'Somente os Notáveis',
-    'diff.overall': 'O Registro Inteiro',
-    'diff.remarkable.short': 'Notáveis',
-    'diff.overall.short': 'Inteiro',
-    'diff.remarkable.note': 'Os Cem vultos mais conhecidos — nomes que se pode esperar de qualquer leitor.',
-    'diff.overall.note': 'Todas as {n} figuras, as obscuras ao lado das célebres. Os cortes fundos pagam mais.',
+    // — dificuldade —
+    'diff.title': 'Dificuldade',
+    'diff.remarkable': 'Só as famosas',
+    'diff.overall': 'Todas as figuras',
+    'diff.remarkable.short': 'Famosas',
+    'diff.overall.short': 'Todas',
+    'diff.remarkable.note': 'As 100 figuras mais conhecidas — nomes que a maioria das pessoas reconhece.',
+    'diff.overall.note': 'Todas as {n} figuras, famosas e obscuras. As menos famosas valem mais pontos.',
     'diff.applies':
-      'Vale para a Provação e a Edição Perpétua. O Despacho Diário sai sempre dentre os Cem.',
-    'hundred.badge': 'Um dos Cem',
-    'hundred.rank': 'N.º {n} dos Cem',
+      'Vale para Cinco Rodadas e Modo Infinito. O Desafio Diário usa sempre as 100 figuras mais conhecidas.',
+    'hundred.badge': 'Uma das 100 mais conhecidas',
+    'hundred.rank': 'N.º {n} entre as 100 mais conhecidas',
 
     // — rodada —
-    'round.dispatch': 'Despacho',
+    'round.dispatch': 'Rodada',
     'round.of': 'de',
     'round.born': 'Nasceu',
     'round.died': 'Morreu',
     'round.bornAt': 'Nasceu em',
     'round.diedAt': 'Morreu em',
     'round.question': 'Quem foi esta pessoa?',
-    'round.placeholder': 'Nomeie o vulto…',
+    'round.placeholder': 'Digite um nome…',
     'round.submit': 'Responder',
-    'round.skip': 'Pular',
+    'round.skip': 'Pular · −1 tentativa',
+    'round.skipped': 'Pulada',
     'round.guessesLeft': 'Tentativas restantes',
     'round.attempt': 'Tentativa',
-    'round.hint': 'Pista',
-    'round.hints': 'Informações Recebidas',
-    'round.noHints': 'Nenhuma informação recebida ainda.',
-    'round.tradition': 'Datas por tradição',
+    'round.hints': 'Pistas',
+    'round.noHints': 'Nenhuma pista ainda. Cada erro ou pulo revela uma.',
+    'round.tradition': 'Datas tradicionais',
     'round.traditionNote':
-      'O registro desta figura é tradicional, não documental; as datas e os lugares são os que a tradição transmitiu.',
+      'As datas e os lugares desta figura são tradicionais, não documentais — são os que a história transmitiu.',
     'round.aged': 'aos',
-    'round.unknownAge': 'idade não registrada',
+    'round.unknownAge': 'idade desconhecida',
     'round.score': 'Pontos',
     'round.total': 'Total',
-    'round.lives': 'Perdas',
-    'round.noMatch': 'Não há tal figura no registro.',
-    'round.worth': 'vale {n}',
-    'round.alreadyTried': 'Você já ofereceu esse nome.',
+    'round.noMatch': 'Esse nome não existe no jogo — e isso não custa nada. Tente outra grafia ou outro nome.',
+    'round.worth': 'vale {n} agora',
+    'round.alreadyTried': 'Você já tentou esse nome.',
 
     // — escada de pistas —
-    'hint.field': 'A Primeira Pista · Seu Ofício',
-    'hint.deed': 'A Segunda Pista · Seu Feito',
-    'hint.initials': 'A Terceira Pista · Suas Iniciais',
+    'hint.field': 'Pista 1 · Ocupação',
+    'hint.deed': 'Pista 2 · Pelo que é conhecida',
+    'hint.initials': 'Pista 3 · Iniciais e tamanho do nome',
     'hint.initialsBody': 'Iniciais {initials} · {counts}.',
     'hint.letters': '{n} letras',
     'hint.letters.one': '{n} letra',
 
-    // — veredito —
-    'verdict.correct': 'Identificado',
-    'verdict.failed': 'Não Identificado',
-    'verdict.wasBorn': 'O vulto era',
-    'verdict.inAttempts': 'Nomeado em {n} tentativas',
-    'verdict.inAttempt': 'Nomeado na primeira tentativa',
-    'verdict.pointsAwarded': 'Pontos concedidos',
-    'verdict.noPoints': 'Nenhum ponto concedido',
-    'verdict.next': 'Próximo Despacho',
-    'verdict.finish': 'Encerrar a Edição',
-    'verdict.lifespan': 'Vida',
+    // — folha de resposta —
+    'verdict.correct': 'Acertou',
+    'verdict.failed': 'Não identificada',
+    'verdict.wasBorn': 'A resposta era',
+    'verdict.inAttempts': 'Identificada na tentativa {n} de {max}',
+    'verdict.inAttempt': 'Identificada na primeira tentativa',
+    'verdict.pointsAwarded': 'Pontos ganhos',
+    'verdict.noPoints': 'Nenhum ponto ganho',
+    'verdict.next': 'Próxima rodada',
+    'verdict.finish': 'Ver resultado',
+    'verdict.lifespan': 'Viveu',
     'verdict.readMore': 'Leia mais na Wikipédia',
     'verdict.portraitCredit': 'Retrato via Wikimedia Commons',
     'verdict.years': 'anos',
 
-    // — resumo da sessão —
-    'summary.title': 'A Edição Final',
-    'summary.daily': 'Despacho Diário',
-    'summary.gauntlet': 'A Provação',
-    'summary.infinite': 'A Edição Perpétua',
-    'summary.totalScore': 'Pontuação Total',
-    'summary.solved': 'Identificados',
-    'summary.attempts': 'Tentativas Gastas',
-    'summary.streak': 'Sequência Atual',
-    'summary.bestRun': 'Maior Sequência',
-    'summary.share': 'Copiar Resultado',
+    // — fim da partida —
+    'summary.title': 'Resultado',
+    'summary.daily': 'Desafio Diário',
+    'summary.gauntlet': 'Cinco Rodadas',
+    'summary.infinite': 'Modo Infinito',
+    'summary.totalScore': 'Pontuação total',
+    'summary.solved': 'Identificadas',
+    'summary.attempts': 'Tentativas usadas',
+    'summary.streak': 'Sequência atual',
+    'summary.bestRun': 'Melhor sequência',
+    'summary.share': 'Copiar resultado',
     'summary.shared': 'Copiado para a área de transferência',
-    'summary.again': 'Jogar de Novo',
-    'summary.home': 'Voltar à Primeira Página',
-    'summary.perfect': 'Uma edição impecável.',
-    'summary.tomorrow': 'O próximo despacho chega em {time}.',
-    'summary.next': 'Próxima edição',
+    'summary.again': 'Jogar de novo',
+    'summary.home': 'Voltar ao menu',
+    'summary.perfect': 'Perfeito — todas na primeira tentativa.',
+    'summary.tomorrow': 'Próximo desafio diário em {time}.',
+    'summary.next': 'Próximo em',
 
     // — estatísticas —
-    'stats.title': 'O Livro-Razão',
-    'stats.played': 'Jogados',
+    'stats.title': 'Estatísticas',
+    'stats.played': 'Diários jogados',
     'stats.winRate': 'Aproveitamento',
     'stats.streak': 'Sequência',
-    'stats.maxStreak': 'Maior Sequência',
-    'stats.distribution': 'Tentativas até Identificar',
-    'stats.failed': 'Perdidos',
-    'stats.bestGauntlet': 'Melhor Provação',
-    'stats.bestInfinite': 'Maior Edição Perpétua',
-    'stats.empty': 'O livro-razão está vazio. Jogue um despacho para começá-lo.',
-    'stats.reset': 'Apagar o Livro-Razão',
-    'stats.resetConfirm': 'Apagar todos os resultados registrados? Isto não pode ser desfeito.',
+    'stats.maxStreak': 'Melhor sequência',
+    'stats.distribution': 'Tentativas até identificar',
+    'stats.failed': 'Não identificadas',
+    'stats.bestGauntlet': 'Melhor Cinco Rodadas',
+    'stats.bestInfinite': 'Melhor Modo Infinito',
+    'stats.empty': 'Nada registrado ainda. Jogue um desafio diário para começar.',
+    'stats.reset': 'Apagar todas as estatísticas',
+    'stats.resetConfirm': 'Apagar todos os resultados registrados? Não é possível desfazer.',
 
-    // — arquivo —
-    'archive.title': 'O Arquivo',
+    // — diários anteriores —
+    'archive.title': 'Diários Anteriores',
     'archive.sub':
-      'Números atrasados. O dia que você já encontrou aparece nomeado aqui; os demais guardam segredo. Lê-los é apenas prática, sem pontuação.',
-    'archive.empty': 'Ainda não há números atrasados.',
-    'archive.play': 'Ler',
-    'archive.replay': 'Ler de novo',
-    'archive.solved': 'Identificado',
-    'archive.lost': 'Não identificado',
-    'archive.unplayed': 'Não lido',
-    'archive.seen': 'Lido em prática',
-    'archive.practice': 'Apenas prática, sem pontuação',
-    'archive.withheld': 'Reservado até a leitura',
+      'Os 30 últimos desafios diários. Os dias que você já viu mostram a resposta; os outros ficam ocultos. Jogar aqui é treino — sem pontos e sem sequência.',
+    'archive.empty': 'Ainda não há desafios anteriores.',
+    'archive.play': 'Jogar',
+    'archive.replay': 'Jogar de novo',
+    'archive.solved': 'Acertou',
+    'archive.lost': 'Não acertou',
+    'archive.unplayed': 'Não jogado',
+    'archive.seen': 'Resposta vista',
+    'archive.practice': 'Treino · sem pontos',
+    'archive.withheld': 'Oculto até você jogar',
 
     // — como jogar —
-    'help.title': 'Como Ler Este Jornal',
+    'help.title': 'Como Jogar',
     'help.lead':
-      'Um despacho não nomeia ninguém. Ele oferece uma vida reduzida às suas duas pontas — um lugar de nascimento e um lugar de morte, cada qual com seu ano — e pergunta de quem ela foi.',
-    'help.evidence.title': 'I · As Provas',
+      'Cada desafio mostra a vida de uma figura histórica reduzida a dois fatos: onde e quando ela nasceu, e onde e quando morreu. Diga quem era em até quatro tentativas.',
+    'help.evidence.title': '1 · O que você recebe',
     'help.evidence':
-      'Dois alfinetes são fincados no mapa: um onde o vulto nasceu, outro onde morreu. Abaixo deles estão os dois anos e a idade entre um e outro. É todo o registro. Quando uma vida se conhece por tradição, e não por documento, o despacho o declara sem rodeios.',
-    'help.attempts.title': 'II · As Tentativas',
+      'Dois alfinetes no mapa: um onde a pessoa nasceu, outro onde morreu. Abaixo deles estão os dois anos e a idade que ela alcançou. É tudo o que você tem no começo. Quando uma vida é conhecida por tradição, e não por documento, o desafio avisa.',
+    'help.attempts.title': '2 · Suas quatro tentativas',
     'help.attempts':
-      'São quatro. Um nome que não consta do registro nada lhe custa — ofereça outro. Um nome que consta, mas é de outra pessoa, custa uma tentativa; pular custa o mesmo. Cada tentativa gasta libera a pista seguinte: primeiro o ofício do vulto, depois seu feito, por fim suas iniciais e o tamanho do nome.',
-    'help.award.title': 'III · O Prêmio',
+      'Um nome que o jogo não conhece não custa nada — é só tentar outro. Uma figura real que não é a resposta custa uma tentativa, e pular custa o mesmo. Cada tentativa gasta revela a pista seguinte: primeiro a ocupação, depois pelo que a pessoa é conhecida, por fim as iniciais e o tamanho do nome.',
+    'help.award.title': '3 · Pontos',
     'help.award':
-      'Nomeie o vulto na primeira tentativa, antes de qualquer pista, e o despacho paga por inteiro. Cada tentativa seguinte vale menos que a anterior. Erre na quarta e ele se encerra sem pontos.',
+      'Acertar na primeira tentativa, antes de qualquer pista, paga o máximo; cada tentativa seguinte paga menos. Errar na quarta encerra a rodada sem pontos.',
     'help.award.attempt': 'Tentativa',
-    'help.award.pays': 'Paga',
+    'help.award.pays': 'Pontos',
     'help.award.note':
-      'Figuras sorteadas fora dos Cem pagam um ágio, por serem mais difíceis de situar.',
-    'help.editions.title': 'IV · As Edições',
+      'Figuras de fora das 100 mais conhecidas pagam mais, por serem mais difíceis de situar.',
+    'help.editions.title': '4 · Modos de jogo',
     'help.editions':
-      'O Despacho Diário é uma única figura, a mesma para todos os leitores do mundo, trocada à meia-noite pelo meridiano de Greenwich; só ele guarda sequência. A Provação apresenta cinco vultos em sucessão, somados ao final. A Edição Perpétua corre sem fim até que três o derrotem.',
-    'help.register.title': 'V · O Registro',
+      'Desafio Diário: uma figura por dia, a mesma para todos, trocada à meia-noite (UTC) — é o único modo que forma sequência. Cinco Rodadas: cinco figuras seguidas, com os pontos somados. Modo Infinito: as figuras continuam até você errar três.',
+    'help.register.title': '5 · Dificuldade',
     'help.register':
-      'Pode-se escolher a que profundidade o jornal sorteia. Somente os Notáveis se atém aos Cem: as figuras mais conhecidas do registro, postas em ordem. O Registro Inteiro admite todas as {n}, obscuras e célebres por igual. Uma figura dos Cem é assinalada onde quer que apareça, para que se saiba sempre qual delas se encontrou.',
-    'help.begin': 'Começar a Ler',
+      'Só as famosas sorteia entre as 100 figuras mais conhecidas. Todas as figuras sorteia entre as {n}, famosas e obscuras, e paga mais pelas mais difíceis. Uma figura das 100 mais conhecidas é marcada onde quer que apareça, para você sempre saber qual encontrou. O Desafio Diário ignora este ajuste e usa sempre as 100 mais conhecidas.',
+    'help.begin': 'Começar a jogar',
     'help.privacy':
-      'Seus resultados e ajustes ficam somente neste navegador. Não há contas, cookies nem análise de tráfego. A única coisa que sai do seu aparelho é o retrato na folha do veredito, carregado da Wikimedia; se preferir que não saia, o jogo funciona perfeitamente offline sem ele.',
+      'Seus resultados e ajustes ficam somente neste navegador. Não há contas, cookies nem análise de tráfego. A única coisa que sai do seu aparelho é o retrato na folha de resposta, carregado da Wikimedia; sem ele o jogo funciona perfeitamente, inclusive offline.',
     'help.close': 'Fechar',
 
-    // — ajustes —
+    // — ajustes e menus —
     'set.sound': 'Som',
     'set.music': 'Música',
     'set.language': 'Idioma',
     'set.on': 'Ligado',
     'set.off': 'Desligado',
-    'set.stats': 'Livro-Razão',
-    'set.archive': 'Arquivo',
+    'set.stats': 'Estatísticas',
+    'set.archive': 'Diários Anteriores',
     'set.help': 'Como Jogar',
     'set.back': 'Voltar',
-    'set.leave': 'Sair deste despacho',
+    'set.leave': 'Sair deste jogo',
 
     // — diversos —
-    'ui.loading': 'Compondo os tipos…',
-    'ui.error': 'O prelo emperrou.',
-    'ui.errorBody': 'Algo deu errado ao carregar a edição. Tente recarregar a página.',
+    'ui.loading': 'Carregando…',
+    'ui.error': 'Algo deu errado.',
+    'ui.errorBody': 'Não foi possível carregar o jogo. Tente recarregar a página.',
     'ui.close': 'Fechar',
+    'ui.skipLink': 'Pular para o conteúdo',
+    'ui.toolbar': 'Ajustes e menus',
     'ui.circa': 'c.',
     'ui.bc': 'a.C.',
     'ui.ad': 'd.C.',
-    'ui.present': 'presente',
   },
 };
 
 /**
- * Occupation descriptors — the first hint. Written as a newspaper would
- * describe a person's calling rather than as a job title, so the hint narrows
- * the field without naming the trade outright.
+ * Occupation descriptors — the first clue. Written as a newspaper would
+ * describe a person's calling rather than as a job title, so the clue narrows
+ * the field without naming the trade outright. This is the one place the
+ * flourish is the point: the clue header above it already says "Occupation".
  */
 export const FIELDS = {
   ruler:        { en: 'A wearer of crowns.',                    pt: 'Alguém que portou uma coroa.' },
@@ -424,6 +431,11 @@ export const FIELDS = {
   filmmaker:    { en: 'A worker in moving pictures.',           pt: 'Um trabalhador das imagens em movimento.' },
   outlaw:       { en: 'A defier of the law.',                   pt: 'Um desafiador da lei.' },
 };
+
+/** Every key defined for a language. Used by tools/check.mjs to prove parity. */
+export function keysFor(lang) {
+  return Object.keys(STRINGS[lang] ?? {});
+}
 
 let current = 'en';
 
@@ -456,7 +468,7 @@ export function t(key, vars) {
   return s;
 }
 
-/** Grammatical plural for the letter-count hint. */
+/** Grammatical plural for the letter-count clue. */
 export function letterCount(n) {
   return t(n === 1 ? 'hint.letters.one' : 'hint.letters', { n });
 }
@@ -467,7 +479,7 @@ export function pick(value) {
   return value;
 }
 
-/** Occupation descriptor for the first hint. */
+/** Occupation descriptor for the first clue. */
 export function fieldLabel(key) {
   const f = FIELDS[key];
   if (!f) {
@@ -493,4 +505,3 @@ export function formatYear(y, opts = {}) {
 export function formatSpan(born, died, opts = {}) {
   return `${formatYear(born, opts)} – ${formatYear(died, opts)}`;
 }
-

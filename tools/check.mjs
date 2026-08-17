@@ -12,12 +12,13 @@
 
 import { getFigures, validate, theHundred, HUNDRED } from '../js/data.js';
 import { buildIndex, resolve, suggest, normalize } from '../js/search.js';
-import { setLang, t } from '../js/i18n.js';
+import { setLang, t, keysFor } from '../js/i18n.js';
 import {
   startSession, submitGuess, skip, nextRound, currentRound,
   hintsFor, MAX_ATTEMPTS, MAX_HINTS, DIFFICULTIES,
 } from '../js/game.js';
 import { dailyPick, dayIndex } from '../js/rng.js';
+import { readFileSync } from 'node:fs';
 
 let failures = 0;
 let checks = 0;
@@ -382,28 +383,48 @@ for (const difficulty of DIFFICULTIES) {
 
 section('copy');
 
-// Every string the new screens reach for must exist in both languages: a gap
-// falls back to English silently, which is exactly the kind of thing that ships.
+// The two languages must define exactly the same keys. A key present in one
+// only falls back to English silently, which is how a half-translated screen
+// ships without anyone noticing.
 {
-  const KEYS = [
-    'diff.title', 'diff.remarkable', 'diff.overall', 'diff.remarkable.short',
-    'diff.overall.short', 'diff.remarkable.note', 'diff.overall.note', 'diff.applies',
-    'hundred.badge', 'hundred.rank', 'mode.daily.note',
-    'archive.seen', 'archive.replay', 'archive.withheld',
-    'help.lead', 'help.evidence.title', 'help.evidence', 'help.attempts.title',
-    'help.attempts', 'help.award.title', 'help.award', 'help.award.attempt',
-    'help.award.pays', 'help.award.note', 'help.editions.title', 'help.editions',
-    'help.register.title', 'help.register', 'help.begin',
-  ];
+  const en = new Set(keysFor('en'));
+  const pt = new Set(keysFor('pt'));
+  const missingPt = [...en].filter((k) => !pt.has(k));
+  const extraPt = [...pt].filter((k) => !en.has(k));
+  ok(missingPt.length === 0, 'every English key is translated', missingPt.join(', '));
+  ok(extraPt.length === 0, 'no Portuguese key without an English original', extraPt.join(', '));
+  ok(en.size > 100, 'the string table is loaded', `${en.size} keys`);
+
+  // No key may be left empty in either language: an empty label renders as a
+  // blank button rather than as an obvious gap.
   for (const lang of ['en', 'pt']) {
     setLang(lang);
-    const missing = KEYS.filter((k) => t(k) === k);
-    ok(missing.length === 0, `every new key is set in ${lang}`, missing.join(', '));
+    const blank = [...en].filter((k) => !String(t(k)).trim());
+    ok(blank.length === 0, `no blank string in ${lang}`, blank.join(', '));
   }
-  // The two placeholder strings must actually interpolate.
-  setLang('en');
-  ok(!t('diff.overall.note', { n: 305 }).includes('{n}'), 'diff.overall.note interpolates');
-  ok(!t('hundred.rank', { n: 7 }).includes('{n}'), 'hundred.rank interpolates');
+
+  // Every key the markup asks for must exist, so a data-i18n typo fails here
+  // rather than printing the raw key onto the page.
+  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const referenced = [...html.matchAll(/data-i18n(?:-aria|-placeholder)?="([^"]+)"/g)]
+    .map((m) => m[1]);
+  const unknown = [...new Set(referenced)].filter((k) => !en.has(k));
+  ok(unknown.length === 0, 'every data-i18n key in the markup exists', unknown.join(', '));
+
+  // Placeholders must actually interpolate, in both languages.
+  for (const lang of ['en', 'pt']) {
+    setLang(lang);
+    const filled = [
+      t('diff.overall.note', { n: 305 }),
+      t('hundred.rank', { n: 7 }),
+      t('help.register', { n: 305 }),
+      t('verdict.inAttempts', { n: 2, max: MAX_ATTEMPTS }),
+      t('round.worth', { n: 700 }),
+      t('summary.tomorrow', { time: '07h 12m' }),
+      t('hint.initialsBody', { initials: 'A. E.', counts: '6 letters' }),
+    ].join(' ');
+    ok(!/\{[a-z]+\}/i.test(filled), `every placeholder interpolates in ${lang}`, filled);
+  }
   setLang('en');
 }
 

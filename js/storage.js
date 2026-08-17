@@ -18,7 +18,7 @@ const DEFAULTS = () => ({
     lang: null,
     sound: true,
     music: true,
-    difficulty: 'overall', // applies to the Gauntlet and the Perpetual Edition
+    difficulty: 'remarkable', // applies to the Gauntlet and the Perpetual Edition
   },
   // Set once the how-to-play sheet has been shown unprompted, so it opens on a
   // reader's first visit and never again.

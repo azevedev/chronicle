@@ -331,7 +331,8 @@ function renderTried(round) {
   for (const g of round.guesses) {
     const li = document.createElement('li');
     li.className = g.skipped ? 'tried__item tried__item--skip' : 'tried__item';
-    li.textContent = g.skipped ? `— ${t('round.skip')} —` : g.label;
+    // The button says "Skip · costs 1 attempt"; the list only needs the verb.
+    li.textContent = g.skipped ? `— ${t('round.skipped')} —` : g.label;
     list.appendChild(li);
   }
 }
@@ -602,7 +603,9 @@ function showVerdict(round, opts = {}) {
   $('verdict-life').textContent = age === null ? t('round.unknownAge') : `${age} ${t('verdict.years')}`;
 
   $('verdict-attempts').textContent = won
-    ? (round.attempt === 1 ? t('verdict.inAttempt') : t('verdict.inAttempts', { n: round.attempt }))
+    ? (round.attempt === 1
+      ? t('verdict.inAttempt')
+      : t('verdict.inAttempts', { n: round.attempt, max: MAX_ATTEMPTS }))
     : '';
 
   const award = $('verdict-award');
@@ -817,12 +820,18 @@ function renderStats() {
     dist.appendChild(row);
   });
 
+  $('st-dist-legend').hidden = st.lost === 0;
+  $('st-dist-legend').textContent = `† ${t('stats.failed')}`;
+
   if (st.lost > 0) {
     const row = document.createElement('div');
     row.className = 'dist__row dist__row--lost';
     const label = document.createElement('span');
     label.className = 'dist__label';
     label.textContent = '†';
+    // The row is the only one not labelled with a number, so it says in words
+    // what the dagger stands for.
+    label.title = t('stats.failed');
     const track = document.createElement('span');
     track.className = 'dist__track';
     const bar = document.createElement('span');

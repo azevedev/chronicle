@@ -46,7 +46,7 @@ export const MODES = {
  * incomparable result cards. It always draws from the Hundred.
  */
 export const DIFFICULTIES = ['remarkable', 'overall'];
-export const DEFAULT_DIFFICULTY = 'overall';
+export const DEFAULT_DIFFICULTY = 'remarkable';
 
 /** Modes the difficulty setting actually changes. */
 export const SCALED_MODES = new Set(['gauntlet', 'infinite']);

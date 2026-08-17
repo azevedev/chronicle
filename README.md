@@ -36,42 +36,46 @@ The repository *is* the site — there is nothing to build.
 
 ## The game
 
-| Mode | Rules |
+| Mode (`internal name`) | Rules |
 |---|---|
-| **The Daily Dispatch** | One figure, identical for every player worldwide, rolling over at midnight UTC. Streak tracked. Playable once a day. |
-| **The Gauntlet** | Five figures in succession, scored in sum. No retries. |
-| **The Perpetual Edition** | Endless, until three figures have defeated you. Longest run tracked. |
+| **Daily Puzzle** (`daily`) | One figure, identical for every player worldwide, rolling over at midnight UTC. Streak tracked. Playable once a day. |
+| **Five Rounds** (`gauntlet`) | Five figures in succession, scored in sum. No retries. |
+| **Endless Mode** (`infinite`) | Endless, until three figures have defeated you. Best run tracked. |
+
+The interface names modes plainly; the source keeps the older internal names
+above, which is why `game.js` still talks about the Gauntlet and the Perpetual
+Edition. Player-facing wording lives in `js/i18n.js` and nowhere else.
 
 **Difficulty** picks which part of the register a session draws from:
 
-| Setting | Pool |
+| Setting (`internal name`) | Pool |
 |---|---|
-| **Remarkable Only** | The Hundred — the 100 most widely known figures, ranked 1–100 in `data/figures.js`. |
-| **The Whole Register** | All 305, deeper cuts included. Worth more, being harder. |
+| **Famous only** (`remarkable`, default) | The Hundred — the 100 most widely known figures, ranked 1–100 in `data/figures.js`. |
+| **All figures** (`overall`) | All 305, deeper cuts included. Worth more, being harder. |
 
-It reaches the Gauntlet and the Perpetual Edition; both keep a separate best
-score per setting. The Daily Dispatch is exempt and always draws from the
-Hundred — it is one figure for every reader in the world, and a per-reader
-difficulty would fork it into two dailies with two incomparable streaks.
+It reaches Five Rounds and Endless Mode; both keep a separate best score per
+setting. The Daily Puzzle is exempt and always draws from the Hundred — it is
+one figure for every player in the world, and a per-player difficulty would
+fork it into two dailies with two incomparable streaks.
 
-A figure of the Hundred is badged with their rank on the verdict sheet at
-*either* setting, so a reader always knows which they have met.
+A figure of the Hundred is badged with their rank on the answer sheet at
+*either* setting, so a player always knows which they have met.
 
 **Scoring.** Four attempts, three hints. 1000 points for identifying on the
 first attempt with no hints showing, then 700, 400 and 200, and nothing for a
 failure. Each award is multiplied by a difficulty factor (x1.0 / x1.15 / x1.3 by
-tier), so Remarkable — being all tier 1 — always pays the base rate. A wrong
+tier), so Famous only — being all tier 1 — always pays the base rate. A wrong
 name and a skipped attempt cost exactly the same, so the choice
 the game keeps asking is whether this guess is worth more than the next hint.
 The round always shows what the next correct answer is still worth.
 
-**Hints**, one released per spent attempt, so the fourth attempt is played with
+**Clues**, one released per spent attempt, so the fourth attempt is played with
 all three showing:
 
-1. **Their calling**: an occupation, described rather than named.
-2. **Their deed**: what they are remembered for, without naming them.
-3. **Their initials**, with letter counts, generated from the name in whichever
-   language is active.
+1. **Occupation**: described rather than named ("A wearer of crowns.").
+2. **What they are known for**: their deed, without naming them.
+3. **Initials and name length**, generated from the name in whichever language
+   is active.
 
 **Guessing** is free text with autocomplete. A typed guess is first *resolved to
 a figure in the register*, and only then compared with the answer — so a typo is
@@ -82,16 +86,16 @@ Both languages (English and Brazilian Portuguese) are switchable at any time,
 mid-round included.
 
 **During play the masthead is withdrawn.** The round and its verdict run under a
-slim play bar carrying only the dispatch counter, the score, and the controls
+slim play bar carrying only the round counter, the score, and the controls
 that stay useful mid-round. The branding is the loudest thing on the page and it
 costs about a third of a phone screen, so it gets out of the way of the map.
 
 **Identifying a figure** reveals their portrait and a link to their Wikipedia
 article, in the language being played.
 
-**The Archive** holds the last 30 back numbers. A day is named there once the
-reader has actually met it — by playing it for real, or by reading it in the
-Archive, which is practice and is not scored. Days still to come keep their
+**Past Dailies** holds the last 30 back numbers. A day is named there once the
+player has actually met it — by playing it for real, or by playing it from that
+list, which is practice and is not scored. Days still to come keep their
 counsel, so the list can never spoil one. The rules sheet opens by itself on a
 first visit and not again after that.
 
@@ -177,7 +181,7 @@ the Hundred means demoting someone else out of it and re-numbering the ranks in
 between — the ordering is a judgement call, kept explicit in the data so it can
 be argued with.
 
-That pool supplies the Daily Dispatch and the Remarkable difficulty, so it has
+That pool supplies the Daily Puzzle and the Famous only difficulty, so it has
 to stay fair. At 100 figures it is also 100 days before any daily repeats.
 
 ## Rebuilding the assets

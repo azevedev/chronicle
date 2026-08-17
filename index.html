@@ -67,7 +67,7 @@
 <div class="grain" aria-hidden="true"></div>
 <div class="vignette" aria-hidden="true"></div>
 
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main" data-i18n="ui.skipLink">Skip to content</a>
 
 <header class="masthead">
   <div class="masthead__rule masthead__rule--top" aria-hidden="true"></div>
@@ -97,7 +97,7 @@
 
   <div class="masthead__rule masthead__rule--bottom" aria-hidden="true"></div>
 
-  <nav class="toolbar" aria-label="Settings">
+  <nav class="toolbar" data-i18n-aria="ui.toolbar" aria-label="Settings and menus">
     <button class="chip" id="btn-lang" type="button" aria-live="polite">EN</button>
     <button class="chip" id="btn-sound" type="button" aria-pressed="true">
       <span class="chip__icon" aria-hidden="true">♪</span>
@@ -108,8 +108,8 @@
       <span data-i18n="set.music">Music</span>
     </button>
     <span class="toolbar__gap" aria-hidden="true"></span>
-    <button class="chip" id="btn-stats" type="button" data-i18n="set.stats">Ledger</button>
-    <button class="chip" id="btn-archive" type="button" data-i18n="set.archive">Archive</button>
+    <button class="chip" id="btn-stats" type="button" data-i18n="set.stats">Stats</button>
+    <button class="chip" id="btn-archive" type="button" data-i18n="set.archive">Past Dailies</button>
     <button class="chip" id="btn-help" type="button" data-i18n="set.help">How to Play</button>
   </nav>
 </header>
@@ -127,7 +127,7 @@
   <span class="playbar__mode" id="round-mode">—</span>
 
   <span class="playbar__no">
-    <span data-i18n="round.dispatch">Dispatch</span>
+    <span data-i18n="round.dispatch">Round</span>
     <strong class="num" id="round-ordinal">1</strong>
     <span id="round-of-wrap" hidden>
       <span data-i18n="round.of">of</span> <strong class="num" id="round-total">5</strong>
@@ -157,12 +157,12 @@
          side by side would read as two independent ones. The Daily Dispatch
          does not answer to it — see js/game.js. -->
     <div class="register-pick">
-      <span class="register-pick__label" data-i18n="diff.title">The Register</span>
+      <span class="register-pick__label" data-i18n="diff.title">Difficulty</span>
       <div class="segmented" id="difficulty-pick" role="radiogroup" data-i18n-aria="diff.title">
+        <button class="segmented__opt is-on" type="button" role="radio" aria-checked="true"
+                data-difficulty="remarkable" data-i18n="diff.remarkable">Famous only</button>
         <button class="segmented__opt" type="button" role="radio" aria-checked="false"
-                data-difficulty="remarkable" data-i18n="diff.remarkable">Remarkable Only</button>
-        <button class="segmented__opt" type="button" role="radio" aria-checked="false"
-                data-difficulty="overall" data-i18n="diff.overall">The Whole Register</button>
+                data-difficulty="overall" data-i18n="diff.overall">All figures</button>
       </div>
       <p class="register-pick__note" id="difficulty-note"></p>
       <p class="register-pick__applies" data-i18n="diff.applies"></p>
@@ -171,8 +171,8 @@
     <div class="columns">
       <article class="mode-card" data-mode="daily">
         <div class="mode-card__stamp" aria-hidden="true"></div>
-        <p class="mode-card__kicker" data-i18n="mode.daily.sub">One subject. All readers.</p>
-        <h2 class="mode-card__title" data-i18n="mode.daily">The Daily Dispatch</h2>
+        <p class="mode-card__kicker" data-i18n="mode.daily.sub">One figure a day, the same for everyone.</p>
+        <h2 class="mode-card__title" data-i18n="mode.daily">Daily Puzzle</h2>
         <div class="rule rule--thin" aria-hidden="true"></div>
         <p class="mode-card__body" data-i18n="mode.daily.desc"></p>
         <dl class="mode-card__meta">
@@ -181,18 +181,18 @@
         </dl>
         <p class="mode-card__note" data-i18n="mode.daily.note"></p>
         <button class="btn btn--primary" data-play="daily" type="button">
-          <span data-i18n="mode.play">Begin</span>
+          <span data-i18n="mode.play">Play</span>
         </button>
       </article>
 
       <article class="mode-card" data-mode="gauntlet">
         <div class="mode-card__stamp" aria-hidden="true"></div>
-        <p class="mode-card__kicker" data-i18n="mode.gauntlet.sub">Five subjects.</p>
-        <h2 class="mode-card__title" data-i18n="mode.gauntlet">The Gauntlet</h2>
+        <p class="mode-card__kicker" data-i18n="mode.gauntlet.sub">Five figures in a row.</p>
+        <h2 class="mode-card__title" data-i18n="mode.gauntlet">Five Rounds</h2>
         <div class="rule rule--thin" aria-hidden="true"></div>
         <p class="mode-card__body" data-i18n="mode.gauntlet.desc"></p>
         <dl class="mode-card__meta">
-          <div><dt data-i18n="stats.bestGauntlet">Best</dt><dd id="home-best-gauntlet">0</dd></div>
+          <div><dt data-i18n="stats.bestGauntlet">Best score</dt><dd id="home-best-gauntlet">0</dd></div>
         </dl>
         <p class="mode-card__note" id="home-diff-gauntlet"></p>
         <button class="btn btn--primary" data-play="gauntlet" type="button">
@@ -202,12 +202,12 @@
 
       <article class="mode-card" data-mode="infinite">
         <div class="mode-card__stamp" aria-hidden="true"></div>
-        <p class="mode-card__kicker" data-i18n="mode.infinite.sub">Without end.</p>
-        <h2 class="mode-card__title" data-i18n="mode.infinite">The Perpetual Edition</h2>
+        <p class="mode-card__kicker" data-i18n="mode.infinite.sub">Keep going until you miss three.</p>
+        <h2 class="mode-card__title" data-i18n="mode.infinite">Endless Mode</h2>
         <div class="rule rule--thin" aria-hidden="true"></div>
         <p class="mode-card__body" data-i18n="mode.infinite.desc"></p>
         <dl class="mode-card__meta">
-          <div><dt data-i18n="stats.bestInfinite">Longest run</dt><dd id="home-best-infinite">0</dd></div>
+          <div><dt data-i18n="stats.bestInfinite">Best run</dt><dd id="home-best-infinite">0</dd></div>
         </dl>
         <p class="mode-card__note" id="home-diff-infinite"></p>
         <button class="btn btn--primary" data-play="infinite" type="button">
@@ -217,7 +217,7 @@
     </div>
 
     <p class="colophon">
-      <span id="roster-count">—</span> <span class="colophon__label">subjects in the register</span>
+      <span id="roster-count">—</span> <span class="colophon__label" data-i18n="home.roster">figures in the game</span>
     </p>
   </section>
 
@@ -262,7 +262,7 @@
     <!-- Intelligence received: hints, revealed one per spent attempt. -->
     <section class="hints" id="hints" aria-live="polite">
       <h3 class="hints__title">
-        <span data-i18n="round.hints">Intelligence Received</span>
+        <span data-i18n="round.hints">Clues</span>
       </h3>
       <p class="hints__empty" id="hints-empty" data-i18n="round.noHints"></p>
       <ol class="hints__list" id="hints-list"></ol>
@@ -273,8 +273,8 @@
       <h3 class="guess__question" data-i18n="round.question">Who was this person?</h3>
 
       <div class="attempts" id="attempts">
-        <span class="attempts__label" data-i18n="round.guessesLeft">Attempts remaining</span>
-        <span class="attempts__marks" id="attempts-marks" role="img" aria-label="Attempts remaining"></span>
+        <span class="attempts__label" data-i18n="round.guessesLeft">Attempts left</span>
+        <span class="attempts__marks" id="attempts-marks" role="img" data-i18n-aria="round.guessesLeft" aria-label="Attempts left"></span>
         <span class="attempts__worth" id="attempts-worth"></span>
       </div>
 
@@ -286,8 +286,8 @@
                  aria-controls="suggestions" data-i18n-placeholder="round.placeholder">
           <ul class="combo__list" id="suggestions" role="listbox" hidden></ul>
         </div>
-        <button class="btn btn--submit" id="btn-submit" type="button" data-i18n="round.submit">Submit</button>
-        <button class="btn btn--ghost" id="btn-skip" type="button" data-i18n="round.skip">Skip</button>
+        <button class="btn btn--submit" id="btn-submit" type="button" data-i18n="round.submit">Guess</button>
+        <button class="btn btn--ghost" id="btn-skip" type="button" data-i18n="round.skip">Skip · −1 attempt</button>
       </div>
 
       <p class="notice" id="guess-notice" role="status" hidden></p>
@@ -300,7 +300,7 @@
   <section class="screen screen--verdict" id="screen-verdict" hidden>
     <article class="broadside">
       <div class="broadside__stamp" id="verdict-stamp">
-        <span id="verdict-stamp-text">Identified</span>
+        <span id="verdict-stamp-text">Correct</span>
       </div>
 
       <!-- Portrait is hotlinked from Wikimedia and strictly optional: if it
@@ -313,7 +313,7 @@
         </figcaption>
       </figure>
 
-      <p class="broadside__kicker" data-i18n="verdict.wasBorn">The subject was</p>
+      <p class="broadside__kicker" data-i18n="verdict.wasBorn">The answer was</p>
       <h2 class="broadside__name" id="verdict-name">—</h2>
       <p class="broadside__span" id="verdict-span">—</p>
 
@@ -338,7 +338,7 @@
           <dd id="verdict-death">—</dd>
         </div>
         <div>
-          <dt data-i18n="verdict.lifespan">Lifespan</dt>
+          <dt data-i18n="verdict.lifespan">Lived</dt>
           <dd id="verdict-life">—</dd>
         </div>
       </dl>
@@ -347,16 +347,16 @@
 
       <p class="readmore">
         <a id="verdict-wiki" target="_blank" rel="noopener noreferrer external" hidden>
-          <span data-i18n="verdict.readMore">Read further</span>
+          <span data-i18n="verdict.readMore">Read more on Wikipedia</span>
         </a>
       </p>
 
       <div class="award" id="verdict-award">
-        <span class="award__label" data-i18n="verdict.pointsAwarded">Points awarded</span>
+        <span class="award__label" data-i18n="verdict.pointsAwarded">Points earned</span>
         <span class="award__value" id="verdict-points">0</span>
       </div>
 
-      <button class="btn btn--primary" id="btn-next" type="button" data-i18n="verdict.next">Next Dispatch</button>
+      <button class="btn btn--primary" id="btn-next" type="button" data-i18n="verdict.next">Next round</button>
     </article>
   </section>
 
@@ -364,13 +364,13 @@
   <section class="screen screen--summary" id="screen-summary" hidden>
     <article class="broadside broadside--summary">
       <p class="broadside__kicker" id="summary-mode">—</p>
-      <h2 class="broadside__name" data-i18n="summary.title">The Final Edition</h2>
+      <h2 class="broadside__name" data-i18n="summary.title">Results</h2>
 
       <div class="rule rule--ornate" aria-hidden="true"></div>
 
       <div class="tally">
         <div class="tally__item tally__item--major">
-          <span class="tally__label" data-i18n="summary.totalScore">Total Score</span>
+          <span class="tally__label" data-i18n="summary.totalScore">Total score</span>
           <span class="tally__value" id="summary-score">0</span>
         </div>
         <div class="tally__item">
@@ -378,11 +378,11 @@
           <span class="tally__value" id="summary-solved">0</span>
         </div>
         <div class="tally__item">
-          <span class="tally__label" data-i18n="summary.attempts">Attempts Spent</span>
+          <span class="tally__label" data-i18n="summary.attempts">Attempts used</span>
           <span class="tally__value" id="summary-attempts">0</span>
         </div>
         <div class="tally__item" id="summary-streak-wrap">
-          <span class="tally__label" data-i18n="summary.streak">Current Streak</span>
+          <span class="tally__label" data-i18n="summary.streak">Current streak</span>
           <span class="tally__value" id="summary-streak">0</span>
         </div>
       </div>
@@ -394,9 +394,9 @@
       <p class="broadside__next" id="summary-countdown" hidden></p>
 
       <div class="broadside__actions">
-        <button class="btn btn--primary" id="btn-share" type="button" data-i18n="summary.share">Copy Result</button>
-        <button class="btn" id="btn-again" type="button" data-i18n="summary.again">Play Again</button>
-        <button class="btn btn--ghost" id="btn-summary-home" type="button" data-i18n="summary.home">Return</button>
+        <button class="btn btn--primary" id="btn-share" type="button" data-i18n="summary.share">Copy result</button>
+        <button class="btn" id="btn-again" type="button" data-i18n="summary.again">Play again</button>
+        <button class="btn btn--ghost" id="btn-summary-home" type="button" data-i18n="summary.home">Back to menu</button>
       </div>
     </article>
   </section>
@@ -404,18 +404,18 @@
   <!-- ─────────────────────────  LEDGER  ───────────────────────── -->
   <section class="screen screen--stats" id="screen-stats" hidden>
     <article class="broadside">
-      <h2 class="broadside__name" data-i18n="stats.title">The Ledger</h2>
+      <h2 class="broadside__name" data-i18n="stats.title">Statistics</h2>
       <div class="rule rule--ornate" aria-hidden="true"></div>
 
       <p class="stats__empty" id="stats-empty" hidden data-i18n="stats.empty"></p>
 
       <div class="tally" id="stats-tally">
         <div class="tally__item">
-          <span class="tally__label" data-i18n="stats.played">Played</span>
+          <span class="tally__label" data-i18n="stats.played">Dailies played</span>
           <span class="tally__value" id="st-played">0</span>
         </div>
         <div class="tally__item">
-          <span class="tally__label" data-i18n="stats.winRate">Win Rate</span>
+          <span class="tally__label" data-i18n="stats.winRate">Win rate</span>
           <span class="tally__value" id="st-rate">0%</span>
         </div>
         <div class="tally__item">
@@ -423,37 +423,39 @@
           <span class="tally__value" id="st-streak">0</span>
         </div>
         <div class="tally__item">
-          <span class="tally__label" data-i18n="stats.maxStreak">Longest</span>
+          <span class="tally__label" data-i18n="stats.maxStreak">Best streak</span>
           <span class="tally__value" id="st-max">0</span>
         </div>
       </div>
 
-      <h3 class="stats__subtitle" data-i18n="stats.distribution">Attempts to Identify</h3>
+      <h3 class="stats__subtitle" data-i18n="stats.distribution">Attempts needed to identify</h3>
       <div class="dist" id="st-dist"></div>
+      <!-- The dagger row has no number of its own, so it is named in words. -->
+      <p class="dist__legend" id="st-dist-legend" hidden></p>
 
       <!-- Four figures rather than two: a Gauntlet on Remarkable and one on
            the whole register are different feats and are kept apart. -->
       <div class="tally tally--minor">
         <div class="tally__item">
-          <span class="tally__label" id="st-gauntlet-remarkable-label">Best Gauntlet</span>
+          <span class="tally__label" id="st-gauntlet-remarkable-label">Best Five Rounds</span>
           <span class="tally__value" id="st-gauntlet-remarkable">0</span>
         </div>
         <div class="tally__item">
-          <span class="tally__label" id="st-gauntlet-overall-label">Best Gauntlet</span>
+          <span class="tally__label" id="st-gauntlet-overall-label">Best Five Rounds</span>
           <span class="tally__value" id="st-gauntlet-overall">0</span>
         </div>
         <div class="tally__item">
-          <span class="tally__label" id="st-infinite-remarkable-label">Longest Run</span>
+          <span class="tally__label" id="st-infinite-remarkable-label">Best Endless run</span>
           <span class="tally__value" id="st-infinite-remarkable">0</span>
         </div>
         <div class="tally__item">
-          <span class="tally__label" id="st-infinite-overall-label">Longest Run</span>
+          <span class="tally__label" id="st-infinite-overall-label">Best Endless run</span>
           <span class="tally__value" id="st-infinite-overall">0</span>
         </div>
       </div>
 
       <div class="broadside__actions">
-        <button class="btn btn--ghost" id="btn-reset" type="button" data-i18n="stats.reset">Erase the Ledger</button>
+        <button class="btn btn--ghost" id="btn-reset" type="button" data-i18n="stats.reset">Erase all statistics</button>
         <button class="btn" id="btn-stats-back" type="button" data-i18n="set.back">Back</button>
       </div>
     </article>
@@ -462,7 +464,7 @@
   <!-- ─────────────────────────  ARCHIVE  ───────────────────────── -->
   <section class="screen screen--archive" id="screen-archive" hidden>
     <article class="broadside broadside--wide">
-      <h2 class="broadside__name" data-i18n="archive.title">The Archive</h2>
+      <h2 class="broadside__name" data-i18n="archive.title">Past Dailies</h2>
       <p class="broadside__kicker" data-i18n="archive.sub"></p>
       <div class="rule rule--ornate" aria-hidden="true"></div>
 
@@ -479,7 +481,7 @@
 <!-- ─────────────────────────  HOW TO PLAY  ───────────────────────── -->
 <dialog class="sheet" id="help-dialog">
   <article class="sheet__body">
-    <h2 class="sheet__title" data-i18n="help.title">How to Read This Paper</h2>
+    <h2 class="sheet__title" data-i18n="help.title">How to Play</h2>
     <div class="rule rule--ornate" aria-hidden="true"></div>
 
     <p class="sheet__lead" data-i18n="help.lead"></p>
@@ -490,17 +492,17 @@
     </div>
 
     <section class="sheet__part">
-      <h3 class="sheet__head" data-i18n="help.evidence.title">The Evidence</h3>
+      <h3 class="sheet__head" data-i18n="help.evidence.title">1 · What you are given</h3>
       <p data-i18n="help.evidence"></p>
     </section>
 
     <section class="sheet__part">
-      <h3 class="sheet__head" data-i18n="help.attempts.title">The Attempts</h3>
+      <h3 class="sheet__head" data-i18n="help.attempts.title">2 · Your four attempts</h3>
       <p data-i18n="help.attempts"></p>
     </section>
 
     <section class="sheet__part">
-      <h3 class="sheet__head" data-i18n="help.award.title">The Award</h3>
+      <h3 class="sheet__head" data-i18n="help.award.title">3 · Points</h3>
       <p data-i18n="help.award"></p>
       <!-- Filled from the AWARD table in js/game.js, so the sheet cannot go
            stale if the scoring is retuned. -->
@@ -509,12 +511,12 @@
     </section>
 
     <section class="sheet__part">
-      <h3 class="sheet__head" data-i18n="help.editions.title">The Editions</h3>
+      <h3 class="sheet__head" data-i18n="help.editions.title">4 · Game modes</h3>
       <p data-i18n="help.editions"></p>
     </section>
 
     <section class="sheet__part">
-      <h3 class="sheet__head" data-i18n="help.register.title">The Register</h3>
+      <h3 class="sheet__head" data-i18n="help.register.title">5 · Difficulty</h3>
       <p id="help-register"></p>
     </section>
 
@@ -524,7 +526,7 @@
 </dialog>
 
 <div class="boot" id="boot">
-  <span class="boot__text" data-i18n="ui.loading">Setting the type…</span>
+  <span class="boot__text" data-i18n="ui.loading">Loading…</span>
 </div>
 
 <script type="module" src="js/main.js"></script>

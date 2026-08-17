@@ -467,6 +467,17 @@
 
 .combo__field { position: relative; flex: 1; }
 
+/* Skip carries its price in its label ("Skip · −1 attempt"), which is the whole
+   point of the button being there — so it is set tighter than a plain button
+   and kept on one line rather than breaking in half beside Guess. */
+#btn-skip {
+  flex-shrink: 0;
+  padding-inline: 0.9rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
 .combo__input {
   width: 100%;
   padding: 0.7rem 0.9rem;
@@ -877,6 +888,15 @@
   transition: width 500ms cubic-bezier(.2, .8, .3, 1);
 }
 .dist__bar--lost { background: var(--ink-4); }
+
+.dist__legend {
+  margin: 0.4rem 0 0;
+  font-family: var(--f-type);
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--ink-4);
+  text-align: right;
+}
 
 .stats__subtitle {
   font-family: var(--f-antique);

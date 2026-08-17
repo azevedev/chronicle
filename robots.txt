@@ -1,0 +1,5 @@
+# The Chronicle — a static game. Everything here is public and crawlable.
+User-agent: *
+Allow: /
+
+Sitemap: https://azevedev.github.io/chronicle/sitemap.xml

@@ -8,10 +8,48 @@
 <meta name="theme-color" content="#e8dfc8">
 <meta name="color-scheme" content="light">
 
-<!-- Open Graph tags use relative paths so the game works from any static host. -->
+<!--
+  Content-Security-Policy.
+
+  GitHub Pages serves static files and cannot set response headers, so the
+  policy is declared in markup instead. Everything the page needs is enumerated
+  explicitly on top of `default-src 'none'`, which means an injected script,
+  iframe or beacon has nowhere to load from and nowhere to phone home to.
+
+  There is no 'unsafe-inline' anywhere: the page carries no inline script, no
+  inline <style> and no style="" attributes. The animations are set through
+  CSSOM properties, which CSP does not govern.
+
+  upload.wikimedia.org is listed under img-src alone, and only because the
+  verdict portrait is hotlinked from there. It cannot be a script source.
+-->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'none';
+  script-src 'self';
+  style-src 'self';
+  font-src 'self';
+  img-src 'self' data: https://upload.wikimedia.org;
+  media-src 'self';
+  connect-src 'self';
+  base-uri 'none';
+  form-action 'none';
+">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="https://azevedev.github.io/chronicle/">
+
 <meta property="og:title" content="The Chronicle">
 <meta property="og:description" content="Two pins upon the map. One life between. Name the figure in four attempts.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://azevedev.github.io/chronicle/">
+<meta property="og:image" content="https://azevedev.github.io/chronicle/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Chronicle masthead, set as a Victorian broadsheet.">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23e8dfc8'/><text y='24' x='16' text-anchor='middle' font-size='24' font-family='serif' fill='%231d1810'>C</text></svg>">
 
@@ -416,6 +454,8 @@
       <span><b class="mark">✦</b> <span data-i18n="round.born">Born</span></span>
       <span><b class="mark">†</b> <span data-i18n="round.died">Died</span></span>
     </div>
+
+    <p class="sheet__privacy" data-i18n="help.privacy"></p>
     <button class="btn btn--primary" id="btn-help-close" type="button" data-i18n="help.close">Close</button>
   </article>
 </dialog>

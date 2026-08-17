@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>No Such Edition — The Chronicle</title>
+<meta name="robots" content="noindex">
+
+<!--
+  GitHub Pages serves this file for any unknown path, at any depth, so it
+  cannot rely on relative links to the stylesheets: /chronicle/a/b/c would
+  resolve them against the wrong directory. It is therefore self-contained.
+
+  Its policy is stricter than the game's rather than looser: no scripts at all,
+  and the only concession is the inline stylesheet it needs to stand alone.
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none';">
+
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0;
+    min-height: 100svh;
+    display: grid;
+    place-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    text-align: center;
+    background-color: #e9e0ca;
+    background-image:
+      radial-gradient(120% 80% at 12% 0%, #f2ead7 0%, transparent 55%),
+      radial-gradient(90% 70% at 88% 100%, rgba(176, 158, 122, .35) 0%, transparent 60%);
+    color: #1b1710;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+  .rule { border-top: 3px double #3a3225; width: min(28rem, 80vw); margin: 0 auto; }
+  h1 { margin: 0; font-size: clamp(2.2rem, 8vw, 3.4rem); font-weight: 700; line-height: 1.05; }
+  p { margin: 0; max-width: 42ch; color: #3a3225; }
+  .kicker, .no {
+    font-size: .74rem;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: #6a5c45;
+  }
+  .no { font-size: 4rem; letter-spacing: .1em; color: #8c2a1c; line-height: 1; }
+  a {
+    display: inline-block;
+    margin-top: .5rem;
+    padding: .6rem 1.3rem;
+    border: 1px solid #1b1710;
+    background: #1b1710;
+    color: #f2ead7;
+    text-decoration: none;
+    font-size: .82rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    box-shadow: 3px 3px 0 #8d7f66;
+  }
+  a:hover { background: #8c2a1c; border-color: #8c2a1c; }
+</style>
+</head>
+<body>
+  <p class="kicker">The Chronicle</p>
+  <p class="no">404</p>
+  <div class="rule"></div>
+  <h1>No Such Edition</h1>
+  <p>This number was never printed, or it has been lost to the archive. The presses are still running on the front page.</p>
+  <a href="/chronicle/">Return to the Front Page</a>
+</body>
+</html>

@@ -143,6 +143,8 @@ const STRINGS = {
       'Name them on the first attempt, before any hint, for the full award. Each attempt after that is worth less than the one before. Miss on the fourth and the dispatch closes unscored.',
     'help.4':
       'The Daily Dispatch is the same figure for every reader in the world, and changes at midnight, Greenwich reckoning.',
+    'help.privacy':
+      'Your results and settings are kept in this browser only. There are no accounts, no cookies and no analytics. The one thing that leaves your device is the portrait on the verdict sheet, which loads from Wikimedia; if you would rather it did not, the game works perfectly well offline without it.',
     'help.close': 'Close',
 
     // — settings —
@@ -296,6 +298,8 @@ const STRINGS = {
       'Acerte na primeira tentativa, antes de qualquer pista, para receber o prêmio integral. Cada tentativa seguinte vale menos que a anterior. Erre na quarta e o despacho se encerra sem pontos.',
     'help.4':
       'O Despacho Diário é a mesma figura para todos os leitores do mundo e muda à meia-noite, pelo meridiano de Greenwich.',
+    'help.privacy':
+      'Seus resultados e ajustes ficam somente neste navegador. Não há contas, cookies nem análise de tráfego. A única coisa que sai do seu aparelho é o retrato na folha do veredito, carregado da Wikimedia; se preferir que não saia, o jogo funciona perfeitamente offline sem ele.',
     'help.close': 'Fechar',
 
     // — ajustes —

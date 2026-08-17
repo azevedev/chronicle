@@ -27,6 +27,10 @@ const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 let session = null;
 let countdownTimer = null;
+
+/** How long to wait on the hotlinked portrait before giving up on it. */
+const PORTRAIT_TIMEOUT_MS = 6000;
+let portraitTimer = null;
 let activeSuggestions = [];
 let suggestionIndex = -1;
 
@@ -475,11 +479,27 @@ function renderWiki(figure) {
   // still display:none when this runs, so a lazy image would sit un-fetched
   // waiting to approach a viewport it is not in yet, and the portrait would
   // never appear.
-  img.onload = () => { fig.hidden = false; };
-  img.onerror = () => { fig.hidden = true; };
+  clearTimeout(portraitTimer);
+  const settle = (shown) => {
+    clearTimeout(portraitTimer);
+    fig.hidden = !shown;
+  };
+  img.onload = () => settle(true);
+  img.onerror = () => settle(false);
+
+  // Give up on a slow portrait rather than leaving a request hanging on a
+  // third party we do not control. Clearing src cancels the fetch; the verdict
+  // simply renders without a picture, exactly as it does offline.
+  portraitTimer = setTimeout(() => {
+    if (!img.complete || img.naturalWidth === 0) {
+      img.removeAttribute('src');
+      fig.hidden = true;
+    }
+  }, PORTRAIT_TIMEOUT_MS);
+
   img.src = entry.img;
   // A cached image can finish before the handler is attached.
-  if (img.complete && img.naturalWidth > 0) fig.hidden = false;
+  if (img.complete && img.naturalWidth > 0) settle(true);
 
   const label = entry.lic
     ? `${t('verdict.portraitCredit')} (${entry.lic})`

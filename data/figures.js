@@ -54,8 +54,8 @@ export const FIGURES = [
     born: [-100, 'Rome', 41.90, 12.50],
     died: [-44, 'Rome', 41.90, 12.50],
     deed: [
-      'Conquered Gaul, crossed a river he was forbidden to cross, and was stabbed to death by the senate he had mastered.',
-      'Conquistou a Gália, cruzou um rio que lhe era proibido cruzar e foi apunhalado até a morte pelo senado que dominara.',
+      'Conquered Gaul and crossed a river he had been forbidden to cross. The senate he had mastered stabbed him to death.',
+      'Conquistou a Gália e cruzou um rio que lhe era proibido cruzar. O senado que dominara o apunhalou até a morte.',
     ],
   },
   {
@@ -80,8 +80,8 @@ export const FIGURES = [
     born: [-470, ['Athens', 'Atenas'], 37.98, 23.73],
     died: [-399, ['Athens', 'Atenas'], 37.98, 23.73],
     deed: [
-      'Wrote nothing, questioned everyone, and was condemned by his own city to drink poison for corrupting its youth.',
-      'Nada escreveu, questionou a todos e foi condenado pela própria cidade a beber veneno por corromper a juventude.',
+      'He wrote nothing and questioned everyone. His own city condemned him to drink poison for corrupting its youth.',
+      'Nada escreveu e questionou a todos. Sua própria cidade o condenou a beber veneno por corromper a juventude.',
     ],
   },
   {
@@ -121,8 +121,8 @@ export const FIGURES = [
     died: [-212, ['Syracuse, Sicily', 'Siracusa, Sicília'], 37.08, 15.29],
     circa: true,
     deed: [
-      'Worked out buoyancy in a bath, held off a Roman siege with machines, and was killed mid-diagram by a soldier.',
-      'Descobriu o empuxo num banho, resistiu a um cerco romano com máquinas e foi morto por um soldado no meio de um diagrama.',
+      'Worked out buoyancy in a bath and held off a Roman siege with machines. A soldier killed him in the middle of a diagram.',
+      'Descobriu o empuxo num banho e resistiu a um cerco romano com máquinas. Um soldado o matou no meio de um diagrama.',
     ],
   },
   {
@@ -136,8 +136,8 @@ export const FIGURES = [
     legendary: true,
     circa: true,
     deed: [
-      'Credited with the two epics that open Western literature — one of a siege, one of a long voyage home.',
-      'A ele se atribuem as duas epopeias que inauguram a literatura ocidental — uma de um cerco, outra de um longo regresso.',
+      'Credited with the two epics that open Western literature: one of a siege, one of a long voyage home.',
+      'A ele se atribuem as duas epopeias que inauguram a literatura ocidental: uma de um cerco, outra de um longo regresso.',
     ],
   },
   {
@@ -164,8 +164,8 @@ export const FIGURES = [
     legendary: true,
     circa: true,
     deed: [
-      'A prince who left a palace after seeing sickness, age and death, and taught that craving is the root of suffering.',
-      'Um príncipe que deixou o palácio após ver a doença, a velhice e a morte, e ensinou que o desejo é a raiz do sofrimento.',
+      'A prince who walked out of his palace after seeing sickness, age and death. What he taught afterwards was that craving is the root of suffering.',
+      'Um príncipe que saiu do palácio após ver a doença, a velhice e a morte. O que ensinou depois foi que o desejo é a raiz do sofrimento.',
     ],
   },
   {
@@ -193,8 +193,8 @@ export const FIGURES = [
     died: [632, ['Medina', 'Medina'], 24.47, 39.61],
     circa: true,
     deed: [
-      'Fled his birth city for another, returned to take it, and left behind a faith and a state at once.',
-      'Fugiu de sua cidade natal para outra, voltou para tomá-la e deixou ao mesmo tempo uma fé e um Estado.',
+      'Fled his birth city for another, then came back to take it. He left behind a faith and a state at once.',
+      'Fugiu de sua cidade natal para outra e depois voltou para tomá-la. Deixou ao mesmo tempo uma fé e um Estado.',
     ],
   },
   {
@@ -536,8 +536,8 @@ export const FIGURES = [
     born: [1412, ['Domrémy', 'Domrémy'], 48.44, 5.68],
     died: [1431, ['Rouen', 'Ruão'], 49.44, 1.10],
     deed: [
-      'A teenage peasant who said voices sent her to crown a king, lifted a siege, and was burned as a heretic at nineteen.',
-      'Uma camponesa adolescente que dizia ouvir vozes mandando-a coroar um rei, levantou um cerco e foi queimada como herege aos dezenove anos.',
+      'A teenage peasant who said voices had sent her to crown a king. She lifted a siege for him and burned as a heretic at nineteen.',
+      'Uma camponesa adolescente que dizia ouvir vozes mandando-a coroar um rei. Levantou um cerco por ele e ardeu como herege aos dezenove anos.',
     ],
   },
   {
@@ -563,8 +563,8 @@ export const FIGURES = [
     died: [1369, ['Morocco', 'Marrocos'], 33.97, -6.85],
     circa: true,
     deed: [
-      'Travelled some seventy-five thousand miles across Africa, Arabia, India and China — three times the distance of any European contemporary.',
-      'Percorreu cerca de cento e vinte mil quilômetros pela África, Arábia, Índia e China — o triplo da distância de qualquer europeu contemporâneo.',
+      'Travelled some seventy-five thousand miles across Africa, Arabia, India and China, three times the distance any European contemporary managed.',
+      'Percorreu cerca de cento e vinte mil quilômetros pela África, Arábia, Índia e China, o triplo do que qualquer europeu de seu tempo conseguiu.',
     ],
   },
   {
@@ -615,8 +615,8 @@ export const FIGURES = [
     born: [1265, ['Florence', 'Florença'], 43.77, 11.26],
     died: [1321, ['Ravenna', 'Ravena'], 44.42, 12.20],
     deed: [
-      'Exiled from the city he loved, he wrote a poem walking through hell, purgatory and heaven, and put his enemies in the first of them.',
-      'Exilado da cidade que amava, escreveu um poema atravessando o inferno, o purgatório e o paraíso, e pôs seus inimigos no primeiro deles.',
+      'Exiled from the city he loved, he wrote a poem that walks through hell, purgatory and heaven. His enemies are in the first of them.',
+      'Exilado da cidade que amava, escreveu um poema que atravessa o inferno, o purgatório e o paraíso. Seus inimigos estão no primeiro deles.',
     ],
   },
   {
@@ -658,8 +658,8 @@ export const FIGURES = [
     born: [1475, ['Caprese', 'Caprese'], 43.65, 11.98],
     died: [1564, ['Rome', 'Roma'], 41.90, 12.50],
     deed: [
-      'Carved a giant marble David, spent four years on his back painting a chapel ceiling, and insisted he was a sculptor, not a painter.',
-      'Esculpiu um Davi gigante em mármore, passou quatro anos de costas pintando o teto de uma capela e insistia que era escultor, não pintor.',
+      'Carved a giant marble David, then spent four years on his back painting a chapel ceiling. He insisted to the end that he was a sculptor, not a painter.',
+      'Esculpiu um Davi gigante em mármore e depois passou quatro anos de costas pintando o teto de uma capela. Insistiu até o fim que era escultor, não pintor.',
     ],
   },
   {
@@ -763,8 +763,8 @@ export const FIGURES = [
     born: [1564, ['Pisa', 'Pisa'], 43.72, 10.40],
     died: [1642, ['Arcetri', 'Arcetri'], 43.75, 11.25],
     deed: [
-      'Turned a new telescope on the sky, found moons around another planet, and spent his last years under house arrest for saying so.',
-      'Apontou um telescópio novo para o céu, encontrou luas em torno de outro planeta e passou os últimos anos em prisão domiciliar por dizê-lo.',
+      'Turned a new telescope on the sky and found moons going round another planet. Saying so cost him his last years, under house arrest.',
+      'Apontou um telescópio novo para o céu e encontrou luas girando em torno de outro planeta. Dizê-lo lhe custou os últimos anos, em prisão domiciliar.',
     ],
   },
   {
@@ -789,8 +789,8 @@ export const FIGURES = [
     born: [1483, ['Eisleben', 'Eisleben'], 51.53, 11.55],
     died: [1546, ['Eisleben', 'Eisleben'], 51.53, 11.55],
     deed: [
-      'Nailed ninety-five complaints to a church door, was excommunicated, and split western Christianity in two.',
-      'Pregou noventa e cinco queixas na porta de uma igreja, foi excomungado e dividiu em duas a cristandade ocidental.',
+      'Nailed ninety-five complaints to a church door and was excommunicated for them. Western Christianity split in two behind him.',
+      'Pregou noventa e cinco queixas na porta de uma igreja e foi excomungado por elas. A cristandade ocidental rachou em duas atrás dele.',
     ],
   },
   {
@@ -802,8 +802,8 @@ export const FIGURES = [
     born: [1547, ['Alcalá de Henares', 'Alcalá de Henares'], 40.48, -3.36],
     died: [1616, ['Madrid', 'Madri'], 40.42, -3.70],
     deed: [
-      'Lost the use of a hand at a great sea battle, spent five years as a captive of pirates, and wrote what is often called the first modern novel.',
-      'Perdeu o uso de uma das mãos numa grande batalha naval, passou cinco anos cativo de piratas e escreveu o que se costuma chamar o primeiro romance moderno.',
+      'Lost the use of a hand at a great sea battle and spent five years as a captive of pirates. Then he wrote what is often called the first modern novel.',
+      'Perdeu o uso de uma das mãos numa grande batalha naval e passou cinco anos cativo de piratas. Depois escreveu o que se costuma chamar o primeiro romance moderno.',
     ],
   },
   {
@@ -815,8 +815,8 @@ export const FIGURES = [
     born: [1564, ['Stratford-upon-Avon', 'Stratford-upon-Avon'], 52.19, -1.71],
     died: [1616, ['Stratford-upon-Avon', 'Stratford-upon-Avon'], 52.19, -1.71],
     deed: [
-      'Wrote thirty-seven plays for a London playhouse, coined hundreds of everyday phrases, and left his wife the second-best bed.',
-      'Escreveu trinta e sete peças para um teatro de Londres, cunhou centenas de expressões cotidianas e deixou à esposa a segunda melhor cama.',
+      'Wrote thirty-seven plays for a London playhouse and coined hundreds of phrases people still use without knowing it. His will left his wife the second-best bed.',
+      'Escreveu trinta e sete peças para um teatro de Londres e cunhou centenas de expressões que ainda se usam sem saber de onde vêm. Seu testamento deixou à esposa a segunda melhor cama.',
     ],
   },
   {
@@ -828,8 +828,8 @@ export const FIGURES = [
     born: [1606, ['Leiden', 'Leiden'], 52.16, 4.49],
     died: [1669, ['Amsterdam', 'Amsterdã'], 52.37, 4.90],
     deed: [
-      'Painted a militia company stepping out of the shadows, recorded his own face for forty years, and died bankrupt.',
-      'Pintou uma companhia da milícia saindo das sombras, registrou o próprio rosto durante quarenta anos e morreu na falência.',
+      'Painted a militia company stepping out of the shadows and recorded his own face for forty years. He died bankrupt.',
+      'Pintou uma companhia da milícia saindo das sombras e registrou o próprio rosto durante quarenta anos. Morreu na falência.',
     ],
   },
   {
@@ -857,8 +857,8 @@ export const FIGURES = [
     born: [1451, ['Genoa', 'Gênova'], 44.41, 8.93],
     died: [1506, ['Valladolid', 'Valladolid'], 41.65, -4.72],
     deed: [
-      'Sailed west for Asia under a Spanish flag, reached islands nobody in Europe knew of, and died insisting he had found the Indies.',
-      'Navegou para oeste rumo à Ásia sob bandeira espanhola, chegou a ilhas que a Europa desconhecia e morreu insistindo que havia achado as Índias.',
+      'Sailed west for Asia under a Spanish flag and struck islands no European knew existed. He died insisting they were the Indies.',
+      'Navegou para oeste rumo à Ásia sob bandeira espanhola e topou com ilhas que nenhum europeu sabia existirem. Morreu insistindo que eram as Índias.',
     ],
   },
   {
@@ -943,8 +943,8 @@ export const FIGURES = [
     born: [1643, ['Woolsthorpe, Lincolnshire', 'Woolsthorpe, Lincolnshire'], 52.81, -0.63],
     died: [1727, ['Kensington, London', 'Kensington, Londres'], 51.50, -0.19],
     deed: [
-      'Worked out gravity and the laws of motion during a plague year at home, invented calculus, and later ran the Royal Mint.',
-      'Deduziu a gravidade e as leis do movimento durante um ano de peste em casa, inventou o cálculo e depois dirigiu a Casa da Moeda.',
+      'Worked out gravity and the laws of motion during a plague year stuck at home, and invented calculus while he was at it. He later ran the Royal Mint.',
+      'Deduziu a gravidade e as leis do movimento num ano de peste preso em casa, e de quebra inventou o cálculo. Mais tarde dirigiu a Casa da Moeda.',
     ],
   },
   {
@@ -1021,8 +1021,8 @@ export const FIGURES = [
     born: [1706, ['Boston', 'Boston'], 42.36, -71.06],
     died: [1790, ['Philadelphia', 'Filadélfia'], 39.95, -75.17],
     deed: [
-      'Flew a kite in a thunderstorm, invented a stove and bifocals, and signed both the American declaration and its peace with Britain.',
-      'Soltou uma pipa numa tempestade, inventou um fogão e as lentes bifocais, e assinou tanto a declaração americana quanto sua paz com a Grã-Bretanha.',
+      'Flew a kite in a thunderstorm and invented both a stove and bifocals. He signed the American declaration of independence and the peace that ended the war.',
+      'Soltou uma pipa numa tempestade e inventou tanto um fogão quanto as lentes bifocais. Assinou a declaração de independência americana e a paz que encerrou a guerra.',
     ],
   },
   {
@@ -1034,8 +1034,8 @@ export const FIGURES = [
     born: [1732, ['Westmoreland County, Virginia', 'Condado de Westmoreland, Virgínia'], 38.19, -76.93],
     died: [1799, ['Mount Vernon, Virginia', 'Mount Vernon, Virgínia'], 38.71, -77.09],
     deed: [
-      'Commanded a rebel army against the British, then walked away from power twice — once from the army, once from the presidency.',
-      'Comandou um exército rebelde contra os britânicos e abriu mão do poder duas vezes — uma do exército, outra da presidência.',
+      'Commanded a rebel army against the British, then walked away from power twice: once from the army, once from the presidency.',
+      'Comandou um exército rebelde contra os britânicos e abriu mão do poder duas vezes: uma do exército, outra da presidência.',
     ],
   },
   {
@@ -1125,8 +1125,8 @@ export const FIGURES = [
     born: [1769, ['Ajaccio, Corsica', 'Ajaccio, Córsega'], 41.93, 8.74],
     died: [1821, ['Longwood, Saint Helena', 'Longwood, Santa Helena'], -15.94, -5.71],
     deed: [
-      'Rose from artillery officer to emperor, gave Europe a legal code, lost an army in the Russian winter, and died on a rock in the South Atlantic.',
-      'Subiu de oficial de artilharia a imperador, deu à Europa um código civil, perdeu um exército no inverno russo e morreu num rochedo do Atlântico Sul.',
+      'Rose from artillery officer to emperor and gave Europe a legal code. Then he lost an army to the Russian winter and died on a rock in the South Atlantic.',
+      'Subiu de oficial de artilharia a imperador e deu à Europa um código civil. Depois perdeu um exército para o inverno russo e morreu num rochedo do Atlântico Sul.',
     ],
   },
   {
@@ -1193,8 +1193,8 @@ export const FIGURES = [
     born: [1685, ['Eisenach', 'Eisenach'], 50.98, 10.32],
     died: [1750, ['Leipzig', 'Leipzig'], 51.34, 12.37],
     deed: [
-      'Wrote a cantata a week as a church organist, fathered twenty children, and was largely forgotten for eighty years after his death.',
-      'Escreveu uma cantata por semana como organista de igreja, teve vinte filhos e foi largamente esquecido por oitenta anos após sua morte.',
+      'Wrote a cantata a week as a church organist and fathered twenty children. For eighty years after his death almost nobody played him.',
+      'Escreveu uma cantata por semana como organista de igreja e teve vinte filhos. Por oitenta anos após sua morte quase ninguém o tocou.',
     ],
   },
   {
@@ -1245,8 +1245,8 @@ export const FIGURES = [
     born: [1756, ['Salzburg', 'Salzburgo'], 47.80, 13.04],
     died: [1791, ['Vienna', 'Viena'], 48.21, 16.37],
     deed: [
-      'Toured Europe as a child prodigy, wrote six hundred works in thirty-five years, and was buried in a common grave.',
-      'Percorreu a Europa como menino prodígio, escreveu seiscentas obras em trinta e cinco anos e foi enterrado numa vala comum.',
+      'Toured Europe as a child prodigy and wrote six hundred works in thirty-five years. He was buried in a common grave.',
+      'Percorreu a Europa como menino prodígio e escreveu seiscentas obras em trinta e cinco anos. Foi enterrado numa vala comum.',
     ],
   },
   {
@@ -1284,8 +1284,8 @@ export const FIGURES = [
     born: [1810, ['Żelazowa Wola, Poland', 'Żelazowa Wola, Polônia'], 52.26, 20.30],
     died: [1849, ['Paris', 'Paris'], 48.86, 2.35],
     deed: [
-      'Wrote almost exclusively for the piano, left his homeland at twenty never to return, and asked that his heart be sent back to it.',
-      'Escreveu quase só para piano, deixou a pátria aos vinte anos para nunca mais voltar e pediu que seu coração fosse enviado de volta a ela.',
+      'Wrote almost nothing that was not for the piano. He left his homeland at twenty and never returned, but asked that his heart be sent back to it.',
+      'Quase nada escreveu que não fosse para piano. Deixou a pátria aos vinte anos e nunca voltou, mas pediu que seu coração fosse mandado de volta.',
     ],
   },
   {
@@ -1339,8 +1339,8 @@ export const FIGURES = [
     born: [1783, ['Caracas', 'Caracas'], 10.49, -66.90],
     died: [1830, ['Santa Marta, Colombia', 'Santa Marta, Colômbia'], 11.24, -74.20],
     deed: [
-      'Freed six South American nations from Spanish rule, and died disillusioned on the coast, saying he had ploughed the sea.',
-      'Libertou seis nações sul-americanas do domínio espanhol e morreu desiludido no litoral, dizendo ter arado o mar.',
+      'Freed six South American nations from Spanish rule. He died disillusioned on the coast, saying he had ploughed the sea.',
+      'Libertou seis nações sul-americanas do domínio espanhol. Morreu desiludido no litoral, dizendo ter arado o mar.',
     ],
   },
   {
@@ -1447,8 +1447,8 @@ export const FIGURES = [
     born: [1809, ['Shrewsbury', 'Shrewsbury'], 52.71, -2.75],
     died: [1882, ['Downe, Kent', 'Downe, Kent'], 51.33, 0.05],
     deed: [
-      'Sailed round the world on a survey ship, sat on his theory of natural selection for twenty years, and published only when someone else nearly beat him to it.',
-      'Deu a volta ao mundo num navio de levantamento, guardou por vinte anos sua teoria da seleção natural e só publicou quando outro quase o precedeu.',
+      'Sailed round the world on a survey ship, then sat on his theory of natural selection for twenty years. He published only when someone else nearly beat him to it.',
+      'Deu a volta ao mundo num navio de levantamento e depois guardou por vinte anos sua teoria da seleção natural. Só publicou quando outro quase o precedeu.',
     ],
   },
   {
@@ -1460,8 +1460,8 @@ export const FIGURES = [
     born: [1822, ['Dole, France', 'Dole, França'], 47.09, 5.49],
     died: [1895, ['Marnes-la-Coquette', 'Marnes-la-Coquette'], 48.83, 2.17],
     deed: [
-      'Proved that germs cause disease rather than arising from nothing, saved the silk and wine industries, and gave his name to the heating of milk.',
-      'Provou que os germes causam doenças em vez de surgirem do nada, salvou as indústrias da seda e do vinho, e deu seu nome ao aquecimento do leite.',
+      'Proved that germs cause disease rather than springing out of nothing, and saved the silk and wine industries with it. His name is now on a way of heating milk.',
+      'Provou que os germes causam doenças em vez de surgirem do nada, e com isso salvou as indústrias da seda e do vinho. Seu nome está hoje num modo de aquecer o leite.',
     ],
   },
   {
@@ -1473,8 +1473,8 @@ export const FIGURES = [
     born: [1822, ['Hynčice', 'Hynčice'], 49.85, 17.65],
     died: [1884, ['Brno', 'Brno'], 49.20, 16.61],
     deed: [
-      'An Augustinian friar who bred twenty-nine thousand pea plants in a monastery garden and discovered how traits are inherited — ignored until long after his death.',
-      'Um frade agostiniano que cultivou vinte e nove mil pés de ervilha na horta de um mosteiro e descobriu como se herdam as características — ignorado até muito depois de sua morte.',
+      'An Augustinian friar who bred twenty-nine thousand pea plants in a monastery garden and worked out how traits are inherited. Nobody took any notice until decades after his death.',
+      'Um frade agostiniano que cultivou vinte e nove mil pés de ervilha na horta de um mosteiro e deduziu como se herdam as características. Ninguém deu atenção senão décadas após sua morte.',
     ],
   },
   {
@@ -1538,8 +1538,8 @@ export const FIGURES = [
     born: [1815, ['London', 'Londres'], 51.51, -0.13],
     died: [1852, ['London', 'Londres'], 51.51, -0.13],
     deed: [
-      'Daughter of a famous poet, she wrote what is considered the first computer program — for a machine that was never built.',
-      'Filha de um poeta famoso, escreveu o que se considera o primeiro programa de computador — para uma máquina que nunca foi construída.',
+      'Daughter of a famous poet, she wrote what is considered the first computer program, for a machine that was never built.',
+      'Filha de um poeta famoso, escreveu o que se considera o primeiro programa de computador, para uma máquina que nunca chegou a ser construída.',
     ],
   },
   {
@@ -1577,8 +1577,8 @@ export const FIGURES = [
     born: [1847, ['Milan, Ohio', 'Milan, Ohio'], 41.30, -82.60],
     died: [1931, ['West Orange, New Jersey', 'West Orange, Nova Jersey'], 40.79, -74.24],
     deed: [
-      'Held over a thousand patents, built the first industrial research laboratory, and made the electric light a household object.',
-      'Registrou mais de mil patentes, criou o primeiro laboratório industrial de pesquisa e tornou a luz elétrica um objeto doméstico.',
+      'Held over a thousand patents and built the first industrial research laboratory. He turned the electric light into a household object.',
+      'Registrou mais de mil patentes e criou o primeiro laboratório industrial de pesquisa. Transformou a luz elétrica num objeto doméstico.',
     ],
   },
   {
@@ -1590,8 +1590,8 @@ export const FIGURES = [
     born: [1856, ['Smiljan, Croatia', 'Smiljan, Croácia'], 44.60, 15.31],
     died: [1943, ['New York', 'Nova York'], 40.71, -74.01],
     deed: [
-      'Won the war of the currents with alternating current, imagined wireless power, and died alone and penniless in a hotel room.',
-      'Venceu a guerra das correntes com a corrente alternada, imaginou a energia sem fios e morreu sozinho e sem dinheiro num quarto de hotel.',
+      'Won the war of the currents with alternating current and imagined power sent without wires. He died alone and penniless in a hotel room.',
+      'Venceu a guerra das correntes com a corrente alternada e imaginou energia transmitida sem fios. Morreu sozinho e sem dinheiro num quarto de hotel.',
     ],
   },
   {
@@ -1616,8 +1616,8 @@ export const FIGURES = [
     born: [1867, ['Warsaw', 'Varsóvia'], 52.23, 21.01],
     died: [1934, ['Passy, France', 'Passy, França'], 45.92, 6.70],
     deed: [
-      'Discovered two elements, was the first person to win Nobel prizes in two sciences, and died of the radiation she had worked with unprotected.',
-      'Descobriu dois elementos, foi a primeira pessoa a ganhar prêmios Nobel em duas ciências e morreu da radiação com que trabalhara sem proteção.',
+      'Discovered two elements and became the first person to win Nobel prizes in two different sciences. The radiation she worked with unprotected is what killed her.',
+      'Descobriu dois elementos e foi a primeira pessoa a ganhar prêmios Nobel em duas ciências diferentes. Foi a radiação com que trabalhou sem proteção que a matou.',
     ],
   },
   {
@@ -1655,8 +1655,8 @@ export const FIGURES = [
     born: [1879, ['Ulm, Germany', 'Ulm, Alemanha'], 48.40, 9.99],
     died: [1955, ['Princeton, New Jersey', 'Princeton, Nova Jersey'], 40.35, -74.66],
     deed: [
-      'Rewrote space and time while working as a patent clerk, warned a president that a bomb was possible, and spent his last decades chasing a theory of everything.',
-      'Reescreveu o espaço e o tempo trabalhando como funcionário de um escritório de patentes, alertou um presidente de que uma bomba era possível e passou as últimas décadas atrás de uma teoria de tudo.',
+      'Rewrote space and time while working as a patent clerk. He later warned a president that a bomb was possible, and spent his last decades chasing a theory of everything.',
+      'Reescreveu o espaço e o tempo trabalhando num escritório de patentes. Depois alertou um presidente de que uma bomba era possível, e passou as últimas décadas atrás de uma teoria de tudo.',
     ],
   },
   {
@@ -1668,8 +1668,8 @@ export const FIGURES = [
     born: [1856, ['Freiberg, Moravia', 'Freiberg, Morávia'], 49.64, 18.14],
     died: [1939, ['London', 'Londres'], 51.51, -0.13],
     deed: [
-      'Invented the talking cure, insisted that dreams and slips of the tongue betray hidden wishes, and fled the Nazis at eighty-two.',
-      'Inventou a cura pela fala, sustentou que os sonhos e os lapsos revelam desejos ocultos, e fugiu dos nazistas aos oitenta e dois anos.',
+      'Invented the talking cure and insisted that dreams and slips of the tongue betray hidden wishes. He fled the Nazis at eighty-two.',
+      'Inventou a cura pela fala e sustentou que os sonhos e os lapsos revelam desejos ocultos. Fugiu dos nazistas aos oitenta e dois anos.',
     ],
   },
   {
@@ -1681,8 +1681,8 @@ export const FIGURES = [
     born: [1820, ['Florence, Italy', 'Florença, Itália'], 43.77, 11.26],
     died: [1910, ['London', 'Londres'], 51.51, -0.13],
     deed: [
-      'Cut death rates in a Crimean war hospital with soap and clean linen, proved it with pioneering statistical charts, and founded modern nursing.',
-      'Reduziu a mortalidade num hospital da Guerra da Crimeia com sabão e roupa limpa, provou-o com gráficos estatísticos pioneiros e fundou a enfermagem moderna.',
+      'Cut death rates in a Crimean war hospital with soap and clean linen, then proved it with pioneering statistical charts. Modern nursing starts with her.',
+      'Reduziu a mortalidade num hospital da Guerra da Crimeia com sabão e roupa limpa, e depois provou-o com gráficos estatísticos pioneiros. A enfermagem moderna começa nela.',
     ],
   },
   {
@@ -1736,8 +1736,8 @@ export const FIGURES = [
     born: [1802, ['Besançon', 'Besançon'], 47.24, 6.02],
     died: [1885, ['Paris', 'Paris'], 48.86, 2.35],
     deed: [
-      'Wrote of a hunchbacked bell-ringer and of a convict hunted over a stolen loaf, spent nineteen years in exile, and was buried with two million mourners in the streets.',
-      'Escreveu sobre um sineiro corcunda e sobre um condenado perseguido por um pão roubado, passou dezenove anos no exílio e foi sepultado com dois milhões de pessoas nas ruas.',
+      'Wrote of a hunchbacked bell-ringer and of a convict hunted over a stolen loaf. Nineteen years of exile later, two million mourners filled the streets at his funeral.',
+      'Escreveu sobre um sineiro corcunda e sobre um condenado perseguido por um pão roubado. Após dezenove anos de exílio, dois milhões de pessoas lotaram as ruas em seu enterro.',
     ],
   },
   {
@@ -1762,8 +1762,8 @@ export const FIGURES = [
     born: [1809, ['Boston', 'Boston'], 42.36, -71.06],
     died: [1849, ['Baltimore', 'Baltimore'], 39.29, -76.61],
     deed: [
-      'Invented the detective story, perfected the tale of terror, and was found delirious in another man\'s clothes on a Baltimore street days before dying.',
-      'Inventou a história de detetive, aperfeiçoou o conto de terror e foi encontrado delirante, com roupas de outro homem, numa rua de Baltimore dias antes de morrer.',
+      'Invented the detective story and perfected the tale of terror. He was found delirious in another man\'s clothes on a Baltimore street, days before dying.',
+      'Inventou a história de detetive e aperfeiçoou o conto de terror. Foi encontrado delirante, com roupas de outro homem, numa rua de Baltimore, dias antes de morrer.',
     ],
   },
   {
@@ -1814,8 +1814,8 @@ export const FIGURES = [
     born: [1835, ['Florida, Missouri', 'Florida, Missouri'], 39.49, -91.79],
     died: [1910, ['Redding, Connecticut', 'Redding, Connecticut'], 41.30, -73.38],
     deed: [
-      'Took his pen name from a riverboat sounding call, wrote a boy\'s raft journey down the Mississippi, and arrived and left with the same comet.',
-      'Tirou seu pseudônimo de um grito de sondagem dos barcos fluviais, escreveu a viagem de jangada de um menino pelo Mississippi, e chegou e partiu com o mesmo cometa.',
+      'Took his pen name from a riverboat sounding call and wrote a boy\'s raft journey down the Mississippi. He arrived and left with the same comet.',
+      'Tirou seu pseudônimo de um grito de sondagem dos barcos fluviais e escreveu a viagem de jangada de um menino pelo Mississippi. Chegou e partiu com o mesmo cometa.',
     ],
   },
   {
@@ -1827,8 +1827,8 @@ export const FIGURES = [
     born: [1828, ['Yasnaya Polyana', 'Iasnaia Poliana'], 54.07, 37.53],
     died: [1910, ['Astapovo', 'Astapovo'], 53.42, 39.55],
     deed: [
-      'Wrote two of the longest great novels in any language, renounced his wealth and title, and died of pneumonia in a railway stationmaster\'s house after fleeing home at eighty-two.',
-      'Escreveu dois dos maiores romances de qualquer língua, renunciou à riqueza e ao título, e morreu de pneumonia na casa de um chefe de estação após fugir de casa aos oitenta e dois anos.',
+      'Wrote two of the longest great novels in any language, then renounced his wealth and title. At eighty-two he fled his own home and died of pneumonia in a stationmaster\'s house.',
+      'Escreveu dois dos maiores romances de qualquer língua e depois renunciou à riqueza e ao título. Aos oitenta e dois anos fugiu da própria casa e morreu de pneumonia na casa de um chefe de estação.',
     ],
   },
   {
@@ -1840,8 +1840,8 @@ export const FIGURES = [
     born: [1821, ['Moscow', 'Moscou'], 55.76, 37.62],
     died: [1881, ['Saint Petersburg', 'São Petersburgo'], 59.94, 30.31],
     deed: [
-      'Faced a firing squad that was called off at the last second, served four years in a Siberian prison camp, and wrote novels of guilt and conscience ever after.',
-      'Enfrentou um pelotão de fuzilamento cancelado no último segundo, cumpriu quatro anos num campo prisional siberiano e desde então escreveu romances sobre culpa e consciência.',
+      'Faced a firing squad that was called off at the last second, then served four years in a Siberian prison camp. He wrote novels of guilt and conscience ever after.',
+      'Enfrentou um pelotão de fuzilamento cancelado no último segundo e depois cumpriu quatro anos num campo prisional siberiano. Desde então escreveu romances sobre culpa e consciência.',
     ],
   },
   {
@@ -1999,8 +1999,8 @@ export const FIGURES = [
     born: [1853, ['Zundert, Netherlands', 'Zundert, Países Baixos'], 51.47, 4.66],
     died: [1890, ['Auvers-sur-Oise', 'Auvers-sur-Oise'], 49.07, 2.17],
     deed: [
-      'Painted some nine hundred canvases in ten years, sold almost none of them, cut off part of his own ear, and shot himself in a wheat field at thirty-seven.',
-      'Pintou cerca de novecentas telas em dez anos, quase não vendeu nenhuma, cortou parte da própria orelha e deu um tiro em si mesmo num trigal aos trinta e sete anos.',
+      'Painted some nine hundred canvases in ten years and sold almost none of them. He cut off part of his own ear, and shot himself in a wheat field at thirty-seven.',
+      'Pintou cerca de novecentas telas em dez anos e quase não vendeu nenhuma. Cortou parte da própria orelha e deu um tiro em si mesmo num trigal aos trinta e sete anos.',
     ],
   },
   {
@@ -2051,8 +2051,8 @@ export const FIGURES = [
     born: [1863, ['Ådalsbruk, Norway', 'Ådalsbruk, Noruega'], 60.83, 11.20],
     died: [1944, ['Oslo', 'Oslo'], 59.91, 10.75],
     deed: [
-      'Painted a figure on a bridge under a blood-red sky, holding its face — the single most reproduced image of modern anxiety.',
-      'Pintou uma figura numa ponte sob um céu vermelho-sangue, segurando o próprio rosto — a imagem mais reproduzida da angústia moderna.',
+      'Painted a figure on a bridge under a blood-red sky, holding its face. No image of modern anxiety has been reproduced more often.',
+      'Pintou uma figura numa ponte sob um céu vermelho-sangue, segurando o próprio rosto. Nenhuma imagem da angústia moderna foi tão reproduzida.',
     ],
   },
 
@@ -2067,8 +2067,8 @@ export const FIGURES = [
     born: [1819, ['London', 'Londres'], 51.51, -0.13],
     died: [1901, ['Osborne House, Isle of Wight', 'Osborne House, Ilha de Wight'], 50.75, -1.28],
     deed: [
-      'Reigned sixty-three years over a quarter of the world, wore black for forty years after her husband died, and gave her name to an age.',
-      'Reinou sessenta e três anos sobre um quarto do mundo, vestiu preto por quarenta anos após a morte do marido e deu seu nome a uma época.',
+      'Reigned sixty-three years over a quarter of the world. After her husband died she wore black for forty of them, and an age took her name.',
+      'Reinou sessenta e três anos sobre um quarto do mundo. Depois que o marido morreu, vestiu preto por quarenta deles, e uma época levou seu nome.',
     ],
   },
   {
@@ -2080,8 +2080,8 @@ export const FIGURES = [
     born: [1809, ['Hodgenville, Kentucky', 'Hodgenville, Kentucky'], 37.57, -85.74],
     died: [1865, ['Washington, D.C.', 'Washington, D.C.'], 38.90, -77.04],
     deed: [
-      'Born in a one-room log cabin, he held a country together through civil war, freed its slaves, and was shot in a theatre five days after it ended.',
-      'Nascido numa cabana de um só cômodo, manteve um país unido durante uma guerra civil, libertou seus escravos e foi baleado num teatro cinco dias depois do fim dela.',
+      'Born in a one-room log cabin, he held a country together through civil war and freed its slaves. He was shot in a theatre five days after it ended.',
+      'Nascido numa cabana de um só cômodo, manteve um país unido durante uma guerra civil e libertou seus escravos. Foi baleado num teatro cinco dias depois do fim dela.',
     ],
   },
   {
@@ -2372,8 +2372,8 @@ export const FIGURES = [
     born: [1870, ['Simbirsk, Russia', 'Simbirsk, Rússia'], 54.32, 48.40],
     died: [1924, ['Gorki, Russia', 'Gorki, Rússia'], 55.50, 37.80],
     deed: [
-      'Returned from exile in a sealed train, seized power in October, and was embalmed and put on permanent display against his widow\'s wishes.',
-      'Voltou do exílio num trem lacrado, tomou o poder em outubro e foi embalsamado e posto em exposição permanente contra a vontade da viúva.',
+      'Returned from exile in a sealed train and seized power in October. Against his widow\'s wishes he was embalmed and put on permanent display.',
+      'Voltou do exílio num trem lacrado e tomou o poder em outubro. Contra a vontade da viúva, foi embalsamado e posto em exposição permanente.',
     ],
   },
   {
@@ -2385,8 +2385,8 @@ export const FIGURES = [
     born: [1878, ['Gori, Georgia', 'Gori, Geórgia'], 41.98, 44.11],
     died: [1953, ['Moscow', 'Moscou'], 55.76, 37.62],
     deed: [
-      'A seminary dropout turned bank robber who took over a revolution, starved and purged millions, and died on his own floor while guards feared to enter.',
-      'Um desistente de seminário virado assaltante de bancos que se apossou de uma revolução, matou milhões de fome e expurgos, e morreu no chão de seu quarto enquanto os guardas temiam entrar.',
+      'A seminary dropout turned bank robber who took over a revolution and then starved and purged millions. He died on his own floor while the guards were too afraid to enter.',
+      'Um desistente de seminário virado assaltante de bancos que se apossou de uma revolução e depois matou milhões de fome e expurgos. Morreu no chão do próprio quarto enquanto os guardas tinham medo de entrar.',
     ],
   },
   {
@@ -2398,8 +2398,8 @@ export const FIGURES = [
     born: [1889, ['Braunau am Inn, Austria', 'Braunau am Inn, Áustria'], 48.26, 13.04],
     died: [1945, ['Berlin', 'Berlim'], 52.52, 13.40],
     deed: [
-      'A rejected art student who took power by election and then destroyed the republic that elected him, ordered a continental genocide, and shot himself in a bunker.',
-      'Um estudante de arte recusado que chegou ao poder pelo voto e destruiu a república que o elegeu, ordenou um genocídio continental e matou-se num bunker.',
+      'A rejected art student who took power by election and then destroyed the republic that elected him. He ordered a continental genocide and shot himself in a bunker.',
+      'Um estudante de arte recusado que chegou ao poder pelo voto e destruiu a república que o elegeu. Ordenou um genocídio continental e matou-se num bunker.',
     ],
   },
   {
@@ -2424,8 +2424,8 @@ export const FIGURES = [
     born: [1874, ['Blenheim Palace, Oxfordshire', 'Palácio de Blenheim, Oxfordshire'], 51.84, -1.36],
     died: [1965, ['London', 'Londres'], 51.51, -0.13],
     deed: [
-      'Offered his country nothing but blood, toil, tears and sweat, led it through its darkest year, was voted out at the moment of victory, and won a Nobel for literature.',
-      'Ofereceu ao seu país apenas sangue, esforço, lágrimas e suor, conduziu-o em seu ano mais sombrio, foi derrotado nas urnas no momento da vitória e ganhou um Nobel de literatura.',
+      'Offered his country nothing but blood, toil, tears and sweat, and led it through its darkest year. He was voted out at the moment of victory, and won a Nobel for literature.',
+      'Ofereceu ao país apenas sangue, esforço, lágrimas e suor, e conduziu-o em seu ano mais sombrio. Foi derrotado nas urnas no momento da vitória, e ganhou um Nobel de literatura.',
     ],
   },
   {
@@ -2437,8 +2437,8 @@ export const FIGURES = [
     born: [1882, ['Hyde Park, New York', 'Hyde Park, Nova York'], 41.79, -73.93],
     died: [1945, ['Warm Springs, Georgia', 'Warm Springs, Geórgia'], 32.89, -84.68],
     deed: [
-      'Paralysed from the waist down at thirty-nine, he was elected four times, rebuilt his country from a depression, and died weeks before the war ended.',
-      'Paralisado da cintura para baixo aos trinta e nove anos, foi eleito quatro vezes, reconstruiu seu país de uma depressão e morreu semanas antes do fim da guerra.',
+      'Paralysed from the waist down at thirty-nine, he was elected four times and rebuilt his country from a depression. He died weeks before the war ended.',
+      'Paralisado da cintura para baixo aos trinta e nove anos, foi eleito quatro vezes e reconstruiu o país de uma depressão. Morreu semanas antes do fim da guerra.',
     ],
   },
   {
@@ -2463,8 +2463,8 @@ export const FIGURES = [
     born: [1869, ['Porbandar, India', 'Porbandar, Índia'], 21.64, 69.62],
     died: [1948, ['New Delhi', 'Nova Déli'], 28.61, 77.21],
     deed: [
-      'Walked two hundred and forty miles to make salt from the sea in defiance of an empire, won a subcontinent its freedom without arms, and was shot by a fellow countryman.',
-      'Caminhou quase quatrocentos quilômetros para tirar sal do mar em desafio a um império, conquistou a liberdade de um subcontinente sem armas e foi morto a tiros por um compatriota.',
+      'Walked two hundred and forty miles to make salt from the sea in defiance of an empire, and won a subcontinent its freedom without arms. A fellow countryman shot him.',
+      'Caminhou quase quatrocentos quilômetros para tirar sal do mar em desafio a um império, e conquistou sem armas a liberdade de um subcontinente. Um compatriota o matou a tiros.',
     ],
   },
   {
@@ -2476,8 +2476,8 @@ export const FIGURES = [
     born: [1893, ['Shaoshan, Hunan', 'Shaoshan, Hunan'], 27.92, 112.53],
     died: [1976, ['Beijing', 'Pequim'], 39.90, 116.41],
     deed: [
-      'Led a six-thousand-mile retreat that saved his party, founded a republic in 1949, and launched a famine and a cultural upheaval that killed tens of millions.',
-      'Liderou uma retirada de dez mil quilômetros que salvou seu partido, fundou uma república em 1949 e desencadeou uma fome e uma convulsão cultural que mataram dezenas de milhões.',
+      'Led a six-thousand-mile retreat that saved his party and founded a republic in 1949. The famine and cultural upheaval he then launched killed tens of millions.',
+      'Liderou uma retirada de dez mil quilômetros que salvou seu partido e fundou uma república em 1949. A fome e a convulsão cultural que depois desencadeou mataram dezenas de milhões.',
     ],
   },
   {
@@ -2515,8 +2515,8 @@ export const FIGURES = [
     born: [1929, ['Frankfurt', 'Frankfurt'], 50.11, 8.68],
     died: [1945, ['Bergen-Belsen', 'Bergen-Belsen'], 52.76, 9.91],
     deed: [
-      'Hid for two years in a concealed annexe above her father\'s warehouse, kept a diary there, and died of typhus in a camp at fifteen.',
-      'Escondeu-se por dois anos num anexo secreto acima do armazém do pai, ali manteve um diário, e morreu de tifo num campo aos quinze anos.',
+      'Hid for two years in a concealed annexe above her father\'s warehouse and kept a diary there. She died of typhus in a camp at fifteen.',
+      'Escondeu-se por dois anos num anexo secreto acima do armazém do pai e ali manteve um diário. Morreu de tifo num campo aos quinze anos.',
     ],
   },
   {
@@ -2541,8 +2541,8 @@ export const FIGURES = [
     born: [1929, ['Atlanta, Georgia', 'Atlanta, Geórgia'], 33.75, -84.39],
     died: [1968, ['Memphis, Tennessee', 'Memphis, Tennessee'], 35.15, -90.05],
     deed: [
-      'Told a quarter of a million people on the National Mall about a dream, won a Nobel at thirty-five, and was shot on a motel balcony at thirty-nine.',
-      'Falou a um quarto de milhão de pessoas no National Mall sobre um sonho, ganhou um Nobel aos trinta e cinco anos e foi baleado na varanda de um motel aos trinta e nove.',
+      'Told a quarter of a million people on the National Mall about a dream, and won a Nobel at thirty-five. He was shot on a motel balcony at thirty-nine.',
+      'Falou a um quarto de milhão de pessoas no National Mall sobre um sonho e ganhou um Nobel aos trinta e cinco anos. Foi baleado na varanda de um motel aos trinta e nove.',
     ],
   },
   {
@@ -2580,8 +2580,8 @@ export const FIGURES = [
     born: [1917, ['Brookline, Massachusetts', 'Brookline, Massachusetts'], 42.33, -71.12],
     died: [1963, ['Dallas, Texas', 'Dallas, Texas'], 32.78, -96.80],
     deed: [
-      'Faced down a missile crisis over Cuba, promised to put a man on the moon within the decade, and was shot in an open car after a thousand days in office.',
-      'Enfrentou uma crise de mísseis por causa de Cuba, prometeu levar um homem à Lua antes do fim da década e foi baleado num carro aberto após mil dias de mandato.',
+      'Faced down a missile crisis over Cuba and promised to put a man on the moon within the decade. He was shot in an open car after a thousand days in office.',
+      'Enfrentou uma crise de mísseis por causa de Cuba e prometeu levar um homem à Lua antes do fim da década. Foi baleado num carro aberto após mil dias de mandato.',
     ],
   },
   {
@@ -2593,8 +2593,8 @@ export const FIGURES = [
     born: [1928, ['Rosario, Argentina', 'Rosário, Argentina'], -32.95, -60.66],
     died: [1967, ['La Higuera, Bolivia', 'La Higuera, Bolívia'], -20.06, -64.20],
     deed: [
-      'An asthmatic Argentine doctor who rode a motorcycle across a continent, helped win a Caribbean revolution, and was executed in a Bolivian schoolhouse.',
-      'Um médico argentino asmático que cruzou um continente de motocicleta, ajudou a vencer uma revolução caribenha e foi executado numa escola boliviana.',
+      'An asthmatic Argentine doctor who rode a motorcycle across a continent and helped win a Caribbean revolution. He was executed in a Bolivian schoolhouse.',
+      'Um médico argentino asmático que cruzou um continente de motocicleta e ajudou a vencer uma revolução caribenha. Foi executado numa escola boliviana.',
     ],
   },
   {
@@ -2606,8 +2606,8 @@ export const FIGURES = [
     born: [1926, ['Birán, Cuba', 'Birán, Cuba'], 20.83, -75.75],
     died: [2016, ['Havana', 'Havana'], 23.11, -82.37],
     deed: [
-      'Landed with eighty-two men on a yacht, took an island in two years, outlasted eleven American presidents, and survived hundreds of assassination plots.',
-      'Desembarcou com oitenta e dois homens num iate, tomou uma ilha em dois anos, sobreviveu a onze presidentes americanos e a centenas de planos de assassinato.',
+      'Landed with eighty-two men on a yacht and took an island in two years. He outlasted eleven American presidents and survived hundreds of assassination plots.',
+      'Desembarcou com oitenta e dois homens num iate e tomou uma ilha em dois anos. Sobreviveu a onze presidentes americanos e a centenas de planos de assassinato.',
     ],
   },
   {
@@ -2697,8 +2697,8 @@ export const FIGURES = [
     born: [1926, ['London', 'Londres'], 51.51, -0.13],
     died: [2022, ['Balmoral, Scotland', 'Balmoral, Escócia'], 57.04, -3.23],
     deed: [
-      'Became heir when her uncle abdicated, served as a wartime mechanic, and reigned seventy years over fifteen prime ministers.',
-      'Tornou-se herdeira quando o tio abdicou, serviu como mecânica na guerra e reinou setenta anos sobre quinze primeiros-ministros.',
+      'Became heir when her uncle abdicated and served as a wartime mechanic. She then reigned seventy years, over fifteen prime ministers.',
+      'Tornou-se herdeira quando o tio abdicou e serviu como mecânica na guerra. Depois reinou setenta anos, sobre quinze primeiros-ministros.',
     ],
   },
   {
@@ -2723,8 +2723,8 @@ export const FIGURES = [
     born: [1910, ['Skopje', 'Escópia'], 41.99, 21.43],
     died: [1997, ['Calcutta', 'Calcutá'], 22.57, 88.36],
     deed: [
-      'An Albanian nun who left her convent to work in the slums of an Indian city, founded an order for the dying, and won a Nobel Peace Prize.',
-      'Uma freira albanesa que deixou o convento para trabalhar nas favelas de uma cidade indiana, fundou uma ordem para os moribundos e ganhou o Nobel da Paz.',
+      'An Albanian nun who left her convent to work in the slums of an Indian city. She founded an order for the dying and won a Nobel Peace Prize.',
+      'Uma freira albanesa que deixou o convento para trabalhar nas favelas de uma cidade indiana. Fundou uma ordem para os moribundos e ganhou o Nobel da Paz.',
     ],
   },
   {
@@ -2736,8 +2736,8 @@ export const FIGURES = [
     born: [1920, ['Wadowice, Poland', 'Wadowice, Polônia'], 49.88, 19.49],
     died: [2005, ['Vatican City', 'Cidade do Vaticano'], 41.90, 12.45],
     deed: [
-      'An actor and quarry worker under Nazi occupation who became the first non-Italian pontiff in four hundred and fifty-five years, survived being shot, and visited a hundred and twenty-nine countries.',
-      'Ator e trabalhador de pedreira sob a ocupação nazista que se tornou o primeiro pontífice não italiano em quatrocentos e cinquenta e cinco anos, sobreviveu a um atentado e visitou cento e vinte e nove países.',
+      'An actor and quarry worker under Nazi occupation who became the first non-Italian pontiff in four hundred and fifty-five years. He survived being shot and visited a hundred and twenty-nine countries.',
+      'Ator e trabalhador de pedreira sob a ocupação nazista que se tornou o primeiro pontífice não italiano em quatrocentos e cinquenta e cinco anos. Sobreviveu a um atentado e visitou cento e vinte e nove países.',
     ],
   },
 
@@ -2752,8 +2752,8 @@ export const FIGURES = [
     born: [1912, ['London', 'Londres'], 51.51, -0.13],
     died: [1954, ['Wilmslow, Cheshire', 'Wilmslow, Cheshire'], 53.32, -2.23],
     deed: [
-      'Broke the German naval cipher at Bletchley Park, defined what a computer is, and was chemically castrated for being gay before dying beside a poisoned apple.',
-      'Quebrou a cifra naval alemã em Bletchley Park, definiu o que é um computador e foi castrado quimicamente por ser homossexual antes de morrer ao lado de uma maçã envenenada.',
+      'Broke the German naval cipher at Bletchley Park and defined what a computer is. He was chemically castrated for being gay, and died beside a poisoned apple.',
+      'Quebrou a cifra naval alemã em Bletchley Park e definiu o que é um computador. Foi castrado quimicamente por ser homossexual, e morreu ao lado de uma maçã envenenada.',
     ],
   },
   {
@@ -2765,8 +2765,8 @@ export const FIGURES = [
     born: [1942, ['Oxford', 'Oxford'], 51.75, -1.26],
     died: [2018, ['Cambridge', 'Cambridge'], 52.20, 0.12],
     deed: [
-      'Given two years to live at twenty-one, he survived fifty-five more, showed that black holes leak radiation, and wrote a bestseller about time.',
-      'Recebeu dois anos de vida aos vinte e um, sobreviveu mais cinquenta e cinco, mostrou que buracos negros emitem radiação e escreveu um best-seller sobre o tempo.',
+      'Given two years to live at twenty-one, he survived fifty-five more. He showed that black holes leak radiation, and wrote a bestseller about time.',
+      'Recebeu dois anos de vida aos vinte e um e sobreviveu mais cinquenta e cinco. Mostrou que buracos negros emitem radiação e escreveu um best-seller sobre o tempo.',
     ],
   },
   {
@@ -2869,8 +2869,8 @@ export const FIGURES = [
     born: [1914, ['New York', 'Nova York'], 40.71, -74.01],
     died: [1995, ['La Jolla, California', 'La Jolla, Califórnia'], 32.85, -117.27],
     deed: [
-      'Developed the first effective polio vaccine, tested it on himself and his own children, and refused to patent it — asking if you could patent the sun.',
-      'Desenvolveu a primeira vacina eficaz contra a poliomielite, testou-a em si mesmo e nos próprios filhos, e recusou-se a patenteá-la — perguntando se alguém patentearia o sol.',
+      'Developed the first effective polio vaccine and tested it on himself and his own children. He refused to patent it, asking whether you could patent the sun.',
+      'Desenvolveu a primeira vacina eficaz contra a poliomielite e testou-a em si mesmo e nos próprios filhos. Recusou-se a patenteá-la, perguntando se alguém patentearia o sol.',
     ],
   },
   {
@@ -3013,8 +3013,8 @@ export const FIGURES = [
     born: [1934, ['Klushino, Russia', 'Klushino, Rússia'], 55.55, 35.00],
     died: [1968, ['Kirzhach, Russia', 'Kirzhach, Rússia'], 56.15, 38.87],
     deed: [
-      'A foundry worker\'s son who became the first human being in space, orbiting once in one hundred and eight minutes, and died in a training jet crash at thirty-four.',
-      'Filho de um operário de fundição que se tornou o primeiro ser humano no espaço, deu uma órbita em cento e oito minutos e morreu aos trinta e quatro anos na queda de um jato de treinamento.',
+      'A foundry worker\'s son who became the first human being in space, orbiting once in one hundred and eight minutes. He died in a training jet crash at thirty-four.',
+      'Filho de um operário de fundição que se tornou o primeiro ser humano no espaço, dando uma órbita em cento e oito minutos. Morreu aos trinta e quatro anos na queda de um jato de treinamento.',
     ],
   },
   {
@@ -3094,8 +3094,8 @@ export const FIGURES = [
     born: [1935, ['Tupelo, Mississippi', 'Tupelo, Mississippi'], 34.26, -88.70],
     died: [1977, ['Memphis, Tennessee', 'Memphis, Tennessee'], 35.15, -90.05],
     deed: [
-      'A truck driver who recorded a song for his mother, was filmed only from the waist up for shaking his hips, and died at forty-two in his own mansion.',
-      'Um caminhoneiro que gravou uma canção para a mãe, foi filmado só da cintura para cima por rebolar os quadris e morreu aos quarenta e dois anos na própria mansão.',
+      'A truck driver who recorded a song for his mother and was then filmed only from the waist up for shaking his hips. He died at forty-two in his own mansion.',
+      'Um caminhoneiro que gravou uma canção para a mãe e depois passou a ser filmado só da cintura para cima por rebolar os quadris. Morreu aos quarenta e dois anos na própria mansão.',
     ],
   },
   {
@@ -3120,8 +3120,8 @@ export const FIGURES = [
     born: [1940, ['Liverpool', 'Liverpool'], 53.41, -2.98],
     died: [1980, ['New York', 'Nova York'], 40.71, -74.01],
     deed: [
-      'Formed the most successful band in history in his home city, staged a protest in bed, asked the world to imagine no countries, and was shot outside his apartment building.',
-      'Formou a banda mais bem-sucedida da história em sua cidade natal, protestou de dentro de uma cama, pediu ao mundo que imaginasse um planeta sem países e foi baleado na porta de seu prédio.',
+      'Formed the most successful band in history in his home city, then staged a protest from a bed and asked the world to imagine no countries. He was shot outside his apartment building.',
+      'Formou a banda mais bem-sucedida da história em sua cidade natal, depois protestou de dentro de uma cama e pediu ao mundo que imaginasse um planeta sem países. Foi baleado na porta de seu prédio.',
     ],
   },
   {
@@ -3159,8 +3159,8 @@ export const FIGURES = [
     born: [1945, ['Nine Mile, Jamaica', 'Nine Mile, Jamaica'], 18.28, -77.32],
     died: [1981, ['Miami, Florida', 'Miami, Flórida'], 25.76, -80.19],
     deed: [
-      'Took his island\'s music to the world, played a concert two days after being shot, joined two rival politicians\' hands on stage, and died of melanoma at thirty-six.',
-      'Levou a música de sua ilha ao mundo, tocou num festival dois dias após levar um tiro, uniu no palco as mãos de dois políticos rivais e morreu de melanoma aos trinta e seis anos.',
+      'Took his island\'s music to the world, and played a concert two days after being shot. On stage he joined the hands of two rival politicians. Melanoma killed him at thirty-six.',
+      'Levou a música de sua ilha ao mundo e tocou num festival dois dias após levar um tiro. No palco, uniu as mãos de dois políticos rivais. Um melanoma o matou aos trinta e seis anos.',
     ],
   },
   {
@@ -3464,8 +3464,8 @@ export const FIGURES = [
     born: [1960, ['Lanús, Buenos Aires', 'Lanús, Buenos Aires'], -34.71, -58.39],
     died: [2020, ['Tigre, Buenos Aires', 'Tigre, Buenos Aires'], -34.43, -58.58],
     deed: [
-      'Scored twice in four minutes against England in 1986 — one with his hand, one after beating half a team — and carried his country to a World Cup almost alone.',
-      'Marcou dois gols em quatro minutos contra a Inglaterra em 1986 — um com a mão, outro após driblar meio time — e carregou seu país a uma Copa do Mundo quase sozinho.',
+      'Scored twice in four minutes against England in 1986, once with his hand and once after beating half a team, then carried his country to a World Cup almost single-handed.',
+      'Marcou dois gols em quatro minutos contra a Inglaterra em 1986, um com a mão e outro após driblar meio time, e depois carregou seu país a uma Copa do Mundo quase sozinho.',
     ],
   },
   {

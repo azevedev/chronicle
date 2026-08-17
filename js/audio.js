@@ -35,7 +35,13 @@ const LEVELS = {
 };
 
 const MASTER = 0.9;
-const MUSIC_VOLUME = 0.32;
+
+/**
+ * The music bed sits deliberately low. It plays by default, so it has to be
+ * quiet enough that nobody reaches for the toggle in the first ten seconds:
+ * half the level the bed was originally mixed at.
+ */
+const MUSIC_VOLUME = 0.16;
 
 let ctx = null;
 let master = null;
@@ -46,7 +52,7 @@ let music = null;
 let musicReady = false;
 
 let soundOn = true;
-let musicOn = false;
+let musicOn = true;
 let keyIndex = 0;
 
 /** 'ogg' where Vorbis is supported, otherwise 'mp3'. Safari needs the fallback. */
@@ -215,9 +221,15 @@ export const isSoundOn = () => soundOn;
 export const isMusicOn = () => musicOn;
 export const isMusicReady = () => musicReady;
 
-/** Read the player's saved preferences at boot. */
+/**
+ * Read the player's saved preferences at boot.
+ *
+ * Both default to on, so `!== false` rather than `=== true`: a player who has
+ * never touched the toggles gets sound and music, and one who switched either
+ * off keeps it off.
+ */
 export function initFromSettings() {
   const s = getSettings();
   soundOn = s.sound !== false;
-  musicOn = s.music === true;
+  musicOn = s.music !== false;
 }

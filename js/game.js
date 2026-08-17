@@ -11,10 +11,19 @@ import { resolve } from './search.js';
 import { pick, fieldLabel, letterCount, t } from './i18n.js';
 import { dailyPick, dayIndex, dayKey, hash, makeRng, shuffle } from './rng.js';
 
-export const MAX_ATTEMPTS = 3;
+/**
+ * Four attempts, three hints.
+ *
+ * The first attempt is unhinted — map and dates only. Each miss or skip after
+ * that releases one hint, so by the fourth attempt the player has seen all
+ * three and is playing for the smallest award. Miss that one and the dispatch
+ * closes unscored.
+ */
+export const MAX_ATTEMPTS = 4;
+export const MAX_HINTS = 3;
 
 /** Award by attempt used: full for a first-attempt identification, then less. */
-const AWARD = [1000, 600, 300];
+const AWARD = [1000, 700, 400, 200];
 
 /** Deeper cuts are worth more, so the Gauntlet isn't just a tier-1 lap. */
 const TIER_MULTIPLIER = { 1: 1, 2: 1.15, 3: 1.3 };
@@ -32,12 +41,11 @@ export function potentialScore(figure, attempt) {
 }
 
 /**
- * The third hint: initials and letter counts, derived from the *localised*
- * name so it stays truthful when the player switches language mid-round.
+ * The third hint: initials and letter counts, both derived from the *localised*
+ * name so they stay truthful when the player switches language mid-round.
  */
 export function initialsHint(figure) {
-  const name = pick(figure.names);
-  const words = name.split(/\s+/).filter(Boolean);
+  const words = pick(figure.names).split(/\s+/).filter(Boolean);
   const initials = words.map((w) => `${w[0].toUpperCase()}.`).join(' ');
   const counts = words
     .map((w) => letterCount([...w].filter((c) => /\p{L}/u.test(c)).length))
@@ -195,7 +203,7 @@ export function submitGuess(session, text) {
     return { type: 'lost', figure: guessed, round };
   }
 
-  round.hintsShown = Math.min(round.attempt, MAX_ATTEMPTS);
+  round.hintsShown = Math.min(round.attempt, MAX_HINTS);
   return { type: 'wrong', figure: guessed, round, hint: hintsFor(round.figure)[round.attempt - 1] };
 }
 
@@ -212,7 +220,7 @@ export function skip(session) {
     return { type: 'lost', round };
   }
 
-  round.hintsShown = Math.min(round.attempt, MAX_ATTEMPTS);
+  round.hintsShown = Math.min(round.attempt, MAX_HINTS);
   return { type: 'skipped', round, hint: hintsFor(round.figure)[round.attempt - 1] };
 }
 

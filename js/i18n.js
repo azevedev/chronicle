@@ -65,13 +65,14 @@ const STRINGS = {
     'round.total': 'Total',
     'round.lives': 'Losses',
     'round.noMatch': 'No such figure in the register.',
+    'round.worth': 'worth {n}',
     'round.alreadyTried': 'You have already offered that name.',
 
     // — hint ladder —
     'hint.field': 'The First Hint · Their Calling',
     'hint.deed': 'The Second Hint · Their Deed',
     'hint.initials': 'The Third Hint · Their Initials',
-    'hint.initialsBody': 'Initials {initials} — {counts}.',
+    'hint.initialsBody': 'Initials {initials}. {counts}.',
     'hint.letters': '{n} letters',
     'hint.letters.one': '{n} letter',
 
@@ -86,6 +87,8 @@ const STRINGS = {
     'verdict.next': 'Next Dispatch',
     'verdict.finish': 'Close the Edition',
     'verdict.lifespan': 'Lifespan',
+    'verdict.readMore': 'Read further on Wikipedia',
+    'verdict.portraitCredit': 'Portrait via Wikimedia Commons',
     'verdict.years': 'years',
 
     // — session summary —
@@ -128,16 +131,16 @@ const STRINGS = {
     'archive.solved': 'Identified',
     'archive.lost': 'Unidentified',
     'archive.unplayed': 'Unread',
-    'archive.practice': 'Practice — unscored',
+    'archive.practice': 'Practice only, not scored',
 
     // — how to play —
     'help.title': 'How to Read This Paper',
     'help.1':
       'Each dispatch gives you two facts and nothing more: where a person was born, and where they died, with the years of both. Both are pinned upon the map.',
     'help.2':
-      'You have three attempts to name them. A wrong name — or a skipped attempt — releases a further hint, and lowers the points the dispatch can still award.',
+      'You have four attempts. Every wrong name, and every attempt you skip, releases one of three hints and lowers what the dispatch can still pay.',
     'help.3':
-      'Name them on the first attempt for the full award. The second and third attempts are worth progressively less. Fail all three and the dispatch closes unscored.',
+      'Name them on the first attempt, before any hint, for the full award. Each attempt after that is worth less than the one before. Miss on the fourth and the dispatch closes unscored.',
     'help.4':
       'The Daily Dispatch is the same figure for every reader in the world, and changes at midnight, Greenwich reckoning.',
     'help.close': 'Close',
@@ -152,6 +155,7 @@ const STRINGS = {
     'set.archive': 'Archive',
     'set.help': 'How to Play',
     'set.back': 'Back',
+    'set.leave': 'Leave this dispatch',
 
     // — misc —
     'ui.loading': 'Setting the type…',
@@ -214,13 +218,14 @@ const STRINGS = {
     'round.total': 'Total',
     'round.lives': 'Perdas',
     'round.noMatch': 'Não há tal figura no registro.',
+    'round.worth': 'vale {n}',
     'round.alreadyTried': 'Você já ofereceu esse nome.',
 
     // — escada de pistas —
     'hint.field': 'A Primeira Pista · Seu Ofício',
     'hint.deed': 'A Segunda Pista · Seu Feito',
     'hint.initials': 'A Terceira Pista · Suas Iniciais',
-    'hint.initialsBody': 'Iniciais {initials} — {counts}.',
+    'hint.initialsBody': 'Iniciais {initials}. {counts}.',
     'hint.letters': '{n} letras',
     'hint.letters.one': '{n} letra',
 
@@ -235,6 +240,8 @@ const STRINGS = {
     'verdict.next': 'Próximo Despacho',
     'verdict.finish': 'Encerrar a Edição',
     'verdict.lifespan': 'Vida',
+    'verdict.readMore': 'Leia mais na Wikipédia',
+    'verdict.portraitCredit': 'Retrato via Wikimedia Commons',
     'verdict.years': 'anos',
 
     // — resumo da sessão —
@@ -277,16 +284,16 @@ const STRINGS = {
     'archive.solved': 'Identificado',
     'archive.lost': 'Não identificado',
     'archive.unplayed': 'Não lido',
-    'archive.practice': 'Prática — sem pontuação',
+    'archive.practice': 'Apenas prática, sem pontuação',
 
     // — como jogar —
     'help.title': 'Como Ler Este Jornal',
     'help.1':
       'Cada despacho lhe dá dois fatos e nada mais: onde uma pessoa nasceu e onde morreu, com os anos de ambos. Os dois estão marcados no mapa.',
     'help.2':
-      'Você tem três tentativas para nomeá-la. Um nome errado — ou uma tentativa pulada — libera mais uma pista e reduz os pontos que o despacho ainda pode conceder.',
+      'Você tem quatro tentativas. Cada nome errado, e cada tentativa que você pula, libera uma das três pistas e reduz o que o despacho ainda pode pagar.',
     'help.3':
-      'Acerte na primeira tentativa para receber o prêmio integral. A segunda e a terceira valem progressivamente menos. Falhe nas três e o despacho se encerra sem pontos.',
+      'Acerte na primeira tentativa, antes de qualquer pista, para receber o prêmio integral. Cada tentativa seguinte vale menos que a anterior. Erre na quarta e o despacho se encerra sem pontos.',
     'help.4':
       'O Despacho Diário é a mesma figura para todos os leitores do mundo e muda à meia-noite, pelo meridiano de Greenwich.',
     'help.close': 'Fechar',
@@ -301,6 +308,7 @@ const STRINGS = {
     'set.archive': 'Arquivo',
     'set.help': 'Como Jogar',
     'set.back': 'Voltar',
+    'set.leave': 'Sair deste despacho',
 
     // — diversos —
     'ui.loading': 'Compondo os tipos…',
@@ -367,7 +375,7 @@ export function detectLang() {
   return nav.includes('pt') ? 'pt' : 'en';
 }
 
-/** t('round.born') / t('hint.letters', { n: 8 }) */
+/** t('round.born') / t('summary.tomorrow', { time: '07h 12m' }) */
 export function t(key, vars) {
   let s = STRINGS[current]?.[key] ?? STRINGS.en[key];
   if (s === undefined) {
@@ -378,6 +386,11 @@ export function t(key, vars) {
     for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, v);
   }
   return s;
+}
+
+/** Grammatical plural for the letter-count hint. */
+export function letterCount(n) {
+  return t(n === 1 ? 'hint.letters.one' : 'hint.letters', { n });
 }
 
 /** Pick the localised half of a `[en, pt]` pair, or pass a plain string through. */
@@ -413,7 +426,3 @@ export function formatSpan(born, died, opts = {}) {
   return `${formatYear(born, opts)} – ${formatYear(died, opts)}`;
 }
 
-/** Grammatical plural for the letter-count hint. */
-export function letterCount(n) {
-  return t(n === 1 ? 'hint.letters.one' : 'hint.letters', { n });
-}

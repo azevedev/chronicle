@@ -10,7 +10,7 @@
 const KEY = 'chronicle.v1';
 
 const DEFAULTS = () => ({
-  settings: { lang: null, sound: true, music: false },
+  settings: { lang: null, sound: true, music: true },
   daily: {},        // 'YYYY-MM-DD' -> { won, attempts, score, figureId, guesses }
   stats: {
     played: 0,
@@ -19,7 +19,7 @@ const DEFAULTS = () => ({
     streak: 0,
     maxStreak: 0,
     lastDayIndex: null,
-    distribution: { 1: 0, 2: 0, 3: 0 }, // attempts used on a win
+    distribution: { 1: 0, 2: 0, 3: 0, 4: 0 }, // attempts used on a win
     bestGauntlet: 0,
     bestInfinite: 0,
   },

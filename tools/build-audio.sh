@@ -58,7 +58,7 @@ sfx chime   "$UNP/oga_100sfx/bell_02.ogg"    -11
 
 # --- paper & navigation --------------------------------------------------
 sfx hint     "$UNP/oga_bookflips/book_flip.5.ogg" -12
-sfx page     "$RAW/wm_page_turn.ogg"             -11 "atrim=0:1.4"
+sfx page     "$RAW/oga_paper_sound__4.mp3"       -11 "atrim=0:1.5,afade=t=out:st=1.2:d=0.25"
 sfx rustle   "$RAW/oga_paper_sound__2.mp3"       -16
 sfx crumple  "$RAW/oga_paper_crushed__1.mp3"     -11
 sfx unfurl   "$RAW/oga_map_open.wav"             -12
@@ -66,10 +66,10 @@ sfx pin      "$UNP/oga_100sfx/wooden_01.ogg"     -13
 sfx tick     "$RAW/wm_watch_tick.ogg"            -20
 
 # --- music bed -----------------------------------------------------------
-# Kept full-length and lazily loaded (only fetched once the player enables
-# sound), so it never blocks first paint.
+# Kept full-length and lazily loaded. It plays by default now, but still only
+# after the first gesture, so it never blocks first paint.
 echo "Music -> $OUT"
-MUSIC="$UNP/oga_musicbox/musicbox1_spooky_waltz.ogg"
+MUSIC="$RAW/noir_contemplation.mp3"
 ffmpeg -y -v error -i "$MUSIC" -af "loudnorm=I=-23:TP=-2:LRA=11" -ac 2 -ar 44100 \
   -c:a libvorbis -q:a 1 "$OUT/theme.ogg"
 ffmpeg -y -v error -i "$MUSIC" -af "loudnorm=I=-23:TP=-2:LRA=11" -ac 2 -ar 44100 \

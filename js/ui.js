@@ -9,8 +9,8 @@
 import {
   t, pick, getLang, setLang, detectLang, LANGS, formatYear, formatSpan,
 } from './i18n.js';
-import { getFigures, poolByTier, lifespan } from './data.js';
-import { buildIndex, suggest, getFigure } from './search.js';
+import { getFigures, poolByTier, lifespan, countryFor } from './data.js';
+import { buildIndex, suggest, getFigure, normalize } from './search.js';
 import {
   MODES, MAX_ATTEMPTS, startSession, currentRound, nextRound, submitGuess, skip,
   totalRounds, totalAttempts, isPerfect, hintsFor, potentialScore,
@@ -20,6 +20,7 @@ import * as audio from './audio.js';
 import * as store from './storage.js';
 import { buildCard, copyCard } from './share.js';
 import { dayIndex, dayKey, msUntilNextDay, formatCountdown, dailyPick } from './rng.js';
+import { WIKI } from '../data/wiki.js';
 
 const $ = (id) => document.getElementById(id);
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -39,18 +40,72 @@ function applyI18n(root = document) {
   for (const el of root.querySelectorAll('[data-i18n-placeholder]')) {
     el.placeholder = t(el.dataset.i18nPlaceholder);
   }
+  // Icon-only controls carry their name in aria-label instead of text.
+  for (const el of root.querySelectorAll('[data-i18n-aria]')) {
+    el.setAttribute('aria-label', t(el.dataset.i18nAria));
+  }
   document.title = `${t('app.title')} — ${t('app.tagline')}`;
+}
+
+/**
+ * Push the current settings onto every control that shows them. Sound and
+ * language each have two buttons — one in the masthead toolbar, one in the
+ * play bar — and they must never disagree.
+ */
+function syncSettingsUI() {
+  const sound = audio.isSoundOn();
+  const music = audio.isMusicOn();
+  const lang = getLang().toUpperCase();
+
+  for (const id of ['btn-sound', 'btn-sound-play']) {
+    const el = $(id);
+    if (!el) continue;
+    el.setAttribute('aria-pressed', String(sound));
+    el.classList.toggle('is-off', !sound);
+  }
+  for (const id of ['btn-lang', 'btn-lang-play']) {
+    const el = $(id);
+    if (el) el.textContent = lang;
+  }
+
+  const musicBtn = $('btn-music');
+  musicBtn.setAttribute('aria-pressed', String(music));
+  musicBtn.classList.toggle('is-off', !music);
+}
+
+function toggleSound() {
+  const on = audio.setSound(!audio.isSoundOn());
+  syncSettingsUI();
+  if (on) audio.play('tick');
+}
+
+function toggleMusic() {
+  audio.setMusic(!audio.isMusicOn());
+  syncSettingsUI();
 }
 
 /* ─────────────────────────  screens  ───────────────────────── */
 
 const SCREENS = ['home', 'round', 'verdict', 'summary', 'stats', 'archive'];
 
+/**
+ * Screens that constitute play. On these the masthead is withdrawn and the
+ * slim play bar takes over, so the map and the guess are the only things
+ * asking for attention. The verdict is included so nothing jumps between
+ * answering and being told the answer.
+ */
+const PLAY_SCREENS = new Set(['round', 'verdict']);
+
 function showScreen(name, opts = {}) {
   for (const s of SCREENS) {
     const el = $(`screen-${s}`);
     if (el) el.hidden = s !== name;
   }
+
+  const playing = PLAY_SCREENS.has(name);
+  document.body.classList.toggle('is-playing', playing);
+  $('playbar').hidden = !playing;
+
   if (opts.sound !== false) audio.play('page');
   window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' });
 }
@@ -111,16 +166,18 @@ function renderRound() {
   $('round-score').textContent = session.totalScore.toLocaleString();
 
   // The two facts the player actually gets.
-  $('rec-birth-place').textContent = pick(f.born.place);
-  $('rec-birth-year').textContent = formatYear(f.born.year, { circa: f.circa });
-  $('rec-death-place').textContent = pick(f.died.place);
-  $('rec-death-year').textContent = formatYear(f.died.year, { circa: f.circa });
+  showPlace('birth', f, 'born');
+  showPlace('death', f, 'died');
 
   const age = lifespan(f);
   $('rec-age').textContent = age === null ? '' : `${t('round.aged')} ${age}`;
 
   $('tradition-note').hidden = !f.legendary;
 
+  // Reveal the screen BEFORE plotting. The map sizes its pins and its inset
+  // from measured layout, and inside a hidden screen every measurement comes
+  // back as zero.
+  showScreen('round');
   plotLife(f);
 
   renderAttempts(round);
@@ -135,9 +192,34 @@ function renderRound() {
   hideSuggestions();
   hideNotice();
 
-  showScreen('round');
   if (!reduced()) setTimeout(() => input.focus({ preventScroll: true }), 350);
   else input.focus({ preventScroll: true });
+}
+
+/**
+ * Fill one record card: settlement, country, year.
+ *
+ * Many place strings already carry their country ("Smiljan, Croatia"), and the
+ * country now has a line of its own, so the trailing repeat is stripped. Only
+ * an exact match is removed: "Ajaccio, Corsica" keeps Corsica and gains France
+ * beneath it, which is the more useful pair of facts.
+ */
+function showPlace(slot, figure, key) {
+  const point = figure[key];
+  const country = countryFor(figure.id, key);
+  const countryName = country ? pick(country) : '';
+
+  let place = pick(point.place);
+  if (countryName) {
+    const parts = place.split(',');
+    if (parts.length > 1 && normalize(parts[parts.length - 1]) === normalize(countryName)) {
+      place = parts.slice(0, -1).join(',').trim();
+    }
+  }
+
+  $(`rec-${slot}-place`).textContent = place;
+  $(`rec-${slot}-country`).textContent = countryName;
+  $(`rec-${slot}-year`).textContent = formatYear(point.year, { circa: figure.circa });
 }
 
 /** Three marks: spent ones blotted, the rest open. */
@@ -151,8 +233,12 @@ function renderAttempts(round) {
     mark.textContent = spent ? '▨' : '▢';
     host.appendChild(mark);
   }
-  const potential = potentialScore(round.figure, round.attempt);
-  host.dataset.potential = potential > 0 ? `${potential}` : '';
+  // Show the stake. Choosing between guessing now and taking another hint is
+  // the whole decision the game asks for, and it can't be made well if the
+  // cost of the hint is invisible.
+  const worth = $('attempts-worth');
+  const potential = round.done ? 0 : potentialScore(round.figure, round.attempt);
+  worth.textContent = potential > 0 ? t('round.worth', { n: potential.toLocaleString() }) : '';
 }
 
 function renderHints(round, animateLast = false) {
@@ -347,6 +433,65 @@ function shake(el) {
 
 /* ─────────────────────────  verdict  ───────────────────────── */
 
+/**
+ * Portrait and "read further" link on the verdict sheet.
+ *
+ * The portrait is the only network request the game makes, so it is treated as
+ * a bonus rather than a dependency: it starts hidden, and is only revealed once
+ * the image has actually decoded. An offline player, a blocked referrer or a
+ * dead Wikimedia URL all end in the same place, which is the sheet as it looked
+ * before portraits existed.
+ *
+ * The link goes to the article in the player's own language when one exists,
+ * falling back to English.
+ */
+function renderWiki(figure) {
+  const entry = WIKI[figure.id];
+  const link = $('verdict-wiki');
+  const fig = $('verdict-portrait');
+  const img = $('verdict-portrait-img');
+  const credit = $('verdict-portrait-credit');
+
+  fig.hidden = true;
+  img.removeAttribute('src');
+
+  if (!entry) {
+    link.hidden = true;
+    return;
+  }
+
+  const title = (getLang() === 'pt' && entry.pt) ? entry.pt : entry.en;
+  const host = (getLang() === 'pt' && entry.pt) ? 'pt' : 'en';
+  link.href = `https://${host}.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, '_'))}`;
+  link.hidden = false;
+
+  if (!entry.img) return;
+
+  img.alt = pick(figure.names);
+  // Reveal only once the image is actually there; onerror leaves the sheet
+  // portrait-less, which is the offline and blocked-request path too.
+  //
+  // Note there is no loading="lazy" on this image on purpose: the verdict is
+  // still display:none when this runs, so a lazy image would sit un-fetched
+  // waiting to approach a viewport it is not in yet, and the portrait would
+  // never appear.
+  img.onload = () => { fig.hidden = false; };
+  img.onerror = () => { fig.hidden = true; };
+  img.src = entry.img;
+  // A cached image can finish before the handler is attached.
+  if (img.complete && img.naturalWidth > 0) fig.hidden = false;
+
+  const label = entry.lic
+    ? `${t('verdict.portraitCredit')} (${entry.lic})`
+    : t('verdict.portraitCredit');
+  credit.textContent = label;
+  credit.href = entry.file
+    ? `https://commons.wikimedia.org/wiki/${encodeURIComponent(entry.file.replace(/ /g, '_'))}`
+    : link.href;
+}
+
+
+
 function showVerdict(round, opts = {}) {
   const f = round.figure;
   const won = round.won;
@@ -377,6 +522,8 @@ function showVerdict(round, opts = {}) {
   award.querySelector('.award__label').textContent =
     won ? t('verdict.pointsAwarded') : t('verdict.noPoints');
   $('verdict-points').textContent = won ? round.score.toLocaleString() : '—';
+
+  renderWiki(f);
 
   $('btn-next').textContent = session.over ? t('verdict.finish') : t('verdict.next');
 
@@ -535,7 +682,7 @@ function renderStats() {
   // Distribution bars, scaled to the most common outcome.
   const dist = $('st-dist');
   dist.replaceChildren();
-  const counts = [1, 2, 3].map((n) => st.distribution[n] ?? 0);
+  const counts = Array.from({ length: MAX_ATTEMPTS }, (_, i) => st.distribution[i + 1] ?? 0);
   const peak = Math.max(1, ...counts);
 
   counts.forEach((count, i) => {
@@ -695,7 +842,7 @@ function toggleLanguage() {
   setLang(next);
   store.setSetting('lang', next);
   applyI18n();
-  $('btn-lang').textContent = next.toUpperCase();
+  syncSettingsUI();
   audio.play('tick');
 
   // Re-render whatever is on screen. applyI18n only covers the static
@@ -775,18 +922,13 @@ function wire() {
   $('btn-stats-back').addEventListener('click', goHome);
   $('btn-archive-back').addEventListener('click', goHome);
 
-  $('btn-sound').addEventListener('click', () => {
-    const on = audio.setSound(!audio.isSoundOn());
-    $('btn-sound').setAttribute('aria-pressed', String(on));
-    $('btn-sound').classList.toggle('is-off', !on);
-    if (on) audio.play('tick');
-  });
+  $('btn-sound').addEventListener('click', toggleSound);
+  $('btn-music').addEventListener('click', toggleMusic);
 
-  $('btn-music').addEventListener('click', () => {
-    const on = audio.setMusic(!audio.isMusicOn());
-    $('btn-music').setAttribute('aria-pressed', String(on));
-    $('btn-music').classList.toggle('is-off', !on);
-  });
+  // Play-bar duplicates of the controls that stay useful mid-dispatch.
+  $('btn-exit').addEventListener('click', goHome);
+  $('btn-lang-play').addEventListener('click', toggleLanguage);
+  $('btn-sound-play').addEventListener('click', toggleSound);
 
   $('btn-reset').addEventListener('click', () => {
     if (!confirm(t('stats.resetConfirm'))) return;
@@ -836,11 +978,7 @@ export async function boot() {
   audio.initFromSettings();
 
   applyI18n();
-  $('btn-lang').textContent = getLang().toUpperCase();
-  $('btn-sound').setAttribute('aria-pressed', String(audio.isSoundOn()));
-  $('btn-sound').classList.toggle('is-off', !audio.isSoundOn());
-  $('btn-music').setAttribute('aria-pressed', String(audio.isMusicOn()));
-  $('btn-music').classList.toggle('is-off', !audio.isMusicOn());
+  syncSettingsUI();
 
   await initMap($('map-host'));
 

@@ -1,15 +1,17 @@
 # The Chronicle
 
-**Two pins upon the map. One life between them. Name the figure in three attempts.**
+**Two pins upon the map. One life between them. Name the figure in four attempts.**
 
 A daily game of historical identification, set as a Victorian broadsheet. Each
-dispatch gives you two facts and nothing else — where a person was born and
-where they died, with the years of both — plotted on an engraved world plate.
-You have three attempts to name them.
+dispatch gives you two facts and nothing else: where a person was born and where
+they died, with the years and countries of both, plotted on an engraved world
+plate. You have four attempts to name them.
 
-Plain HTML, CSS and ES modules. No build step, no framework, no dependencies,
-and **no network requests at runtime** — fonts, map, audio and data are all
-vendored, so it runs from any static host and works offline once loaded.
+Plain HTML, CSS and ES modules. No build step, no framework, no dependencies.
+Fonts, map, audio and data are all vendored, so the game runs from any static
+host. The one exception is the portrait on the verdict sheet, which is hotlinked
+from Wikimedia; it is treated as optional, so an offline player still gets the
+whole game minus the picture.
 
 ---
 
@@ -40,17 +42,20 @@ The repository *is* the site — there is nothing to build.
 | **The Gauntlet** | Five figures in succession, scored in sum. No retries. |
 | **The Perpetual Edition** | Endless, until three figures have defeated you. Longest run tracked. |
 
-**Scoring.** 1000 points for a first-attempt identification, 600 for the second,
-300 for the third, nothing for a failure — multiplied by a difficulty factor
-(×1.0 / ×1.15 / ×1.3 by tier). A wrong name and a skipped attempt cost exactly
-the same.
+**Scoring.** Four attempts, three hints. 1000 points for identifying on the
+first attempt with no hints showing, then 700, 400 and 200, and nothing for a
+failure. Each award is multiplied by a difficulty factor (x1.0 / x1.15 / x1.3 by
+tier). A wrong name and a skipped attempt cost exactly the same, so the choice
+the game keeps asking is whether this guess is worth more than the next hint.
+The round always shows what the next correct answer is still worth.
 
-**Hints**, one released per spent attempt:
+**Hints**, one released per spent attempt, so the fourth attempt is played with
+all three showing:
 
-1. **Their calling** — an occupation, described rather than named.
-2. **Their deed** — what they are remembered for, without naming them.
-3. **Their initials** — initials and letter counts, generated from the name in
-   whichever language is active.
+1. **Their calling**: an occupation, described rather than named.
+2. **Their deed**: what they are remembered for, without naming them.
+3. **Their initials**, with letter counts, generated from the name in whichever
+   language is active.
 
 **Guessing** is free text with autocomplete. A typed guess is first *resolved to
 a figure in the register*, and only then compared with the answer — so a typo is
@@ -59,6 +64,14 @@ miss, not a near-match. A name that matches nothing costs no attempt.
 
 Both languages (English and Brazilian Portuguese) are switchable at any time,
 mid-round included.
+
+**During play the masthead is withdrawn.** The round and its verdict run under a
+slim play bar carrying only the dispatch counter, the score, and the controls
+that stay useful mid-round. The branding is the loudest thing on the page and it
+costs about a third of a phone screen, so it gets out of the way of the map.
+
+**Identifying a figure** reveals their portrait and a link to their Wikipedia
+article, in the language being played.
 
 ---
 
@@ -85,7 +98,10 @@ js/
   storage.js          localStorage, defensive
   share.js            the spoiler-free result card
   audio.js            one-shots via Web Audio, music via <audio>
-data/figures.js       the register — 305 figures
+data/
+  figures.js          the register: 305 figures, hand-authored
+  countries.js        GENERATED: modern country per pin
+  wiki.js             GENERATED: article titles, portraits, credits
 assets/               fonts, audio, map (all vendored)
 tools/                asset pipeline + the test suite
 ```
@@ -96,11 +112,12 @@ tools/                asset pipeline + the test suite
 node tools/check.mjs
 ```
 
-Exercises the register and the whole rules layer headlessly — 646 assertions
-covering scoring, attempt accounting, mode termination, name resolution in both
-languages, daily determinism and repeat-free cycling, plus data integrity:
-duplicate names, implausible lifespans, out-of-range coordinates, pins outside
-the map's visible latitudes, and hints that leak the answer.
+Exercises the register and the whole rules layer headlessly: 661 assertions
+covering scoring, attempt accounting, the hint ladder, mode termination, name
+resolution in both languages, daily determinism and repeat-free cycling, plus
+data integrity: duplicate names, implausible lifespans, out-of-range
+coordinates, pins outside the map's visible latitudes, and hints that leak the
+answer.
 
 `game.js` and `search.js` deliberately touch no DOM at module scope, which is
 what makes this possible.
@@ -142,7 +159,14 @@ node tools/fetch-fonts.mjs                      # OFL fonts -> assets/fonts/
 node tools/build-map.mjs land.geojson countries.geojson assets/map/world.svg
 ./tools/fetch-audio.sh /tmp/chronicle-audio     # download CC0 sources
 ./tools/build-audio.sh /tmp/chronicle-audio     # -> assets/audio/
+node tools/derive-countries.mjs countries.geojson   # -> data/countries.js
+node tools/fetch-wiki.mjs                           # -> data/wiki.js
 ```
+
+`derive-countries.mjs` resolves each pin against the same Natural Earth polygons
+the map is drawn from, so the country label and the pin can never disagree.
+`fetch-wiki.mjs` resolves article titles and portrait URLs once, at build time,
+so the shipped game has no dependency on the Wikipedia API.
 
 `tools/commons.py` and `tools/oga.py` screen candidate audio and reject anything
 that isn't CC0 or public domain.

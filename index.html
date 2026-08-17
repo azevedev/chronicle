@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Chronicle — Wherein the Dead Are Named</title>
-<meta name="description" content="A daily game of historical identification. Two pins upon the map, one life between them — name the figure in three attempts.">
+<meta name="description" content="A daily game of historical identification. Two pins upon the map, one life between them. Name the figure in four attempts.">
 <meta name="theme-color" content="#e8dfc8">
 <meta name="color-scheme" content="light">
 
 <!-- Open Graph tags use relative paths so the game works from any static host. -->
 <meta property="og:title" content="The Chronicle">
-<meta property="og:description" content="Two pins upon the map. One life between. Name the figure in three attempts.">
+<meta property="og:description" content="Two pins upon the map. One life between. Name the figure in four attempts.">
 <meta property="og:type" content="website">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23e8dfc8'/><text y='24' x='16' text-anchor='middle' font-size='24' font-family='serif' fill='%231d1810'>C</text></svg>">
@@ -65,7 +65,7 @@
       <span class="chip__icon" aria-hidden="true">♪</span>
       <span data-i18n="set.sound">Sound</span>
     </button>
-    <button class="chip" id="btn-music" type="button" aria-pressed="false">
+    <button class="chip" id="btn-music" type="button" aria-pressed="true">
       <span class="chip__icon" aria-hidden="true">𝄞</span>
       <span data-i18n="set.music">Music</span>
     </button>
@@ -75,6 +75,39 @@
     <button class="chip" id="btn-help" type="button" data-i18n="set.help">How to Play</button>
   </nav>
 </header>
+
+<!-- ─────────────────────────────────────────────────────────────────────────
+     The play bar. While a dispatch is open the masthead is withdrawn entirely
+     and this takes its place: it carries only what a player needs mid-round,
+     and it persists across the round and its verdict so nothing jumps.
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="playbar" id="playbar" hidden>
+  <button class="playbar__exit" id="btn-exit" type="button" data-i18n-aria="set.leave">
+    <span aria-hidden="true">✕</span>
+  </button>
+
+  <span class="playbar__mode" id="round-mode">—</span>
+
+  <span class="playbar__no">
+    <span data-i18n="round.dispatch">Dispatch</span>
+    <strong class="num" id="round-ordinal">1</strong>
+    <span id="round-of-wrap" hidden>
+      <span data-i18n="round.of">of</span> <strong class="num" id="round-total">5</strong>
+    </span>
+  </span>
+
+  <span class="playbar__score">
+    <span data-i18n="round.total">Total</span>
+    <strong class="num" id="round-score">0</strong>
+  </span>
+
+  <span class="playbar__tools">
+    <button class="icon-chip" id="btn-lang-play" type="button" data-i18n-aria="set.language">EN</button>
+    <button class="icon-chip" id="btn-sound-play" type="button" aria-pressed="true" data-i18n-aria="set.sound">
+      <span aria-hidden="true">♪</span>
+    </button>
+  </span>
+</div>
 
 <main id="main" class="screens">
 
@@ -133,21 +166,6 @@
   <!-- ─────────────────────────  THE ROUND  ───────────────────────── -->
   <section class="screen screen--round" id="screen-round" hidden>
 
-    <div class="dispatch-head">
-      <span class="dispatch-head__mode" id="round-mode">—</span>
-      <span class="dispatch-head__no">
-        <span data-i18n="round.dispatch">Dispatch</span>
-        <strong id="round-ordinal">1</strong>
-        <span id="round-of-wrap" hidden>
-          <span data-i18n="round.of">of</span> <strong id="round-total">5</strong>
-        </span>
-      </span>
-      <span class="dispatch-head__score">
-        <span data-i18n="round.total">Total</span>
-        <strong id="round-score">0</strong>
-      </span>
-    </div>
-
     <!-- The evidence: two places, two years, plotted. -->
     <div class="plate">
       <div class="plate__frame">
@@ -162,6 +180,7 @@
         <span class="record__mark" aria-hidden="true">✦</span>
         <h3 class="record__label" data-i18n="round.born">Born</h3>
         <p class="record__place" id="rec-birth-place">—</p>
+        <p class="record__country" id="rec-birth-country"></p>
         <p class="record__year" id="rec-birth-year">—</p>
       </article>
 
@@ -175,6 +194,7 @@
         <span class="record__mark" aria-hidden="true">†</span>
         <h3 class="record__label" data-i18n="round.died">Died</h3>
         <p class="record__place" id="rec-death-place">—</p>
+        <p class="record__country" id="rec-death-country"></p>
         <p class="record__year" id="rec-death-year">—</p>
       </article>
     </div>
@@ -194,9 +214,10 @@
     <section class="guess">
       <h3 class="guess__question" data-i18n="round.question">Who was this person?</h3>
 
-      <div class="attempts" id="attempts" role="img" aria-label="Attempts remaining">
+      <div class="attempts" id="attempts">
         <span class="attempts__label" data-i18n="round.guessesLeft">Attempts remaining</span>
-        <span class="attempts__marks" id="attempts-marks"></span>
+        <span class="attempts__marks" id="attempts-marks" role="img" aria-label="Attempts remaining"></span>
+        <span class="attempts__worth" id="attempts-worth"></span>
       </div>
 
       <div class="combo">
@@ -224,6 +245,16 @@
         <span id="verdict-stamp-text">Identified</span>
       </div>
 
+      <!-- Portrait is hotlinked from Wikimedia and strictly optional: if it
+           fails to load, js/ui.js hides the whole figure and the sheet reads
+           exactly as it did before. -->
+      <figure class="portrait" id="verdict-portrait" hidden>
+        <img id="verdict-portrait-img" alt="" decoding="async" referrerpolicy="no-referrer">
+        <figcaption>
+          <a id="verdict-portrait-credit" target="_blank" rel="noopener noreferrer external"></a>
+        </figcaption>
+      </figure>
+
       <p class="broadside__kicker" data-i18n="verdict.wasBorn">The subject was</p>
       <h2 class="broadside__name" id="verdict-name">—</h2>
       <p class="broadside__span" id="verdict-span">—</p>
@@ -248,6 +279,12 @@
       </dl>
 
       <p class="broadside__attempts" id="verdict-attempts"></p>
+
+      <p class="readmore">
+        <a id="verdict-wiki" target="_blank" rel="noopener noreferrer external" hidden>
+          <span data-i18n="verdict.readMore">Read further</span>
+        </a>
+      </p>
 
       <div class="award" id="verdict-award">
         <span class="award__label" data-i18n="verdict.pointsAwarded">Points awarded</span>

@@ -34,6 +34,70 @@ let W = 2000;
 let H = 1000;
 let layer = null;     // <g> holding pins and arcs, cleared each round
 
+/**
+ * Pin marks are drawn at ~11 user units, but the plate scales to its column:
+ * 2000 units across roughly 1150 px on a laptop and 390 px on a phone. Left
+ * alone the marks come out at 6 px and 2 px respectively — decorative rather
+ * than readable, and the death pin all but vanishes on mobile.
+ *
+ * So every pin carries a counter-scale that keeps it a constant size on
+ * screen, recomputed whenever the plate is resized.
+ */
+const PIN_TARGET_PX = 12;
+const INSET_PIN_PX = 9;
+let placed = [];      // [{ el, x, y }] so pins can be re-scaled on resize
+let resizeWatcher = null;
+
+/** Scale factor that renders a 1-unit feature at 1 CSS pixel. */
+function unitsPerPixel(el, viewBoxWidth) {
+  const px = el?.clientWidth || el?.getBoundingClientRect().width || 0;
+  return px > 0 ? viewBoxWidth / px : 1;
+}
+
+function pinScale() {
+  // The plate's viewBox is the full 2000-unit width.
+  return Math.min(8, Math.max(1, (unitsPerPixel(root, W) * PIN_TARGET_PX) / 11));
+}
+
+function applyPinScale() {
+  const s = pinScale();
+  for (const p of placed) {
+    p.el.setAttribute('transform', `translate(${p.x} ${p.y}) scale(${s.toFixed(3)})`);
+  }
+}
+
+/**
+ * Copy the paint the stylesheet resolves onto the geometry as presentation
+ * attributes.
+ *
+ * The inset re-uses the main plate's geometry through `<use href="#land">`
+ * rather than duplicating 180 KB of path data. But a `<use>` shadow tree does
+ * not reliably inherit paint from the `<use>` element in Chromium: fill and
+ * stroke set on the `<use>`, by class or even by attribute, never reach the
+ * cloned path, which then falls back to the SVG default of solid black. That
+ * is what turned the inset into a black disc.
+ *
+ * Presentation attributes set on the *source* path are cloned along with it,
+ * so they do arrive. CSS still outranks presentation attributes, which means
+ * the main plate keeps taking its appearance from map.css exactly as before,
+ * and the stylesheet stays the single source of truth for both.
+ */
+function bakePaint(svg) {
+  const COPY = ['fill', 'stroke', 'stroke-width', 'stroke-linejoin', 'stroke-dasharray', 'opacity'];
+
+  for (const path of svg.querySelectorAll('#land path, #borders path, #graticule path')) {
+    const cs = getComputedStyle(path);
+    for (const prop of COPY) {
+      const value = cs.getPropertyValue(prop);
+      if (!value || value === 'none' && prop === 'stroke-dasharray') continue;
+      // SVG presentation attributes want bare numbers for lengths.
+      path.setAttribute(prop, prop === 'stroke-width' ? value.replace('px', '') : value);
+    }
+    // Keeps coastlines hairline at the inset's much deeper zoom.
+    path.setAttribute('vector-effect', 'non-scaling-stroke');
+  }
+}
+
 /** Load and inline the map once. Returns the root <svg>. */
 export async function initMap(container) {
   if (root) return root;
@@ -47,9 +111,20 @@ export async function initMap(container) {
   W = Number(root.dataset.w) || 2000;
   H = Number(root.dataset.h) || 1000;
 
+  bakePaint(root);
+
   layer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
   layer.setAttribute('id', 'plot');
   root.appendChild(layer);
+
+  // Keep pin marks a constant size as the plate reflows.
+  if (typeof ResizeObserver !== 'undefined') {
+    resizeWatcher = new ResizeObserver(() => applyPinScale());
+    resizeWatcher.observe(root);
+  } else {
+    window.addEventListener('resize', applyPinScale);
+  }
+
   return root;
 }
 
@@ -123,6 +198,7 @@ function deathMark() {
 /** Clear the plot layer between rounds. */
 export function clearMap() {
   if (layer) layer.replaceChildren();
+  placed = [];
   const inset = document.getElementById('map-inset');
   if (inset) inset.hidden = true;
 }
@@ -150,13 +226,27 @@ export function plotLife(figure, opts = {}) {
     }
   }
 
+  const s = pinScale();
+
+  /**
+   * Position and animation are deliberately on different elements.
+   *
+   * In SVG a CSS `transform` replaces the `transform` attribute rather than
+   * composing with it, and the pin-drop keyframes end at `transform: none` —
+   * so animating the positioned node directly throws the pin to the map's
+   * origin for the length of the drop. The outer node holds the placement, the
+   * inner one does the falling.
+   */
   const place = (mark, coords, delay) => {
     const p = project(coords.lat, coords.lon);
-    mark.setAttribute('transform', `translate(${p.x} ${p.y})`);
+    const holder = svgEl('g');
+    holder.setAttribute('transform', `translate(${p.x} ${p.y}) scale(${s.toFixed(3)})`);
+    holder.appendChild(mark);
     if (!reduced) {
       mark.style.animation = `pin-drop 520ms ${delay}ms cubic-bezier(.34,1.56,.64,1) backwards`;
     }
-    layer.appendChild(mark);
+    layer.appendChild(holder);
+    placed.push({ el: holder, x: p.x, y: p.y });
     return p;
   };
 
@@ -199,8 +289,12 @@ function updateInset(figure) {
   const cx = (a.x + b.x) / 2;
   const cy = (a.y + b.y) / 2;
   // Frame both pins with margin, but never zoom so far that the plate is empty.
+  // The floor matters more than the multiplier. Framed tightly on two pins
+  // 3 degrees apart, the inset is a featureless tan disc that tells the player
+  // nothing; it needs enough coastline and border in frame to be recognisable
+  // as somewhere.
   const span = Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y), 12) * 3.2;
-  const half = Math.max(span / 2, 30);
+  const half = Math.max(span / 2, 70);
 
   // Park the inset in whichever corner is furthest from the pins, so the
   // magnified plate never sits on top of the region it is magnifying. Without
@@ -211,23 +305,36 @@ function updateInset(figure) {
   host.classList.toggle('map-inset--left', cx > W / 2);
   host.classList.toggle('map-inset--bottom', cy < (visTop + visBottom) / 2);
 
+  // Unhide before measuring: the CSS decides the inset's shape (a medallion on
+  // a wide screen, a full-width band on a phone) and the viewBox has to match
+  // that aspect, or the region ends up letterboxed inside its own frame.
   host.hidden = false;
+  const box = host.getBoundingClientRect();
+  const aspect = box.height > 0 ? box.width / box.height : 1;
+  const halfW = half * Math.max(1, aspect);
+  const halfH = half * Math.max(1, 1 / aspect);
+
   host.innerHTML = `
-    <svg viewBox="${cx - half} ${cy - half} ${half * 2} ${half * 2}" aria-hidden="true">
+    <svg viewBox="${(cx - halfW).toFixed(1)} ${(cy - halfH).toFixed(1)} ${(halfW * 2).toFixed(1)} ${(halfH * 2).toFixed(1)}" aria-hidden="true">
       <use href="#land" class="inset__land"/>
       <use href="#borders" class="inset__borders"/>
       <g id="inset-plot"></g>
     </svg>`;
 
   const plot = host.querySelector('#inset-plot');
-  const scale = (half * 2) / 260; // keep marks a constant on-screen size
+  // Same counter-scaling as the main plate, measured against the inset's own
+  // rendered width so the marks read at the same size in both.
+  // Clamped hard at both ends: if the inset is measured before layout settles
+  // the raw figure can come back enormous, and a pin scaled past the viewBox
+  // paints over the entire plate.
+  const scale = Math.min(3, Math.max(0.25, ((halfW * 2) / Math.max(20, box.width) * INSET_PIN_PX) / 11));
 
   for (const d of arcBetween(born, died)) {
-    plot.appendChild(svgEl('path', { class: 'passage passage--inset', d, style: `stroke-width:${1.6 * scale}` }));
+    plot.appendChild(svgEl('path', { class: 'passage passage--inset', d }));
   }
   for (const [mark, coords] of [[birthMark(), born], [deathMark(), died]]) {
     const p = project(coords.lat, coords.lon);
-    mark.setAttribute('transform', `translate(${p.x} ${p.y}) scale(${scale})`);
+    mark.setAttribute('transform', `translate(${p.x} ${p.y}) scale(${scale.toFixed(3)})`);
     plot.appendChild(mark);
   }
 }

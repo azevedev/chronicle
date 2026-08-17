@@ -14,7 +14,8 @@ import { getFigures, validate } from '../js/data.js';
 import { buildIndex, resolve, suggest, normalize } from '../js/search.js';
 import { setLang } from '../js/i18n.js';
 import {
-  startSession, submitGuess, skip, nextRound, currentRound, MAX_ATTEMPTS,
+  startSession, submitGuess, skip, nextRound, currentRound,
+  hintsFor, MAX_ATTEMPTS, MAX_HINTS,
 } from '../js/game.js';
 import { dailyPick, dayIndex } from '../js/rng.js';
 
@@ -168,14 +169,14 @@ const target = byId.get('socrates');
   ok(r.attempt === after, 'repeated name does not cost an attempt');
 }
 
-// Three misses closes the round as a loss, scoring nothing.
+// Spending every attempt on a wrong name closes the round as a loss.
 {
   const s = startSession('infinite', { seed: 4 });
   const r = currentRound(s);
   const wrongs = figures.filter((f) => f.id !== r.figure.id).slice(0, MAX_ATTEMPTS);
   let last;
   for (const w of wrongs) last = submitGuess(s, w.names[0]);
-  ok(last.type === 'lost', 'third miss reports lost');
+  ok(last.type === 'lost', 'the final miss reports lost');
   ok(r.done && !r.won, 'round closes as a loss');
   ok(r.score === 0, 'a lost round scores nothing');
 }
@@ -205,12 +206,64 @@ const target = byId.get('socrates');
   ok(Boolean(out.hint?.body), 'the released hint has text');
 }
 
-// Three skips loses the round.
+// Skipping every attempt loses the round — and not one attempt sooner.
 {
   const s = startSession('infinite', { seed: 7 });
-  skip(s); skip(s);
-  const out = skip(s);
-  ok(out.type === 'lost', 'three skips loses the round');
+  const round = currentRound(s);
+  let out;
+  for (let i = 1; i <= MAX_ATTEMPTS; i++) {
+    out = skip(s);
+    if (i < MAX_ATTEMPTS) {
+      ok(out.type === 'skipped', `skip ${i} of ${MAX_ATTEMPTS} does not end the round`);
+    }
+  }
+  ok(out.type === 'lost', `skipping all ${MAX_ATTEMPTS} attempts loses the round`);
+  ok(round.done && !round.won, 'the round closes as a loss');
+}
+
+// The hint ladder: one hint per spent attempt, capped at the number that exist.
+// With four attempts and three hints, the last attempt is played fully hinted.
+{
+  const s = startSession('infinite', { seed: 8 });
+  const round = currentRound(s);
+  ok(hintsFor(round.figure).length === MAX_HINTS, `there are exactly ${MAX_HINTS} hints`);
+
+  for (let i = 1; i < MAX_ATTEMPTS; i++) {
+    skip(s);
+    ok(
+      round.hintsShown === Math.min(i, MAX_HINTS),
+      `after ${i} spent attempt(s), ${Math.min(i, MAX_HINTS)} hint(s) shown`,
+      `got ${round.hintsShown}`,
+    );
+  }
+  ok(round.hintsShown === MAX_HINTS, 'all hints are out before the final attempt');
+  ok(!round.done, 'a final attempt remains once every hint has been released');
+}
+
+// A win on the very last attempt still scores something.
+{
+  const s = startSession('infinite', { seed: 9 });
+  const round = currentRound(s);
+  for (let i = 0; i < MAX_ATTEMPTS - 1; i++) skip(s);
+  const out = submitGuess(s, round.figure.names[0]);
+  ok(out.type === 'correct', 'the last attempt can still be won');
+  ok(round.score > 0, 'a last-attempt win scores above zero', `got ${round.score}`);
+  ok(round.attempt === MAX_ATTEMPTS, 'the win consumed the final attempt');
+}
+
+// Awards decrease strictly, attempt by attempt.
+{
+  const scores = [];
+  for (let spend = 0; spend < MAX_ATTEMPTS; spend++) {
+    const s = startSession('infinite', { seed: 21 });
+    const round = currentRound(s);
+    for (let i = 0; i < spend; i++) skip(s);
+    submitGuess(s, round.figure.names[0]);
+    scores.push(round.score);
+  }
+  const descending = scores.every((v, i) => i === 0 || v < scores[i - 1]);
+  ok(descending, 'each attempt is worth strictly less than the last', scores.join(' > '));
+  ok(scores[scores.length - 1] > 0, 'even the last attempt pays');
 }
 
 /* ─────────────────────────  modes  ───────────────────────── */

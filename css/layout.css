@@ -94,12 +94,93 @@
 
 .toolbar__gap { flex: 0 0 0.75rem; }
 
+/* ── play mode ─────────────────────────────────────────────────────────────
+   While a dispatch is open the masthead is withdrawn completely. It is the
+   loudest thing on the page and it is pure branding — during play it competes
+   with the map for attention and, on a phone, costs roughly a third of the
+   screen before the game even starts.
+   ------------------------------------------------------------------------ */
+
+body.is-playing .masthead { display: none; }
+
+.playbar {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 1.25rem);
+  width: var(--shell);
+  margin: 0 auto;
+  padding: 0.55rem 0;
+  border-bottom: var(--rule-heavy);
+  /* Opaque, so content scrolling underneath doesn't ghost through. */
+  background: var(--paper);
+  box-shadow: 0 6px 12px -10px rgba(40, 30, 10, 0.8);
+}
+
+.playbar[hidden] { display: none; }
+
+.playbar__mode {
+  font-family: var(--f-antique);
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+  white-space: nowrap;
+}
+
+.playbar__no,
+.playbar__score {
+  font-family: var(--f-antique);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.playbar__no strong,
+.playbar__score strong {
+  font-family: var(--f-display);
+  font-size: 1.05rem;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+
+/* Push the score and tools to the right edge. */
+.playbar__score { margin-left: auto; }
+
+.playbar__tools {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+@media (max-width: 46rem) {
+  /* Two rows on a phone: controls above, counters below. */
+  .playbar {
+    flex-wrap: wrap;
+    gap: 0.35rem 0.6rem;
+    padding: 0.45rem 0;
+  }
+  .playbar__mode { order: 1; }
+  .playbar__tools { order: 2; margin-left: auto; }
+  .playbar__no { order: 3; }
+  .playbar__score { order: 4; margin-left: auto; }
+  .playbar__no strong,
+  .playbar__score strong { font-size: 0.95rem; }
+}
+
 /* ── screens ───────────────────────────────────────────────────────────── */
 
 .screens {
   width: var(--shell);
   margin: clamp(1rem, 3vw, 2rem) auto clamp(3rem, 8vw, 6rem);
 }
+
+/* The play bar already provides the top rule and spacing. */
+body.is-playing .screens { margin-top: clamp(0.75rem, 2vw, 1.25rem); }
 
 .screen { animation: sheet-in 420ms ease-out both; }
 
@@ -132,26 +213,6 @@
   text-transform: uppercase;
   color: var(--ink-4);
 }
-
-/* ── the round ─────────────────────────────────────────────────────────── */
-
-.dispatch-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: var(--rule-heavy);
-}
-
-.dispatch-head strong {
-  font-family: var(--f-display);
-  font-size: 1.05rem;
-  color: var(--ink);
-}
-
-.dispatch-head__mode { color: var(--red); }
 
 /* ── the two records, with the lifespan bridging them ──────────────────── */
 
@@ -269,6 +330,9 @@
 }
 
 .broadside--wide { max-width: 54rem; }
+
+/* Headroom for the verdict stamp, which is absolutely positioned top-right. */
+#screen-verdict .broadside { padding-top: clamp(3.25rem, 9vw, 4.5rem); }
 
 .broadside__actions {
   display: flex;

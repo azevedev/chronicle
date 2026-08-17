@@ -27,6 +27,12 @@
   --red-2:        #a83826;
   --red-wash:     rgba(140, 42, 28, 0.09);
 
+  /* — the third colour, kept for verdicts only —
+     A dark bottle green: the one hue that reads unambiguously as "passed"
+     while still looking like ink soaked into cheap paper. */
+  --green:        #2c5c39;
+  --green-wash:   rgba(44, 92, 57, 0.10);
+
   /* — type — */
   --f-black:   'UnifrakturMaguntia', 'Playfair Display', serif;
   --f-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
@@ -151,6 +157,31 @@ p:last-child { margin-bottom: 0; }
 }
 
 .orn { color: var(--ink-3); padding: 0 0.5em; }
+
+/* Old-style figures suit running prose but sink numbers that carry meaning —
+   a score or a count set in `onum` reads as decoration and half of it drops
+   below the baseline. Anything the player has to actually read gets lining,
+   tabular figures. */
+.num,
+.colophon,
+.records__age,
+.attempts__worth,
+.masthead__corner,
+.playbar__no,
+.playbar__score,
+.record__year,
+.tally__value,
+.mode-card__meta dd,
+.scorelist__points,
+.archive__date,
+.broadside__span,
+.award__value {
+  font-variant-numeric: lining-nums tabular-nums;
+  /* body sets font-feature-settings: 'onum', and that wins over
+     font-variant-numeric, so the old-style figures have to be turned off in
+     the same channel they were turned on. */
+  font-feature-settings: 'kern' 1, 'liga' 1, 'lnum' 1, 'tnum' 1;
+}
 
 .mark { font-family: var(--f-display); color: var(--red); }
 

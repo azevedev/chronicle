@@ -42,6 +42,7 @@ grab "$OGA/snd_use_map.wav"   "oga_map_open.wav"               # spring-spring, 
 grab "$OGA/snd_close_map.wav" "oga_map_close.wav"              # spring-spring, CC0
 grab "$OGA/book_flips_-_starninjas.zip" "oga_bookflips.zip"    # starninjas, CC0
 grab "$OGA/100-CC0-SFX_0.zip"           "oga_100sfx.zip"       # rubberduck, CC0
+grab "$OGA/Contemplation.mp3"           "noir_contemplation.mp3" # joth, CC0 (theme)
 grab "$OGA/4_music_box_tracks_ogg.zip"  "oga_musicbox.zip"     # aureolusomicron, CC0
 
 grab_wm() { grab "$1" "$2" "$UA_WM"; }

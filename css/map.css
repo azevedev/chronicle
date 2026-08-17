@@ -29,9 +29,11 @@
   height: auto;
 }
 
-/* Landmasses: flat sepia fill with a firm coastline, as a copperplate would print. */
-.map__svg #land path,
-.inset__land {
+/* Landmasses: flat sepia fill with a firm coastline, as a copperplate would print.
+   These rules style the main plate; js/map.js copies whatever they resolve to
+   onto the paths as presentation attributes, which is how the inset's <use>
+   clones end up painted the same way. */
+.map__svg #land path {
   fill: var(--paper-3);
   stroke: var(--ink-2);
   stroke-width: 1.1;
@@ -39,15 +41,17 @@
   vector-effect: non-scaling-stroke;
 }
 
-/* Borders sit under the coastline in weight — present, never competing. */
-.map__svg #borders path,
-.inset__borders {
+/* Borders sit under the coastline in weight: present, never competing. */
+.map__svg #borders path {
   fill: none;
   stroke: var(--ink-3);
   stroke-width: 0.5;
   opacity: 0.45;
   vector-effect: non-scaling-stroke;
 }
+
+/* The inset only adjusts what the baked-in paint can't express. */
+.inset__borders { opacity: 0.55; }
 
 /* The graticule is the faintest thing on the plate. */
 .map__svg #graticule path {
@@ -157,10 +161,24 @@
 }
 
 @media (max-width: 34rem) {
-  /* The plate is only ~150 px tall at this width, so the inset has to shrink
-     or it swallows the map. */
-  .map-inset { width: 4.6rem; right: 0.4rem; top: 0.4rem; }
-  .map-inset--left { right: auto; left: 0.4rem; }
-  .map-inset--bottom { top: auto; bottom: 0.4rem; }
+  /* A phone renders the world plate about 150 px tall, which leaves no room
+     for a medallion floating over it — and a medallion small enough to fit is
+     too small to read. Below this width the inset stops floating and becomes a
+     full-width detail band beneath the map, which is several times the drawing
+     area. js/map.js reads the new aspect and widens the viewBox to match. */
+  .map-inset,
+  .map-inset--left,
+  .map-inset--bottom {
+    position: static;
+    inset: auto;
+    width: 100%;
+    aspect-ratio: 5 / 2;
+    border-radius: 0;
+    border: 0;
+    border-top: 1px solid var(--ink-3);
+    box-shadow: none;
+    animation: none;
+  }
+
   .plate__cartouche { display: none; }
 }

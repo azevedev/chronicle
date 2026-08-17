@@ -10,12 +10,12 @@
  * Exits non-zero on failure, so it can gate a commit hook or CI.
  */
 
-import { getFigures, validate } from '../js/data.js';
+import { getFigures, validate, theHundred, HUNDRED } from '../js/data.js';
 import { buildIndex, resolve, suggest, normalize } from '../js/search.js';
-import { setLang } from '../js/i18n.js';
+import { setLang, t } from '../js/i18n.js';
 import {
   startSession, submitGuess, skip, nextRound, currentRound,
-  hintsFor, MAX_ATTEMPTS, MAX_HINTS,
+  hintsFor, MAX_ATTEMPTS, MAX_HINTS, DIFFICULTIES,
 } from '../js/game.js';
 import { dailyPick, dayIndex } from '../js/rng.js';
 
@@ -51,6 +51,34 @@ const tiers = { 1: 0, 2: 0, 3: 0 };
 for (const f of figures) tiers[f.tier] += 1;
 console.log(`  tiers — 1: ${tiers[1]}   2: ${tiers[2]}   3: ${tiers[3]}`);
 ok(tiers[1] >= 1, 'tier 1 pool is non-empty');
+
+/* ─────────────────────────  the Hundred  ───────────────────────── */
+
+section('the Hundred');
+
+const hundred = theHundred();
+ok(hundred.length === HUNDRED, `the Hundred has exactly ${HUNDRED} figures`, `got ${hundred.length}`);
+ok(tiers[1] === HUNDRED, 'the tier-1 pool is exactly the Hundred', `tier 1 holds ${tiers[1]}`);
+
+// Ranks run 1..HUNDRED with no gap and no repeat. validate() already refuses a
+// roster that breaks this; asserting it here names the failure plainly.
+ok(
+  hundred.every((f, i) => f.rank === i + 1),
+  'ranks run 1 upward without gaps',
+  hundred.map((f, i) => (f.rank === i + 1 ? null : `${f.id} at ${f.rank}, expected ${i + 1}`))
+    .filter(Boolean).join('; '),
+);
+
+// A ranked figure that is not tier 1 (or the reverse) would let the daily and
+// the Remarkable difficulty draw from two different sets of people.
+{
+  const mismatch = figures.filter((f) => (f.rank !== null) !== (f.tier === 1));
+  ok(mismatch.length === 0, 'rank and tier 1 agree on every figure',
+    mismatch.map((f) => `${f.id}: rank ${f.rank}, tier ${f.tier}`).join('; '));
+}
+
+console.log(`  best known: ${hundred.slice(0, 3).map((f) => f.names[0]).join(', ')}`);
+console.log(`  hundredth:  ${hundred[hundred.length - 1].names[0]}`);
 
 // Duplicate detection across BOTH languages, which a naive id check misses.
 const nameSeen = new Map();
@@ -299,6 +327,84 @@ section('modes');
     if (!s.over) nextRound(s);
   }
   ok(lost === 3, 'infinite ends after three lost figures', `ended after ${lost}`);
+}
+
+/* ─────────────────────────  difficulty  ───────────────────────── */
+
+section('difficulty');
+
+// Remarkable must never leave the Hundred, in either scored mode. Checked over
+// a long Perpetual queue rather than a single draw, since that mode eventually
+// serves its whole pool.
+for (const mode of ['gauntlet', 'infinite']) {
+  const s = startSession(mode, { difficulty: 'remarkable', seed: 31 });
+  const stray = s.figures.find((f) => f.rank === null);
+  ok(!stray, `${mode} on Remarkable draws only from the Hundred`, stray?.id ?? '');
+  ok(s.figures.length <= HUNDRED, `${mode} on Remarkable cannot exceed the Hundred`);
+}
+
+// Overall must actually reach past the Hundred, or the setting does nothing.
+{
+  const s = startSession('infinite', { difficulty: 'overall', seed: 32 });
+  ok(s.figures.some((f) => f.rank === null), 'the Perpetual Edition on Overall reaches beyond the Hundred');
+  ok(s.figures.length === figures.length, 'the Perpetual Edition on Overall serves the whole register');
+}
+
+// Both modes ramp: the opening figure comes from the easier end of the pool.
+for (const difficulty of DIFFICULTIES) {
+  const s = startSession('infinite', { difficulty, seed: 33 });
+  const first = s.figures[0];
+  const easiest = difficulty === 'remarkable'
+    ? first.rank !== null && first.rank <= Math.ceil(HUNDRED / 3)
+    : first.tier === 1;
+  ok(easiest, `the Perpetual Edition on ${difficulty} opens from its easiest band`,
+    `${first.id} (tier ${first.tier}, rank ${first.rank})`);
+}
+
+// The daily ignores the setting entirely — it is one figure for every reader.
+{
+  const a = startSession('daily', { difficulty: 'remarkable' });
+  const b = startSession('daily', { difficulty: 'overall' });
+  ok(a.figures[0].id === b.figures[0].id, 'the daily is the same figure at either difficulty');
+  ok(a.difficulty === 'remarkable' && b.difficulty === 'remarkable',
+    'the daily records itself as Remarkable whatever was selected');
+}
+
+// An absent or bogus difficulty must fall back rather than throw or draw empty.
+{
+  const s = startSession('gauntlet', { seed: 34 });
+  ok(DIFFICULTIES.includes(s.difficulty), 'a session with no difficulty takes the default');
+  const junk = startSession('gauntlet', { difficulty: 'nonsense', seed: 34 });
+  ok(DIFFICULTIES.includes(junk.difficulty), 'an unknown difficulty falls back to the default');
+}
+
+/* ─────────────────────────  copy  ───────────────────────── */
+
+section('copy');
+
+// Every string the new screens reach for must exist in both languages: a gap
+// falls back to English silently, which is exactly the kind of thing that ships.
+{
+  const KEYS = [
+    'diff.title', 'diff.remarkable', 'diff.overall', 'diff.remarkable.short',
+    'diff.overall.short', 'diff.remarkable.note', 'diff.overall.note', 'diff.applies',
+    'hundred.badge', 'hundred.rank', 'mode.daily.note',
+    'archive.seen', 'archive.replay', 'archive.withheld',
+    'help.lead', 'help.evidence.title', 'help.evidence', 'help.attempts.title',
+    'help.attempts', 'help.award.title', 'help.award', 'help.award.attempt',
+    'help.award.pays', 'help.award.note', 'help.editions.title', 'help.editions',
+    'help.register.title', 'help.register', 'help.begin',
+  ];
+  for (const lang of ['en', 'pt']) {
+    setLang(lang);
+    const missing = KEYS.filter((k) => t(k) === k);
+    ok(missing.length === 0, `every new key is set in ${lang}`, missing.join(', '));
+  }
+  // The two placeholder strings must actually interpolate.
+  setLang('en');
+  ok(!t('diff.overall.note', { n: 305 }).includes('{n}'), 'diff.overall.note interpolates');
+  ok(!t('hundred.rank', { n: 7 }).includes('{n}'), 'hundred.rank interpolates');
+  setLang('en');
 }
 
 /* ─────────────────────────  the daily  ───────────────────────── */

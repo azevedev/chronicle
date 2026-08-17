@@ -6,6 +6,19 @@
  *   id     stable slug; used in saved results, so never renamed
  *   tier   1 = known to nearly everyone · 2 = widely known · 3 = a deeper cut
  *          Tier 1 alone supplies the Daily Dispatch, so it must stay fair.
+ *   rank   1–100 for the Hundred: the register's most widely known figures,
+ *          ordered by how many readers could name them. Carrying an explicit
+ *          rank rather than deriving one keeps the judgement visible and
+ *          arguable in the data, where it belongs.
+ *
+ *          The Hundred is exactly the tier-1 pool — `rank` and `tier: 1` are
+ *          two views of one decision, and js/data.js refuses to load a roster
+ *          where they disagree. Promoting a figure into the Hundred therefore
+ *          means demoting another out of it.
+ *
+ *          It supplies the Daily Dispatch, and the Remarkable difficulty in
+ *          every other mode. Figures keep their rank badge in Overall play too,
+ *          so a reader always knows when they have met one of the Hundred.
  *   name   [English, Portuguese]
  *   aka    extra accepted spellings: regnal names, surnames, common variants.
  *          Plain surnames are derived automatically (see js/search.js) and only
@@ -35,6 +48,7 @@ export const FIGURES = [
   {
     id: 'cleopatra',
     tier: 1,
+    rank: 7,
     name: ['Cleopatra VII', 'Cleópatra VII'],
     aka: ['Cleopatra', 'Cleopatra VII Philopator', 'Cleopatra the Great'],
     field: 'ruler',
@@ -48,6 +62,7 @@ export const FIGURES = [
   {
     id: 'julius-caesar',
     tier: 1,
+    rank: 8,
     name: ['Julius Caesar', 'Júlio César'],
     aka: ['Gaius Julius Caesar', 'Caesar', 'Cesar', 'Caio Júlio César'],
     field: 'general',
@@ -61,6 +76,7 @@ export const FIGURES = [
   {
     id: 'alexander-the-great',
     tier: 1,
+    rank: 10,
     name: ['Alexander the Great', 'Alexandre, o Grande'],
     aka: ['Alexander III of Macedon', 'Alexander', 'Alexandre Magno', 'Alexandre'],
     field: 'general',
@@ -74,6 +90,7 @@ export const FIGURES = [
   {
     id: 'socrates',
     tier: 1,
+    rank: 28,
     name: ['Socrates', 'Sócrates'],
     aka: [],
     field: 'philosopher',
@@ -87,6 +104,7 @@ export const FIGURES = [
   {
     id: 'plato',
     tier: 1,
+    rank: 27,
     name: ['Plato', 'Platão'],
     aka: [],
     field: 'philosopher',
@@ -101,6 +119,7 @@ export const FIGURES = [
   {
     id: 'aristotle',
     tier: 1,
+    rank: 26,
     name: ['Aristotle', 'Aristóteles'],
     aka: [],
     field: 'philosopher',
@@ -114,6 +133,7 @@ export const FIGURES = [
   {
     id: 'archimedes',
     tier: 1,
+    rank: 82,
     name: ['Archimedes', 'Arquimedes'],
     aka: ['Archimedes of Syracuse'],
     field: 'mathematician',
@@ -127,7 +147,8 @@ export const FIGURES = [
   },
   {
     id: 'homer',
-    tier: 2,
+    tier: 1,
+    rank: 80,
     name: ['Homer', 'Homero'],
     aka: [],
     field: 'writer',
@@ -143,6 +164,7 @@ export const FIGURES = [
   {
     id: 'confucius',
     tier: 1,
+    rank: 29,
     name: ['Confucius', 'Confúcio'],
     aka: ['Kong Qiu', 'Kongzi', 'Master Kong'],
     field: 'philosopher',
@@ -156,6 +178,7 @@ export const FIGURES = [
   {
     id: 'buddha',
     tier: 1,
+    rank: 6,
     name: ['Gautama Buddha', 'Buda'],
     aka: ['Buddha', 'Siddhartha Gautama', 'Sidarta Gautama', 'Shakyamuni'],
     field: 'religious',
@@ -171,6 +194,7 @@ export const FIGURES = [
   {
     id: 'jesus',
     tier: 1,
+    rank: 1,
     name: ['Jesus of Nazareth', 'Jesus de Nazaré'],
     aka: ['Jesus', 'Jesus Christ', 'Jesus Cristo', 'Cristo'],
     field: 'religious',
@@ -186,6 +210,7 @@ export const FIGURES = [
   {
     id: 'muhammad',
     tier: 1,
+    rank: 3,
     name: ['Muhammad', 'Maomé'],
     aka: ['Mohammed', 'Prophet Muhammad', 'Muhammad ibn Abdullah'],
     field: 'religious',
@@ -200,6 +225,7 @@ export const FIGURES = [
   {
     id: 'tutankhamun',
     tier: 1,
+    rank: 55,
     name: ['Tutankhamun', 'Tutancâmon'],
     aka: ['King Tut', 'Tutankhamen', 'Tutankamon'],
     field: 'ruler',
@@ -241,7 +267,8 @@ export const FIGURES = [
   },
   {
     id: 'augustus',
-    tier: 2,
+    tier: 1,
+    rank: 83,
     name: ['Augustus', 'Augusto'],
     aka: ['Octavian', 'Caesar Augustus', 'Otaviano', 'César Augusto'],
     field: 'ruler',
@@ -308,7 +335,8 @@ export const FIGURES = [
   },
   {
     id: 'pythagoras',
-    tier: 2,
+    tier: 1,
+    rank: 81,
     name: ['Pythagoras', 'Pitágoras'],
     aka: [],
     field: 'mathematician',
@@ -451,6 +479,7 @@ export const FIGURES = [
   {
     id: 'charlemagne',
     tier: 1,
+    rank: 84,
     name: ['Charlemagne', 'Carlos Magno'],
     aka: ['Charles the Great', 'Karl der Grosse'],
     field: 'ruler',
@@ -464,6 +493,7 @@ export const FIGURES = [
   {
     id: 'genghis-khan',
     tier: 1,
+    rank: 30,
     name: ['Genghis Khan', 'Gengis Khan'],
     aka: ['Temujin', 'Chinggis Khan', 'Temüjin'],
     field: 'general',
@@ -530,6 +560,7 @@ export const FIGURES = [
   {
     id: 'joan-of-arc',
     tier: 1,
+    rank: 56,
     name: ['Joan of Arc', "Joana d'Arc"],
     aka: ['Jeanne d\'Arc', 'The Maid of Orleans', 'Joana de Arco'],
     field: 'general',
@@ -543,6 +574,7 @@ export const FIGURES = [
   {
     id: 'marco-polo',
     tier: 1,
+    rank: 85,
     name: ['Marco Polo', 'Marco Polo'],
     aka: [],
     field: 'explorer',
@@ -609,6 +641,7 @@ export const FIGURES = [
   {
     id: 'dante',
     tier: 1,
+    rank: 79,
     name: ['Dante Alighieri', 'Dante Alighieri'],
     aka: ['Dante'],
     field: 'writer',
@@ -639,6 +672,7 @@ export const FIGURES = [
   {
     id: 'leonardo-da-vinci',
     tier: 1,
+    rank: 4,
     name: ['Leonardo da Vinci', 'Leonardo da Vinci'],
     aka: ['Leonardo'],
     field: 'artist',
@@ -652,6 +686,7 @@ export const FIGURES = [
   {
     id: 'michelangelo',
     tier: 1,
+    rank: 18,
     name: ['Michelangelo', 'Michelangelo'],
     aka: ['Michelangelo Buonarroti', 'Miguel Ângelo'],
     field: 'artist',
@@ -744,6 +779,7 @@ export const FIGURES = [
   {
     id: 'copernicus',
     tier: 1,
+    rank: 87,
     name: ['Nicolaus Copernicus', 'Nicolau Copérnico'],
     aka: ['Copernicus', 'Copérnico', 'Mikolaj Kopernik'],
     field: 'astronomer',
@@ -757,6 +793,7 @@ export const FIGURES = [
   {
     id: 'galileo',
     tier: 1,
+    rank: 19,
     name: ['Galileo Galilei', 'Galileu Galilei'],
     aka: ['Galileo', 'Galileu'],
     field: 'astronomer',
@@ -783,6 +820,7 @@ export const FIGURES = [
   {
     id: 'martin-luther',
     tier: 1,
+    rank: 88,
     name: ['Martin Luther', 'Martinho Lutero'],
     aka: ['Luther', 'Lutero'],
     field: 'religious',
@@ -796,6 +834,7 @@ export const FIGURES = [
   {
     id: 'cervantes',
     tier: 1,
+    rank: 78,
     name: ['Miguel de Cervantes', 'Miguel de Cervantes'],
     aka: ['Cervantes'],
     field: 'writer',
@@ -809,6 +848,7 @@ export const FIGURES = [
   {
     id: 'shakespeare',
     tier: 1,
+    rank: 9,
     name: ['William Shakespeare', 'William Shakespeare'],
     aka: ['Shakespeare', 'The Bard'],
     field: 'writer',
@@ -822,6 +862,7 @@ export const FIGURES = [
   {
     id: 'rembrandt',
     tier: 1,
+    rank: 90,
     name: ['Rembrandt', 'Rembrandt'],
     aka: ['Rembrandt van Rijn', 'Rembrandt Harmenszoon van Rijn'],
     field: 'artist',
@@ -851,6 +892,7 @@ export const FIGURES = [
   {
     id: 'columbus',
     tier: 1,
+    rank: 21,
     name: ['Christopher Columbus', 'Cristóvão Colombo'],
     aka: ['Cristoforo Colombo', 'Colombo', 'Colon'],
     field: 'explorer',
@@ -864,6 +906,7 @@ export const FIGURES = [
   {
     id: 'magellan',
     tier: 1,
+    rank: 86,
     name: ['Ferdinand Magellan', 'Fernão de Magalhães'],
     aka: ['Fernao de Magalhaes', 'Magellan', 'Magalhães'],
     field: 'explorer',
@@ -937,6 +980,7 @@ export const FIGURES = [
   {
     id: 'isaac-newton',
     tier: 1,
+    rank: 11,
     name: ['Isaac Newton', 'Isaac Newton'],
     aka: ['Sir Isaac Newton'],
     field: 'scientist',
@@ -1014,7 +1058,7 @@ export const FIGURES = [
   },
   {
     id: 'benjamin-franklin',
-    tier: 1,
+    tier: 2,
     name: ['Benjamin Franklin', 'Benjamin Franklin'],
     aka: ['Ben Franklin'],
     field: 'inventor',
@@ -1028,6 +1072,7 @@ export const FIGURES = [
   {
     id: 'george-washington',
     tier: 1,
+    rank: 49,
     name: ['George Washington', 'George Washington'],
     aka: [],
     field: 'statesman',
@@ -1119,6 +1164,7 @@ export const FIGURES = [
   {
     id: 'napoleon',
     tier: 1,
+    rank: 5,
     name: ['Napoleon Bonaparte', 'Napoleão Bonaparte'],
     aka: ['Napoleon', 'Napoleon I', 'Napoleão', 'Napoleao Bonaparte'],
     field: 'general',
@@ -1187,6 +1233,7 @@ export const FIGURES = [
   {
     id: 'bach',
     tier: 1,
+    rank: 35,
     name: ['Johann Sebastian Bach', 'Johann Sebastian Bach'],
     aka: ['J.S. Bach', 'JS Bach'],
     field: 'composer',
@@ -1239,6 +1286,7 @@ export const FIGURES = [
   {
     id: 'mozart',
     tier: 1,
+    rank: 14,
     name: ['Wolfgang Amadeus Mozart', 'Wolfgang Amadeus Mozart'],
     aka: ['Mozart'],
     field: 'composer',
@@ -1252,6 +1300,7 @@ export const FIGURES = [
   {
     id: 'beethoven',
     tier: 1,
+    rank: 15,
     name: ['Ludwig van Beethoven', 'Ludwig van Beethoven'],
     aka: ['Beethoven'],
     field: 'composer',
@@ -1278,6 +1327,7 @@ export const FIGURES = [
   {
     id: 'chopin',
     tier: 1,
+    rank: 100,
     name: ['Frédéric Chopin', 'Frédéric Chopin'],
     aka: ['Chopin', 'Frederic Chopin', 'Fryderyk Chopin'],
     field: 'composer',
@@ -1333,6 +1383,7 @@ export const FIGURES = [
   {
     id: 'simon-bolivar',
     tier: 1,
+    rank: 97,
     name: ['Simón Bolívar', 'Simón Bolívar'],
     aka: ['Bolivar', 'Simon Bolivar', 'The Liberator', 'O Libertador'],
     field: 'revolutionary',
@@ -1441,6 +1492,7 @@ export const FIGURES = [
   {
     id: 'charles-darwin',
     tier: 1,
+    rank: 20,
     name: ['Charles Darwin', 'Charles Darwin'],
     aka: ['Darwin'],
     field: 'scientist',
@@ -1454,6 +1506,7 @@ export const FIGURES = [
   {
     id: 'louis-pasteur',
     tier: 1,
+    rank: 93,
     name: ['Louis Pasteur', 'Louis Pasteur'],
     aka: ['Pasteur'],
     field: 'scientist',
@@ -1571,6 +1624,7 @@ export const FIGURES = [
   {
     id: 'thomas-edison',
     tier: 1,
+    rank: 52,
     name: ['Thomas Edison', 'Thomas Edison'],
     aka: ['Edison', 'Thomas Alva Edison'],
     field: 'inventor',
@@ -1584,6 +1638,7 @@ export const FIGURES = [
   {
     id: 'nikola-tesla',
     tier: 1,
+    rank: 53,
     name: ['Nikola Tesla', 'Nikola Tesla'],
     aka: ['Tesla'],
     field: 'inventor',
@@ -1597,6 +1652,7 @@ export const FIGURES = [
   {
     id: 'alexander-graham-bell',
     tier: 1,
+    rank: 54,
     name: ['Alexander Graham Bell', 'Alexander Graham Bell'],
     aka: ['Graham Bell'],
     field: 'inventor',
@@ -1610,6 +1666,7 @@ export const FIGURES = [
   {
     id: 'marie-curie',
     tier: 1,
+    rank: 23,
     name: ['Marie Curie', 'Marie Curie'],
     aka: ['Maria Skłodowska-Curie', 'Madame Curie', 'Marie Sklodowska Curie'],
     field: 'scientist',
@@ -1649,6 +1706,7 @@ export const FIGURES = [
   {
     id: 'albert-einstein',
     tier: 1,
+    rank: 2,
     name: ['Albert Einstein', 'Albert Einstein'],
     aka: ['Einstein'],
     field: 'scientist',
@@ -1662,6 +1720,7 @@ export const FIGURES = [
   {
     id: 'sigmund-freud',
     tier: 1,
+    rank: 51,
     name: ['Sigmund Freud', 'Sigmund Freud'],
     aka: ['Freud'],
     field: 'psychologist',
@@ -1674,7 +1733,7 @@ export const FIGURES = [
   },
   {
     id: 'florence-nightingale',
-    tier: 1,
+    tier: 2,
     name: ['Florence Nightingale', 'Florence Nightingale'],
     aka: ['Nightingale', 'The Lady with the Lamp'],
     field: 'nurse',
@@ -1688,6 +1747,7 @@ export const FIGURES = [
   {
     id: 'karl-marx',
     tier: 1,
+    rank: 50,
     name: ['Karl Marx', 'Karl Marx'],
     aka: ['Marx'],
     field: 'philosopher',
@@ -1703,7 +1763,7 @@ export const FIGURES = [
 
   {
     id: 'jane-austen',
-    tier: 1,
+    tier: 2,
     name: ['Jane Austen', 'Jane Austen'],
     aka: ['Austen'],
     field: 'writer',
@@ -1730,6 +1790,7 @@ export const FIGURES = [
   {
     id: 'victor-hugo',
     tier: 1,
+    rank: 69,
     name: ['Victor Hugo', 'Victor Hugo'],
     aka: ['Hugo'],
     field: 'writer',
@@ -1743,6 +1804,7 @@ export const FIGURES = [
   {
     id: 'charles-dickens',
     tier: 1,
+    rank: 68,
     name: ['Charles Dickens', 'Charles Dickens'],
     aka: ['Dickens'],
     field: 'writer',
@@ -1756,6 +1818,7 @@ export const FIGURES = [
   {
     id: 'edgar-allan-poe',
     tier: 1,
+    rank: 74,
     name: ['Edgar Allan Poe', 'Edgar Allan Poe'],
     aka: ['Poe'],
     field: 'writer',
@@ -1807,7 +1870,7 @@ export const FIGURES = [
   },
   {
     id: 'mark-twain',
-    tier: 1,
+    tier: 2,
     name: ['Mark Twain', 'Mark Twain'],
     aka: ['Samuel Clemens', 'Samuel Langhorne Clemens', 'Twain'],
     field: 'writer',
@@ -1821,6 +1884,7 @@ export const FIGURES = [
   {
     id: 'leo-tolstoy',
     tier: 1,
+    rank: 66,
     name: ['Leo Tolstoy', 'Liev Tolstói'],
     aka: ['Tolstoy', 'Tolstoi', 'Tolstói', 'Lev Tolstoy'],
     field: 'writer',
@@ -1834,6 +1898,7 @@ export const FIGURES = [
   {
     id: 'dostoevsky',
     tier: 1,
+    rank: 67,
     name: ['Fyodor Dostoevsky', 'Fiódor Dostoiévski'],
     aka: ['Dostoevsky', 'Dostoievski', 'Dostoyevsky', 'Fedor Dostoievski'],
     field: 'writer',
@@ -1873,6 +1938,7 @@ export const FIGURES = [
   {
     id: 'oscar-wilde',
     tier: 1,
+    rank: 75,
     name: ['Oscar Wilde', 'Oscar Wilde'],
     aka: ['Wilde'],
     field: 'writer',
@@ -1954,6 +2020,7 @@ export const FIGURES = [
   {
     id: 'claude-monet',
     tier: 1,
+    rank: 89,
     name: ['Claude Monet', 'Claude Monet'],
     aka: ['Monet'],
     field: 'artist',
@@ -1993,6 +2060,7 @@ export const FIGURES = [
   {
     id: 'van-gogh',
     tier: 1,
+    rank: 16,
     name: ['Vincent van Gogh', 'Vincent van Gogh'],
     aka: ['Van Gogh'],
     field: 'artist',
@@ -2061,6 +2129,7 @@ export const FIGURES = [
   {
     id: 'queen-victoria',
     tier: 1,
+    rank: 57,
     name: ['Queen Victoria', 'Rainha Vitória'],
     aka: ['Victoria', 'Vitória', 'Victoria of the United Kingdom'],
     field: 'ruler',
@@ -2074,6 +2143,7 @@ export const FIGURES = [
   {
     id: 'abraham-lincoln',
     tier: 1,
+    rank: 22,
     name: ['Abraham Lincoln', 'Abraham Lincoln'],
     aka: ['Lincoln', 'Abe Lincoln'],
     field: 'statesman',
@@ -2366,6 +2436,7 @@ export const FIGURES = [
   {
     id: 'lenin',
     tier: 1,
+    rank: 46,
     name: ['Vladimir Lenin', 'Vladimir Lênin'],
     aka: ['Lenin', 'Lênin', 'Vladimir Ilyich Ulyanov'],
     field: 'revolutionary',
@@ -2379,6 +2450,7 @@ export const FIGURES = [
   {
     id: 'stalin',
     tier: 1,
+    rank: 45,
     name: ['Joseph Stalin', 'Josef Stálin'],
     aka: ['Stalin', 'Stálin', 'Iosif Dzhugashvili'],
     field: 'ruler',
@@ -2392,6 +2464,7 @@ export const FIGURES = [
   {
     id: 'hitler',
     tier: 1,
+    rank: 13,
     name: ['Adolf Hitler', 'Adolf Hitler'],
     aka: ['Hitler'],
     field: 'ruler',
@@ -2418,6 +2491,7 @@ export const FIGURES = [
   {
     id: 'churchill',
     tier: 1,
+    rank: 44,
     name: ['Winston Churchill', 'Winston Churchill'],
     aka: ['Churchill', 'Sir Winston Churchill'],
     field: 'statesman',
@@ -2431,6 +2505,7 @@ export const FIGURES = [
   {
     id: 'fdr',
     tier: 1,
+    rank: 94,
     name: ['Franklin D. Roosevelt', 'Franklin D. Roosevelt'],
     aka: ['FDR', 'Franklin Delano Roosevelt', 'Franklin Roosevelt'],
     field: 'statesman',
@@ -2457,6 +2532,7 @@ export const FIGURES = [
   {
     id: 'gandhi',
     tier: 1,
+    rank: 12,
     name: ['Mahatma Gandhi', 'Mahatma Gandhi'],
     aka: ['Gandhi', 'Mohandas Gandhi', 'Mohandas Karamchand Gandhi'],
     field: 'activist',
@@ -2470,6 +2546,7 @@ export const FIGURES = [
   {
     id: 'mao-zedong',
     tier: 1,
+    rank: 47,
     name: ['Mao Zedong', 'Mao Tsé-Tung'],
     aka: ['Mao', 'Mao Tse-tung', 'Chairman Mao'],
     field: 'revolutionary',
@@ -2509,6 +2586,7 @@ export const FIGURES = [
   {
     id: 'anne-frank',
     tier: 1,
+    rank: 58,
     name: ['Anne Frank', 'Anne Frank'],
     aka: ['Annelies Marie Frank'],
     field: 'writer',
@@ -2522,6 +2600,7 @@ export const FIGURES = [
   {
     id: 'mandela',
     tier: 1,
+    rank: 24,
     name: ['Nelson Mandela', 'Nelson Mandela'],
     aka: ['Mandela', 'Madiba'],
     field: 'statesman',
@@ -2535,6 +2614,7 @@ export const FIGURES = [
   {
     id: 'mlk',
     tier: 1,
+    rank: 25,
     name: ['Martin Luther King Jr.', 'Martin Luther King Jr.'],
     aka: ['Martin Luther King', 'MLK', 'Dr King'],
     field: 'activist',
@@ -2574,6 +2654,7 @@ export const FIGURES = [
   {
     id: 'jfk',
     tier: 1,
+    rank: 48,
     name: ['John F. Kennedy', 'John F. Kennedy'],
     aka: ['JFK', 'John Kennedy', 'John Fitzgerald Kennedy'],
     field: 'statesman',
@@ -2587,6 +2668,7 @@ export const FIGURES = [
   {
     id: 'che-guevara',
     tier: 1,
+    rank: 59,
     name: ['Che Guevara', 'Che Guevara'],
     aka: ['Ernesto Guevara', 'Ernesto Che Guevara', 'El Che'],
     field: 'revolutionary',
@@ -2600,6 +2682,7 @@ export const FIGURES = [
   {
     id: 'fidel-castro',
     tier: 1,
+    rank: 96,
     name: ['Fidel Castro', 'Fidel Castro'],
     aka: ['Castro'],
     field: 'ruler',
@@ -2691,6 +2774,7 @@ export const FIGURES = [
   {
     id: 'elizabeth-ii',
     tier: 1,
+    rank: 43,
     name: ['Queen Elizabeth II', 'Rainha Elizabeth II'],
     aka: ['Elizabeth II', 'Isabel II', 'Elizabeth Alexandra Mary'],
     field: 'ruler',
@@ -2717,6 +2801,7 @@ export const FIGURES = [
   {
     id: 'mother-teresa',
     tier: 1,
+    rank: 41,
     name: ['Mother Teresa', 'Madre Teresa de Calcutá'],
     aka: ['Teresa of Calcutta', 'Madre Teresa', 'Anjezë Gonxhe Bojaxhiu'],
     field: 'religious',
@@ -2730,6 +2815,7 @@ export const FIGURES = [
   {
     id: 'john-paul-ii',
     tier: 1,
+    rank: 95,
     name: ['Pope John Paul II', 'Papa João Paulo II'],
     aka: ['John Paul II', 'Karol Wojtyła', 'Joao Paulo II', 'Karol Wojtyla'],
     field: 'religious',
@@ -2746,6 +2832,7 @@ export const FIGURES = [
   {
     id: 'alan-turing',
     tier: 1,
+    rank: 92,
     name: ['Alan Turing', 'Alan Turing'],
     aka: ['Turing'],
     field: 'mathematician',
@@ -2759,6 +2846,7 @@ export const FIGURES = [
   {
     id: 'stephen-hawking',
     tier: 1,
+    rank: 36,
     name: ['Stephen Hawking', 'Stephen Hawking'],
     aka: ['Hawking'],
     field: 'scientist',
@@ -2940,7 +3028,7 @@ export const FIGURES = [
   },
   {
     id: 'amelia-earhart',
-    tier: 1,
+    tier: 2,
     name: ['Amelia Earhart', 'Amelia Earhart'],
     aka: ['Earhart'],
     field: 'aviator',
@@ -3007,6 +3095,7 @@ export const FIGURES = [
   {
     id: 'yuri-gagarin',
     tier: 1,
+    rank: 61,
     name: ['Yuri Gagarin', 'Yuri Gagarin'],
     aka: ['Gagarin', 'Iuri Gagarin'],
     field: 'aviator',
@@ -3020,6 +3109,7 @@ export const FIGURES = [
   {
     id: 'neil-armstrong',
     tier: 1,
+    rank: 60,
     name: ['Neil Armstrong', 'Neil Armstrong'],
     aka: ['Armstrong'],
     field: 'aviator',
@@ -3088,6 +3178,7 @@ export const FIGURES = [
   {
     id: 'elvis-presley',
     tier: 1,
+    rank: 31,
     name: ['Elvis Presley', 'Elvis Presley'],
     aka: ['Elvis', 'The King'],
     field: 'musician',
@@ -3114,6 +3205,7 @@ export const FIGURES = [
   {
     id: 'john-lennon',
     tier: 1,
+    rank: 34,
     name: ['John Lennon', 'John Lennon'],
     aka: ['Lennon'],
     field: 'musician',
@@ -3153,6 +3245,7 @@ export const FIGURES = [
   {
     id: 'bob-marley',
     tier: 1,
+    rank: 65,
     name: ['Bob Marley', 'Bob Marley'],
     aka: ['Marley', 'Robert Nesta Marley'],
     field: 'musician',
@@ -3166,6 +3259,7 @@ export const FIGURES = [
   {
     id: 'freddie-mercury',
     tier: 1,
+    rank: 64,
     name: ['Freddie Mercury', 'Freddie Mercury'],
     aka: ['Farrokh Bulsara'],
     field: 'musician',
@@ -3192,6 +3286,7 @@ export const FIGURES = [
   {
     id: 'michael-jackson',
     tier: 1,
+    rank: 32,
     name: ['Michael Jackson', 'Michael Jackson'],
     aka: ['Jackson'],
     field: 'musician',
@@ -3234,6 +3329,7 @@ export const FIGURES = [
   {
     id: 'charlie-chaplin',
     tier: 1,
+    rank: 63,
     name: ['Charlie Chaplin', 'Charlie Chaplin'],
     aka: ['Chaplin', 'Charles Chaplin', 'The Tramp'],
     field: 'filmmaker',
@@ -3247,6 +3343,7 @@ export const FIGURES = [
   {
     id: 'walt-disney',
     tier: 1,
+    rank: 62,
     name: ['Walt Disney', 'Walt Disney'],
     aka: ['Disney', 'Walter Elias Disney'],
     field: 'filmmaker',
@@ -3286,6 +3383,7 @@ export const FIGURES = [
   {
     id: 'marilyn-monroe',
     tier: 1,
+    rank: 33,
     name: ['Marilyn Monroe', 'Marilyn Monroe'],
     aka: ['Monroe', 'Norma Jeane Mortenson', 'Norma Jean Baker'],
     field: 'filmmaker',
@@ -3338,6 +3436,7 @@ export const FIGURES = [
   {
     id: 'bruce-lee',
     tier: 1,
+    rank: 40,
     name: ['Bruce Lee', 'Bruce Lee'],
     aka: ['Lee Jun-fan'],
     field: 'athlete',
@@ -3393,6 +3492,7 @@ export const FIGURES = [
   {
     id: 'muhammad-ali',
     tier: 1,
+    rank: 39,
     name: ['Muhammad Ali', 'Muhammad Ali'],
     aka: ['Cassius Clay', 'Ali'],
     field: 'athlete',
@@ -3432,6 +3532,7 @@ export const FIGURES = [
   {
     id: 'pele',
     tier: 1,
+    rank: 38,
     name: ['Pelé', 'Pelé'],
     aka: ['Pele', 'Edson Arantes do Nascimento'],
     field: 'athlete',
@@ -3458,6 +3559,7 @@ export const FIGURES = [
   {
     id: 'maradona',
     tier: 1,
+    rank: 98,
     name: ['Diego Maradona', 'Diego Maradona'],
     aka: ['Maradona', 'Diego Armando Maradona'],
     field: 'athlete',
@@ -3471,6 +3573,7 @@ export const FIGURES = [
   {
     id: 'ayrton-senna',
     tier: 1,
+    rank: 99,
     name: ['Ayrton Senna', 'Ayrton Senna'],
     aka: ['Senna', 'Ayrton Senna da Silva'],
     field: 'athlete',
@@ -3526,6 +3629,7 @@ export const FIGURES = [
   {
     id: 'franz-kafka',
     tier: 1,
+    rank: 70,
     name: ['Franz Kafka', 'Franz Kafka'],
     aka: ['Kafka'],
     field: 'writer',
@@ -3539,6 +3643,7 @@ export const FIGURES = [
   {
     id: 'ernest-hemingway',
     tier: 1,
+    rank: 76,
     name: ['Ernest Hemingway', 'Ernest Hemingway'],
     aka: ['Hemingway'],
     field: 'writer',
@@ -3552,6 +3657,7 @@ export const FIGURES = [
   {
     id: 'george-orwell',
     tier: 1,
+    rank: 71,
     name: ['George Orwell', 'George Orwell'],
     aka: ['Orwell', 'Eric Arthur Blair'],
     field: 'writer',
@@ -3565,6 +3671,7 @@ export const FIGURES = [
   {
     id: 'agatha-christie',
     tier: 1,
+    rank: 73,
     name: ['Agatha Christie', 'Agatha Christie'],
     aka: ['Christie'],
     field: 'writer',
@@ -3578,6 +3685,7 @@ export const FIGURES = [
   {
     id: 'tolkien',
     tier: 1,
+    rank: 72,
     name: ['J. R. R. Tolkien', 'J. R. R. Tolkien'],
     aka: ['Tolkien', 'John Ronald Reuel Tolkien', 'JRR Tolkien'],
     field: 'writer',
@@ -3630,6 +3738,7 @@ export const FIGURES = [
   {
     id: 'garcia-marquez',
     tier: 1,
+    rank: 77,
     name: ['Gabriel García Márquez', 'Gabriel García Márquez'],
     aka: ['Garcia Marquez', 'Gabo', 'Gabriel Garcia Marquez'],
     field: 'writer',
@@ -3672,6 +3781,7 @@ export const FIGURES = [
   {
     id: 'picasso',
     tier: 1,
+    rank: 17,
     name: ['Pablo Picasso', 'Pablo Picasso'],
     aka: ['Picasso'],
     field: 'artist',
@@ -3724,6 +3834,7 @@ export const FIGURES = [
   {
     id: 'frida-kahlo',
     tier: 1,
+    rank: 91,
     name: ['Frida Kahlo', 'Frida Kahlo'],
     aka: ['Kahlo'],
     field: 'artist',
@@ -3749,7 +3860,7 @@ export const FIGURES = [
   },
   {
     id: 'andy-warhol',
-    tier: 1,
+    tier: 2,
     name: ['Andy Warhol', 'Andy Warhol'],
     aka: ['Warhol', 'Andrew Warhola'],
     field: 'artist',
@@ -3762,7 +3873,7 @@ export const FIGURES = [
   },
   {
     id: 'henry-ford',
-    tier: 1,
+    tier: 2,
     name: ['Henry Ford', 'Henry Ford'],
     aka: ['Ford'],
     field: 'industrialist',
@@ -3815,6 +3926,7 @@ export const FIGURES = [
   {
     id: 'steve-jobs',
     tier: 1,
+    rank: 37,
     name: ['Steve Jobs', 'Steve Jobs'],
     aka: ['Jobs', 'Steven Paul Jobs'],
     field: 'industrialist',
@@ -3841,6 +3953,7 @@ export const FIGURES = [
   {
     id: 'princess-diana',
     tier: 1,
+    rank: 42,
     name: ['Princess Diana', 'Princesa Diana'],
     aka: ['Diana', 'Diana Spencer', 'Diana, Princess of Wales', 'Lady Di'],
     field: 'activist',

@@ -8,7 +8,7 @@
  */
 
 import { t, getLang } from './i18n.js';
-import { MAX_ATTEMPTS } from './game.js';
+import { MAX_ATTEMPTS, SCALED_MODES } from './game.js';
 
 const MARK = {
   spent: '▨',   // an attempt burned on a miss or a skip
@@ -48,7 +48,12 @@ export function buildCard(session, extra = {}) {
     lines.push(`${title} — ${t('summary.daily')}`);
     lines.push(formatDate(session.dayKey));
   } else {
-    lines.push(`${title} — ${t(`summary.${session.mode}`)}`);
+    // The difficulty is on the card because a Gauntlet score means nothing
+    // without it: the same five marks are a different feat at each setting.
+    const suffix = SCALED_MODES.has(session.mode)
+      ? ` · ${t(`diff.${session.difficulty}.short`)}`
+      : '';
+    lines.push(`${title} — ${t(`summary.${session.mode}`)}${suffix}`);
   }
   lines.push('');
 

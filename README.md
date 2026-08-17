@@ -42,10 +42,26 @@ The repository *is* the site — there is nothing to build.
 | **The Gauntlet** | Five figures in succession, scored in sum. No retries. |
 | **The Perpetual Edition** | Endless, until three figures have defeated you. Longest run tracked. |
 
+**Difficulty** picks which part of the register a session draws from:
+
+| Setting | Pool |
+|---|---|
+| **Remarkable Only** | The Hundred — the 100 most widely known figures, ranked 1–100 in `data/figures.js`. |
+| **The Whole Register** | All 305, deeper cuts included. Worth more, being harder. |
+
+It reaches the Gauntlet and the Perpetual Edition; both keep a separate best
+score per setting. The Daily Dispatch is exempt and always draws from the
+Hundred — it is one figure for every reader in the world, and a per-reader
+difficulty would fork it into two dailies with two incomparable streaks.
+
+A figure of the Hundred is badged with their rank on the verdict sheet at
+*either* setting, so a reader always knows which they have met.
+
 **Scoring.** Four attempts, three hints. 1000 points for identifying on the
 first attempt with no hints showing, then 700, 400 and 200, and nothing for a
 failure. Each award is multiplied by a difficulty factor (x1.0 / x1.15 / x1.3 by
-tier). A wrong name and a skipped attempt cost exactly the same, so the choice
+tier), so Remarkable — being all tier 1 — always pays the base rate. A wrong
+name and a skipped attempt cost exactly the same, so the choice
 the game keeps asking is whether this guess is worth more than the next hint.
 The round always shows what the next correct answer is still worth.
 
@@ -72,6 +88,12 @@ costs about a third of a phone screen, so it gets out of the way of the map.
 
 **Identifying a figure** reveals their portrait and a link to their Wikipedia
 article, in the language being played.
+
+**The Archive** holds the last 30 back numbers. A day is named there once the
+reader has actually met it — by playing it for real, or by reading it in the
+Archive, which is practice and is not scored. Days still to come keep their
+counsel, so the list can never spoil one. The rules sheet opens by itself on a
+first visit and not again after that.
 
 ---
 
@@ -132,6 +154,7 @@ Append to `data/figures.js` and run the tests. The format:
 {
   id: 'ada-lovelace',              // stable slug; saved results reference it
   tier: 2,                         // 1 iconic · 2 well known · 3 deeper cut
+  // rank: 42,                     // tier 1 only: place in the Hundred, 1–100
   name: ['Ada Lovelace', 'Ada Lovelace'],   // [English, Portuguese]
   aka: ['Ada Byron', 'Augusta Ada King'],   // extra accepted spellings
   field: 'mathematician',          // key into FIELDS in js/i18n.js — hint 1
@@ -147,8 +170,15 @@ Negative years are BC. A place is a plain string when it reads the same in both
 languages, or an `[en, pt]` pair when it doesn't. The third hint needs no
 authoring — it is generated from the name.
 
-Only **tier 1** supplies the Daily Dispatch, so that pool has to stay fair; it
-currently holds 104 figures, meaning 104 days before any repeat.
+**Tier 1 is the Hundred, exactly.** Every tier-1 figure carries a `rank` of
+1–100 and nothing else does; `js/data.js` refuses to load a roster where the two
+disagree, and `tools/check.mjs` reports it plainly. So promoting someone into
+the Hundred means demoting someone else out of it and re-numbering the ranks in
+between — the ordering is a judgement call, kept explicit in the data so it can
+be argued with.
+
+That pool supplies the Daily Dispatch and the Remarkable difficulty, so it has
+to stay fair. At 100 figures it is also 100 days before any daily repeats.
 
 ## Rebuilding the assets
 

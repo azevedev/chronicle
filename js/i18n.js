@@ -39,6 +39,20 @@ const STRINGS = {
     'mode.play': 'Begin',
     'mode.resume': 'Resume',
     'mode.done': 'Completed today',
+    'mode.daily.note': 'Always drawn from the Hundred.',
+
+    // — the register / difficulty —
+    'diff.title': 'The Register',
+    'diff.remarkable': 'Remarkable Only',
+    'diff.overall': 'The Whole Register',
+    'diff.remarkable.short': 'Remarkable',
+    'diff.overall.short': 'Overall',
+    'diff.remarkable.note': 'The Hundred best known figures — names a reader may fairly be expected to know.',
+    'diff.overall.note': 'All {n} figures, the obscure alongside the celebrated. Deeper cuts pay more.',
+    'diff.applies':
+      'Applies to the Gauntlet and the Perpetual Edition. The Daily Dispatch is always drawn from the Hundred.',
+    'hundred.badge': 'One of the Hundred',
+    'hundred.rank': 'No. {n} of the Hundred',
 
     // — round —
     'round.dispatch': 'Dispatch',
@@ -125,24 +139,42 @@ const STRINGS = {
 
     // — archive —
     'archive.title': 'The Archive',
-    'archive.sub': 'Back numbers, for practice only. Results are not recorded.',
+    'archive.sub':
+      'Back numbers. A day you have already met is named here; the rest keep their counsel. Reading one is practice only and is not scored.',
     'archive.empty': 'No back numbers yet.',
     'archive.play': 'Read',
+    'archive.replay': 'Read again',
     'archive.solved': 'Identified',
     'archive.lost': 'Unidentified',
     'archive.unplayed': 'Unread',
+    'archive.seen': 'Read in practice',
     'archive.practice': 'Practice only, not scored',
+    'archive.withheld': 'Withheld until read',
 
     // — how to play —
     'help.title': 'How to Read This Paper',
-    'help.1':
-      'Each dispatch gives you two facts and nothing more: where a person was born, and where they died, with the years of both. Both are pinned upon the map.',
-    'help.2':
-      'You have four attempts. Every wrong name, and every attempt you skip, releases one of three hints and lowers what the dispatch can still pay.',
-    'help.3':
-      'Name them on the first attempt, before any hint, for the full award. Each attempt after that is worth less than the one before. Miss on the fourth and the dispatch closes unscored.',
-    'help.4':
-      'The Daily Dispatch is the same figure for every reader in the world, and changes at midnight, Greenwich reckoning.',
+    'help.lead':
+      'A dispatch names no one. It gives you a life reduced to its two ends — a place of birth and a place of death, each with its year — and asks you whose it was.',
+    'help.evidence.title': 'I · The Evidence',
+    'help.evidence':
+      'Two pins are set upon the map: one where the subject was born, one where they died. Beneath them stand both years and the age between. That is the whole of the record. Where a life is known by tradition rather than by document, the dispatch says so plainly.',
+    'help.attempts.title': 'II · The Attempts',
+    'help.attempts':
+      'You have four. A name that is not in the register costs you nothing — offer another. A name that is in the register but is the wrong person costs one attempt, and so does skipping. Each attempt spent releases the next hint: first the subject’s calling, then their deed, then their initials and the length of their name.',
+    'help.award.title': 'III · The Award',
+    'help.award':
+      'Name the subject on the first attempt, before any hint, and the dispatch pays in full. Each attempt after that is worth less than the one before. Miss on the fourth and it closes unscored.',
+    'help.award.attempt': 'Attempt',
+    'help.award.pays': 'Pays',
+    'help.award.note':
+      'Figures drawn from beyond the Hundred pay a premium, being the harder to place.',
+    'help.editions.title': 'IV · The Editions',
+    'help.editions':
+      'The Daily Dispatch is a single figure, the same for every reader in the world, changing at midnight by Greenwich reckoning; it alone keeps a streak. The Gauntlet sets five subjects in succession, scored in sum. The Perpetual Edition runs without end until three have defeated you.',
+    'help.register.title': 'V · The Register',
+    'help.register':
+      'You may choose how deep the paper draws. Remarkable Only keeps to the Hundred: the most widely known figures in the register, ranked in order. The Whole Register admits all {n}, obscure and celebrated alike. A figure of the Hundred is marked as such wherever they appear, so you always know which you have met.',
+    'help.begin': 'Begin Reading',
     'help.privacy':
       'Your results and settings are kept in this browser only. There are no accounts, no cookies and no analytics. The one thing that leaves your device is the portrait on the verdict sheet, which loads from Wikimedia; if you would rather it did not, the game works perfectly well offline without it.',
     'help.close': 'Close',
@@ -194,6 +226,20 @@ const STRINGS = {
     'mode.play': 'Começar',
     'mode.resume': 'Retomar',
     'mode.done': 'Concluído hoje',
+    'mode.daily.note': 'Sorteado sempre entre os Cem.',
+
+    // — o registro / dificuldade —
+    'diff.title': 'O Registro',
+    'diff.remarkable': 'Somente os Notáveis',
+    'diff.overall': 'O Registro Inteiro',
+    'diff.remarkable.short': 'Notáveis',
+    'diff.overall.short': 'Inteiro',
+    'diff.remarkable.note': 'Os Cem vultos mais conhecidos — nomes que se pode esperar de qualquer leitor.',
+    'diff.overall.note': 'Todas as {n} figuras, as obscuras ao lado das célebres. Os cortes fundos pagam mais.',
+    'diff.applies':
+      'Vale para a Provação e a Edição Perpétua. O Despacho Diário sai sempre dentre os Cem.',
+    'hundred.badge': 'Um dos Cem',
+    'hundred.rank': 'N.º {n} dos Cem',
 
     // — rodada —
     'round.dispatch': 'Despacho',
@@ -280,24 +326,42 @@ const STRINGS = {
 
     // — arquivo —
     'archive.title': 'O Arquivo',
-    'archive.sub': 'Números atrasados, apenas para prática. Os resultados não são registrados.',
+    'archive.sub':
+      'Números atrasados. O dia que você já encontrou aparece nomeado aqui; os demais guardam segredo. Lê-los é apenas prática, sem pontuação.',
     'archive.empty': 'Ainda não há números atrasados.',
     'archive.play': 'Ler',
+    'archive.replay': 'Ler de novo',
     'archive.solved': 'Identificado',
     'archive.lost': 'Não identificado',
     'archive.unplayed': 'Não lido',
+    'archive.seen': 'Lido em prática',
     'archive.practice': 'Apenas prática, sem pontuação',
+    'archive.withheld': 'Reservado até a leitura',
 
     // — como jogar —
     'help.title': 'Como Ler Este Jornal',
-    'help.1':
-      'Cada despacho lhe dá dois fatos e nada mais: onde uma pessoa nasceu e onde morreu, com os anos de ambos. Os dois estão marcados no mapa.',
-    'help.2':
-      'Você tem quatro tentativas. Cada nome errado, e cada tentativa que você pula, libera uma das três pistas e reduz o que o despacho ainda pode pagar.',
-    'help.3':
-      'Acerte na primeira tentativa, antes de qualquer pista, para receber o prêmio integral. Cada tentativa seguinte vale menos que a anterior. Erre na quarta e o despacho se encerra sem pontos.',
-    'help.4':
-      'O Despacho Diário é a mesma figura para todos os leitores do mundo e muda à meia-noite, pelo meridiano de Greenwich.',
+    'help.lead':
+      'Um despacho não nomeia ninguém. Ele oferece uma vida reduzida às suas duas pontas — um lugar de nascimento e um lugar de morte, cada qual com seu ano — e pergunta de quem ela foi.',
+    'help.evidence.title': 'I · As Provas',
+    'help.evidence':
+      'Dois alfinetes são fincados no mapa: um onde o vulto nasceu, outro onde morreu. Abaixo deles estão os dois anos e a idade entre um e outro. É todo o registro. Quando uma vida se conhece por tradição, e não por documento, o despacho o declara sem rodeios.',
+    'help.attempts.title': 'II · As Tentativas',
+    'help.attempts':
+      'São quatro. Um nome que não consta do registro nada lhe custa — ofereça outro. Um nome que consta, mas é de outra pessoa, custa uma tentativa; pular custa o mesmo. Cada tentativa gasta libera a pista seguinte: primeiro o ofício do vulto, depois seu feito, por fim suas iniciais e o tamanho do nome.',
+    'help.award.title': 'III · O Prêmio',
+    'help.award':
+      'Nomeie o vulto na primeira tentativa, antes de qualquer pista, e o despacho paga por inteiro. Cada tentativa seguinte vale menos que a anterior. Erre na quarta e ele se encerra sem pontos.',
+    'help.award.attempt': 'Tentativa',
+    'help.award.pays': 'Paga',
+    'help.award.note':
+      'Figuras sorteadas fora dos Cem pagam um ágio, por serem mais difíceis de situar.',
+    'help.editions.title': 'IV · As Edições',
+    'help.editions':
+      'O Despacho Diário é uma única figura, a mesma para todos os leitores do mundo, trocada à meia-noite pelo meridiano de Greenwich; só ele guarda sequência. A Provação apresenta cinco vultos em sucessão, somados ao final. A Edição Perpétua corre sem fim até que três o derrotem.',
+    'help.register.title': 'V · O Registro',
+    'help.register':
+      'Pode-se escolher a que profundidade o jornal sorteia. Somente os Notáveis se atém aos Cem: as figuras mais conhecidas do registro, postas em ordem. O Registro Inteiro admite todas as {n}, obscuras e célebres por igual. Uma figura dos Cem é assinalada onde quer que apareça, para que se saiba sempre qual delas se encontrou.',
+    'help.begin': 'Começar a Ler',
     'help.privacy':
       'Seus resultados e ajustes ficam somente neste navegador. Não há contas, cookies nem análise de tráfego. A única coisa que sai do seu aparelho é o retrato na folha do veredito, carregado da Wikimedia; se preferir que não saia, o jogo funciona perfeitamente offline sem ele.',
     'help.close': 'Fechar',

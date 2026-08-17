@@ -10,12 +10,26 @@
 const KEY = 'chronicle.v1';
 
 /** Bump when a saved blob needs adjusting rather than just merging. */
-const SCHEMA = 2;
+const SCHEMA = 3;
 
 const DEFAULTS = () => ({
   version: SCHEMA,
-  settings: { lang: null, sound: true, music: true },
+  settings: {
+    lang: null,
+    sound: true,
+    music: true,
+    difficulty: 'overall', // applies to the Gauntlet and the Perpetual Edition
+  },
+  // Set once the how-to-play sheet has been shown unprompted, so it opens on a
+  // reader's first visit and never again.
+  tutorialSeen: false,
   daily: {},        // 'YYYY-MM-DD' -> { won, attempts, score, figureId, guesses }
+  // Back numbers whose figure the reader has already been shown — either by
+  // playing the day for real, or by reading it in the Archive. The Archive
+  // names those and keeps them silent otherwise, so it never spoils a day the
+  // reader has not reached yet.
+  //   'YYYY-MM-DD' -> { figureId, won: bool|null, practice: bool }
+  seen: {},
   stats: {
     played: 0,
     won: 0,
@@ -24,8 +38,13 @@ const DEFAULTS = () => ({
     maxStreak: 0,
     lastDayIndex: null,
     distribution: { 1: 0, 2: 0, 3: 0, 4: 0 }, // attempts used on a win
-    bestGauntlet: 0,
-    bestInfinite: 0,
+    // Bests are kept per difficulty: a Gauntlet on Remarkable and one on
+    // Overall are not the same feat, and folding them into one number would
+    // quietly retire the harder score.
+    best: {
+      gauntlet: { remarkable: 0, overall: 0 },
+      infinite: { remarkable: 0, overall: 0 },
+    },
   },
 });
 
@@ -69,10 +88,23 @@ function merge(base, saved) {
  * Merging alone would leave every returning player silent forever, with no
  * clue why. The new default is adopted once and the save is stamped, so a
  * player who then switches music off keeps it off.
+ *
+ * v2 -> v3: bests became per-difficulty. Everything played before the setting
+ * existed was played against the whole register, so it carries over to Overall
+ * rather than being split or discarded. Returning readers also keep the
+ * tutorial closed — they have plainly already found their way around.
  */
 function migrate(state, savedVersion) {
   if (!savedVersion || savedVersion < 2) {
     state.settings.music = true;
+  }
+  if (!savedVersion || savedVersion < 3) {
+    const st = state.stats;
+    st.best.gauntlet.overall = Math.max(st.best.gauntlet.overall, st.bestGauntlet ?? 0);
+    st.best.infinite.overall = Math.max(st.best.infinite.overall, st.bestInfinite ?? 0);
+    delete st.bestGauntlet;
+    delete st.bestInfinite;
+    if (st.played > 0) state.tutorialSeen = true;
   }
   state.version = SCHEMA;
   return state;
@@ -139,6 +171,38 @@ export function getDaily(key) {
   return load().daily[key] ?? null;
 }
 
+/** True the first time it is called on a fresh browser; false ever after. */
+export function claimFirstVisit() {
+  if (load().tutorialSeen) return false;
+  update((s) => {
+    s.tutorialSeen = true;
+  });
+  return true;
+}
+
+export function getSeen(key) {
+  return load().seen[key] ?? null;
+}
+
+/** Every back number the reader has been shown, newest key last. */
+export function allSeen() {
+  return load().seen;
+}
+
+/**
+ * Note that a day's figure has been revealed to this reader.
+ *
+ * A real play is the stronger claim, so it overwrites a previous practice read;
+ * a practice read never downgrades a real one.
+ */
+export function markSeen(key, figureId, { won = null, practice = false } = {}) {
+  return update((s) => {
+    const prior = s.seen[key];
+    if (prior && !prior.practice && practice) return;
+    s.seen[key] = { figureId, won, practice };
+  });
+}
+
 /** Record a finished Daily Dispatch and roll the streak forward. */
 export function recordDaily(key, dayIdx, result) {
   return update((s) => {
@@ -161,16 +225,23 @@ export function recordDaily(key, dayIdx, result) {
   });
 }
 
-export function recordGauntlet(score) {
+export function recordGauntlet(difficulty, score) {
   return update((s) => {
-    s.stats.bestGauntlet = Math.max(s.stats.bestGauntlet, score);
+    const best = s.stats.best.gauntlet;
+    best[difficulty] = Math.max(best[difficulty] ?? 0, score);
   });
 }
 
-export function recordInfinite(solved) {
+export function recordInfinite(difficulty, solved) {
   return update((s) => {
-    s.stats.bestInfinite = Math.max(s.stats.bestInfinite, solved);
+    const best = s.stats.best.infinite;
+    best[difficulty] = Math.max(best[difficulty] ?? 0, solved);
   });
+}
+
+/** Best score for one mode at one difficulty. */
+export function bestFor(mode, difficulty) {
+  return getStats().best?.[mode]?.[difficulty] ?? 0;
 }
 
 /**

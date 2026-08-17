@@ -6,7 +6,7 @@
  * plain data, which keeps the rules testable in isolation (`tools/check-game.mjs`).
  */
 
-import { getFigures, poolByTier } from './data.js';
+import { getFigures, poolByTier, theHundred } from './data.js';
 import { resolve } from './search.js';
 import { pick, fieldLabel, letterCount, t } from './i18n.js';
 import { dailyPick, dayIndex, dayKey, hash, makeRng, shuffle } from './rng.js';
@@ -23,16 +23,36 @@ export const MAX_ATTEMPTS = 4;
 export const MAX_HINTS = 3;
 
 /** Award by attempt used: full for a first-attempt identification, then less. */
-const AWARD = [1000, 700, 400, 200];
+export const AWARD = [1000, 700, 400, 200];
 
 /** Deeper cuts are worth more, so the Gauntlet isn't just a tier-1 lap. */
 const TIER_MULTIPLIER = { 1: 1, 2: 1.15, 3: 1.3 };
 
 export const MODES = {
-  daily: { rounds: 1, maxTier: 1, lives: Infinity },
-  gauntlet: { rounds: 5, maxTier: 2, lives: Infinity },
-  infinite: { rounds: Infinity, maxTier: 3, lives: 3 },
+  daily: { rounds: 1, lives: Infinity },
+  gauntlet: { rounds: 5, lives: Infinity },
+  infinite: { rounds: Infinity, lives: 3 },
 };
+
+/**
+ * Difficulty — which part of the register a session draws from.
+ *
+ *   remarkable  the Hundred only: names a reader can be expected to know
+ *   overall     the whole register, deeper cuts included
+ *
+ * It applies to the Gauntlet and the Perpetual Edition. The Daily Dispatch is
+ * deliberately exempt: it is one figure for every reader in the world, and a
+ * per-reader difficulty would fork it into two dailies with two streaks and two
+ * incomparable result cards. It always draws from the Hundred.
+ */
+export const DIFFICULTIES = ['remarkable', 'overall'];
+export const DEFAULT_DIFFICULTY = 'overall';
+
+/** Modes the difficulty setting actually changes. */
+export const SCALED_MODES = new Set(['gauntlet', 'infinite']);
+
+export const difficultyOf = (session) =>
+  (SCALED_MODES.has(session.mode) ? session.difficulty : 'remarkable');
 
 /** Points a round would award if identified on the next attempt. */
 export function potentialScore(figure, attempt) {
@@ -76,47 +96,69 @@ function makeRound(figure, ordinal) {
 }
 
 /**
+ * Split the Hundred into three bands by rank, so Remarkable can ramp the way
+ * Overall ramps by tier — from the names everyone knows toward the edge of the
+ * Hundred. Without this the Perpetual Edition on Remarkable would open on a
+ * coin-flip between Jesus and Chopin.
+ */
+function hundredBands() {
+  const ranked = theHundred();
+  const size = Math.ceil(ranked.length / 3);
+  return [
+    ranked.slice(0, size),
+    ranked.slice(size, size * 2),
+    ranked.slice(size * 2),
+  ];
+}
+
+/**
  * Choose the figures for a session.
  *
  * Daily is a pure function of the UTC day so every reader gets the same one.
  * The other modes seed from the clock, but go through the same shuffle so a
  * run never repeats a figure.
  */
-function selectFigures(mode, opts = {}) {
-  const cfg = MODES[mode];
-
+function selectFigures(mode, difficulty, opts = {}) {
   if (mode === 'daily') {
     const idx = opts.dayIndex ?? dayIndex();
     const figure = dailyPick(poolByTier(1), idx);
     return figure ? [figure] : [];
   }
 
-  const seed = opts.seed ?? hash(`chronicle-${mode}-${Date.now()}`);
+  const seed = opts.seed ?? hash(`chronicle-${mode}-${difficulty}-${Date.now()}`);
   const rng = makeRng(seed);
 
+  // Remarkable never leaves the Hundred; Overall ramps across all three tiers.
+  const bands = difficulty === 'remarkable'
+    ? hundredBands().map((band) => shuffle(band, rng))
+    : [1, 2, 3].map((tier) => shuffle(getFigures().filter((f) => f.tier === tier), rng));
+
   if (mode === 'gauntlet') {
-    // Weighted toward the well-known, with a couple of deeper cuts.
-    const t1 = shuffle(poolByTier(1), rng);
-    const t2 = shuffle(getFigures().filter((f) => f.tier === 2), rng);
-    return shuffle([...t1.slice(0, 3), ...t2.slice(0, 2)], rng);
+    // Weighted toward the easier band, with a couple drawn from deeper in.
+    return shuffle([...bands[0].slice(0, 3), ...bands[1].slice(0, 2)], rng);
   }
 
-  // Infinite: one long shuffled queue, easiest first so difficulty ramps.
-  const byTier = [1, 2, 3].map((tier) =>
-    shuffle(getFigures().filter((f) => f.tier === tier), rng),
-  );
-  return [...byTier[0], ...byTier[1], ...byTier[2]];
+  // Infinite: one long queue, easiest band first so difficulty ramps.
+  return [...bands[0], ...bands[1], ...bands[2]];
 }
 
 export function startSession(mode, opts = {}) {
   const cfg = MODES[mode];
   if (!cfg) throw new Error(`unknown mode: ${mode}`);
 
-  const figures = selectFigures(mode, opts);
+  // A mode the setting does not reach is always recorded as Remarkable rather
+  // than as whatever the player happened to have selected, so the stored
+  // session never claims a difficulty it did not actually play at.
+  const difficulty = SCALED_MODES.has(mode)
+    ? (DIFFICULTIES.includes(opts.difficulty) ? opts.difficulty : DEFAULT_DIFFICULTY)
+    : 'remarkable';
+
+  const figures = selectFigures(mode, difficulty, opts);
   if (!figures.length) throw new Error(`no figures available for mode ${mode}`);
 
   return {
     mode,
+    difficulty,
     config: cfg,
     figures,
     index: 0,

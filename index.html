@@ -151,6 +151,23 @@
 
   <!-- ─────────────────────────  FRONT PAGE  ───────────────────────── -->
   <section class="screen screen--home" id="screen-home">
+
+    <!-- How deep the paper draws. One control for both scored modes rather
+         than a copy inside each card: it is a single setting, and two of them
+         side by side would read as two independent ones. The Daily Dispatch
+         does not answer to it — see js/game.js. -->
+    <div class="register-pick">
+      <span class="register-pick__label" data-i18n="diff.title">The Register</span>
+      <div class="segmented" id="difficulty-pick" role="radiogroup" data-i18n-aria="diff.title">
+        <button class="segmented__opt" type="button" role="radio" aria-checked="false"
+                data-difficulty="remarkable" data-i18n="diff.remarkable">Remarkable Only</button>
+        <button class="segmented__opt" type="button" role="radio" aria-checked="false"
+                data-difficulty="overall" data-i18n="diff.overall">The Whole Register</button>
+      </div>
+      <p class="register-pick__note" id="difficulty-note"></p>
+      <p class="register-pick__applies" data-i18n="diff.applies"></p>
+    </div>
+
     <div class="columns">
       <article class="mode-card" data-mode="daily">
         <div class="mode-card__stamp" aria-hidden="true"></div>
@@ -162,6 +179,7 @@
           <div><dt data-i18n="stats.streak">Streak</dt><dd id="home-streak">0</dd></div>
           <div><dt data-i18n="summary.next">Next</dt><dd id="home-countdown">—</dd></div>
         </dl>
+        <p class="mode-card__note" data-i18n="mode.daily.note"></p>
         <button class="btn btn--primary" data-play="daily" type="button">
           <span data-i18n="mode.play">Begin</span>
         </button>
@@ -176,6 +194,7 @@
         <dl class="mode-card__meta">
           <div><dt data-i18n="stats.bestGauntlet">Best</dt><dd id="home-best-gauntlet">0</dd></div>
         </dl>
+        <p class="mode-card__note" id="home-diff-gauntlet"></p>
         <button class="btn btn--primary" data-play="gauntlet" type="button">
           <span data-i18n="mode.play">Begin</span>
         </button>
@@ -190,6 +209,7 @@
         <dl class="mode-card__meta">
           <div><dt data-i18n="stats.bestInfinite">Longest run</dt><dd id="home-best-infinite">0</dd></div>
         </dl>
+        <p class="mode-card__note" id="home-diff-infinite"></p>
         <button class="btn btn--primary" data-play="infinite" type="button">
           <span data-i18n="mode.play">Begin</span>
         </button>
@@ -296,6 +316,13 @@
       <p class="broadside__kicker" data-i18n="verdict.wasBorn">The subject was</p>
       <h2 class="broadside__name" id="verdict-name">—</h2>
       <p class="broadside__span" id="verdict-span">—</p>
+
+      <!-- Shown at both difficulties, not only on Remarkable: the point of the
+           badge is that a reader always knows when they have met one of the
+           Hundred, wherever it was drawn from. -->
+      <p class="laurel" id="verdict-hundred" hidden>
+        <span class="laurel__text" id="verdict-hundred-text"></span>
+      </p>
 
       <div class="rule rule--ornate" aria-hidden="true"></div>
 
@@ -404,14 +431,24 @@
       <h3 class="stats__subtitle" data-i18n="stats.distribution">Attempts to Identify</h3>
       <div class="dist" id="st-dist"></div>
 
+      <!-- Four figures rather than two: a Gauntlet on Remarkable and one on
+           the whole register are different feats and are kept apart. -->
       <div class="tally tally--minor">
         <div class="tally__item">
-          <span class="tally__label" data-i18n="stats.bestGauntlet">Best Gauntlet</span>
-          <span class="tally__value" id="st-gauntlet">0</span>
+          <span class="tally__label" id="st-gauntlet-remarkable-label">Best Gauntlet</span>
+          <span class="tally__value" id="st-gauntlet-remarkable">0</span>
         </div>
         <div class="tally__item">
-          <span class="tally__label" data-i18n="stats.bestInfinite">Longest Run</span>
-          <span class="tally__value" id="st-infinite">0</span>
+          <span class="tally__label" id="st-gauntlet-overall-label">Best Gauntlet</span>
+          <span class="tally__value" id="st-gauntlet-overall">0</span>
+        </div>
+        <div class="tally__item">
+          <span class="tally__label" id="st-infinite-remarkable-label">Longest Run</span>
+          <span class="tally__value" id="st-infinite-remarkable">0</span>
+        </div>
+        <div class="tally__item">
+          <span class="tally__label" id="st-infinite-overall-label">Longest Run</span>
+          <span class="tally__value" id="st-infinite-overall">0</span>
         </div>
       </div>
 
@@ -444,16 +481,42 @@
   <article class="sheet__body">
     <h2 class="sheet__title" data-i18n="help.title">How to Read This Paper</h2>
     <div class="rule rule--ornate" aria-hidden="true"></div>
-    <ol class="sheet__steps">
-      <li data-i18n="help.1"></li>
-      <li data-i18n="help.2"></li>
-      <li data-i18n="help.3"></li>
-      <li data-i18n="help.4"></li>
-    </ol>
+
+    <p class="sheet__lead" data-i18n="help.lead"></p>
+
     <div class="sheet__legend">
       <span><b class="mark">✦</b> <span data-i18n="round.born">Born</span></span>
       <span><b class="mark">†</b> <span data-i18n="round.died">Died</span></span>
     </div>
+
+    <section class="sheet__part">
+      <h3 class="sheet__head" data-i18n="help.evidence.title">The Evidence</h3>
+      <p data-i18n="help.evidence"></p>
+    </section>
+
+    <section class="sheet__part">
+      <h3 class="sheet__head" data-i18n="help.attempts.title">The Attempts</h3>
+      <p data-i18n="help.attempts"></p>
+    </section>
+
+    <section class="sheet__part">
+      <h3 class="sheet__head" data-i18n="help.award.title">The Award</h3>
+      <p data-i18n="help.award"></p>
+      <!-- Filled from the AWARD table in js/game.js, so the sheet cannot go
+           stale if the scoring is retuned. -->
+      <table class="awards" id="help-awards"></table>
+      <p class="sheet__aside" data-i18n="help.award.note"></p>
+    </section>
+
+    <section class="sheet__part">
+      <h3 class="sheet__head" data-i18n="help.editions.title">The Editions</h3>
+      <p data-i18n="help.editions"></p>
+    </section>
+
+    <section class="sheet__part">
+      <h3 class="sheet__head" data-i18n="help.register.title">The Register</h3>
+      <p id="help-register"></p>
+    </section>
 
     <p class="sheet__privacy" data-i18n="help.privacy"></p>
     <button class="btn btn--primary" id="btn-help-close" type="button" data-i18n="help.close">Close</button>

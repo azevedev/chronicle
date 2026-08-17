@@ -9,11 +9,12 @@
 import {
   t, pick, getLang, setLang, detectLang, LANGS, formatYear, formatSpan,
 } from './i18n.js';
-import { getFigures, poolByTier, lifespan, countryFor } from './data.js';
+import { getFigures, poolByTier, lifespan, countryFor, HUNDRED } from './data.js';
 import { buildIndex, suggest, getFigure, normalize } from './search.js';
 import {
-  MODES, MAX_ATTEMPTS, startSession, currentRound, nextRound, submitGuess, skip,
+  MODES, MAX_ATTEMPTS, AWARD, startSession, currentRound, nextRound, submitGuess, skip,
   totalRounds, totalAttempts, isPerfect, hintsFor, potentialScore,
+  DIFFICULTIES, DEFAULT_DIFFICULTY, SCALED_MODES, difficultyOf,
 } from './game.js';
 import { initMap, plotLife, clearMap } from './map.js';
 import * as audio from './audio.js';
@@ -33,6 +34,15 @@ const PORTRAIT_TIMEOUT_MS = 6000;
 let portraitTimer = null;
 let activeSuggestions = [];
 let suggestionIndex = -1;
+
+/**
+ * The chosen difficulty, mirrored from storage so every render reads one value.
+ * Only the Gauntlet and the Perpetual Edition answer to it.
+ */
+let difficulty = DEFAULT_DIFFICULTY;
+
+/** Short name for a difficulty, for places with no room for the full title. */
+const diffShort = (d) => t(`diff.${d}.short`);
 
 /* ─────────────────────────  i18n plumbing  ───────────────────────── */
 
@@ -116,16 +126,47 @@ function showScreen(name, opts = {}) {
 
 /* ─────────────────────────  front page  ───────────────────────── */
 
+/**
+ * Push the difficulty onto the picker and onto everything that quotes it. The
+ * bests shown on the two scored cards belong to the *selected* difficulty, so
+ * switching the control changes the numbers under it — which is the clearest
+ * way to say that the two are scored separately.
+ */
+function renderDifficulty() {
+  for (const btn of document.querySelectorAll('[data-difficulty]')) {
+    const on = btn.dataset.difficulty === difficulty;
+    btn.setAttribute('aria-checked', String(on));
+    btn.classList.toggle('is-on', on);
+  }
+
+  $('difficulty-note').textContent = difficulty === 'remarkable'
+    ? t('diff.remarkable.note')
+    : t('diff.overall.note', { n: getFigures().length });
+
+  const label = t(`diff.${difficulty}`);
+  $('home-diff-gauntlet').textContent = label;
+  $('home-diff-infinite').textContent = label;
+
+  $('home-best-gauntlet').textContent = store.bestFor('gauntlet', difficulty).toLocaleString();
+  $('home-best-infinite').textContent = store.bestFor('infinite', difficulty).toLocaleString();
+}
+
+function setDifficulty(next) {
+  if (!DIFFICULTIES.includes(next) || next === difficulty) return;
+  difficulty = next;
+  store.setSetting('difficulty', next);
+  renderDifficulty();
+  audio.play('tick');
+}
+
 function renderHome() {
   const today = dayIndex();
-  const stats = store.getStats();
   const played = store.getDaily(dayKey(today));
 
   $('home-streak').textContent = store.currentStreak(today);
-  $('home-best-gauntlet').textContent = stats.bestGauntlet.toLocaleString();
-  $('home-best-infinite').textContent = stats.bestInfinite.toLocaleString();
   $('roster-count').textContent = getFigures().length;
   $('edition-no').textContent = `№ ${today.toLocaleString()}`;
+  renderDifficulty();
 
   // The daily can only be played once; afterwards the button reopens the result.
   const dailyBtn = document.querySelector('[data-play="daily"] span');
@@ -160,7 +201,11 @@ function renderRound() {
   const round = currentRound(session);
   const f = round.figure;
 
-  $('round-mode').textContent = t(`summary.${session.mode}`);
+  // The play bar names the difficulty too, so a run is never ambiguous once it
+  // has started — the picker is three screens away by then.
+  $('round-mode').textContent = SCALED_MODES.has(session.mode)
+    ? `${t(`summary.${session.mode}`)} · ${diffShort(session.difficulty)}`
+    : t(`summary.${session.mode}`);
   $('round-ordinal').textContent = round.ordinal;
   // "Dispatch 1 of 1" is noise in a single-round mode; the Perpetual Edition
   // has no total at all.
@@ -525,6 +570,13 @@ function renderWiki(figure) {
 function showVerdict(round, opts = {}) {
   const f = round.figure;
   const won = round.won;
+
+  // The moment the name is on screen the day is spoilt, so the Archive may as
+  // well say so. Practice reads count: what matters there is whether the reader
+  // has already been told, not whether it was scored.
+  if (session.mode === 'daily' && session.dayKey) {
+    store.markSeen(session.dayKey, f.id, { won, practice: session.practice });
+  }
   // `replay` re-renders an already-visible verdict (after a language change),
   // so the stamp shouldn't slam down a second time and the award shouldn't
   // count up again.
@@ -536,6 +588,12 @@ function showVerdict(round, opts = {}) {
 
   $('verdict-name').textContent = pick(f.names);
   $('verdict-span').textContent = formatSpan(f.born.year, f.died.year, { circa: f.circa });
+
+  // The Hundred are badged wherever they turn up, at either difficulty.
+  $('verdict-hundred').hidden = f.rank === null;
+  if (f.rank !== null) {
+    $('verdict-hundred-text').textContent = t('hundred.rank', { n: f.rank });
+  }
   $('verdict-deed').textContent = pick(f.deed);
   $('verdict-birth').textContent = `${pick(f.born.place)} · ${formatYear(f.born.year, { circa: f.circa })}`;
   $('verdict-death').textContent = `${pick(f.died.place)} · ${formatYear(f.died.year, { circa: f.circa })}`;
@@ -627,17 +685,20 @@ function finishSession() {
         figureId: r.figure.id,
       });
     } else if (session.mode === 'gauntlet') {
-      store.recordGauntlet(session.totalScore);
+      store.recordGauntlet(session.difficulty, session.totalScore);
     } else if (session.mode === 'infinite') {
-      store.recordInfinite(session.solved);
+      store.recordInfinite(session.difficulty, session.solved);
     }
   }
   renderSummary(session);
 }
 
 function renderSummary(s) {
-  $('summary-mode').textContent =
-    (s.practice ? `${t('archive.practice')} · ` : '') + t(`summary.${s.mode}`);
+  const parts = [];
+  if (s.practice) parts.push(t('archive.practice'));
+  parts.push(t(`summary.${s.mode}`));
+  if (SCALED_MODES.has(s.mode)) parts.push(diffShort(s.difficulty));
+  $('summary-mode').textContent = parts.join(' · ');
   $('summary-score').textContent = s.totalScore.toLocaleString();
   $('summary-solved').textContent = `${s.solved} / ${s.rounds.length}`;
   $('summary-attempts').textContent = totalAttempts(s);
@@ -659,6 +720,15 @@ function renderSummary(s) {
     const name = document.createElement('span');
     name.className = 'scorelist__name';
     name.textContent = pick(r.figure.names);
+    // A laurel beside the name says which of the five were of the Hundred —
+    // the same signal the verdict sheet gives, kept where the run is reviewed.
+    if (r.figure.rank !== null) {
+      const laurel = document.createElement('span');
+      laurel.className = 'scorelist__laurel';
+      laurel.textContent = '❧';
+      laurel.title = t('hundred.rank', { n: r.figure.rank });
+      name.append(' ', laurel);
+    }
 
     const marks = document.createElement('span');
     marks.className = 'scorelist__marks';
@@ -698,7 +768,14 @@ function markRow(round) {
 
 function renderStats() {
   const st = store.getStats();
-  const empty = st.played === 0;
+
+  // "Played" counts dailies only, so a reader who has run a Gauntlet and
+  // nothing else would be told the ledger is empty directly above their own
+  // best score. The bests are part of the ledger, so they count here too.
+  const anyBest = ['gauntlet', 'infinite']
+    .some((mode) => DIFFICULTIES.some((d) => store.bestFor(mode, d) > 0));
+  const empty = st.played === 0 && !anyBest;
+
   $('stats-empty').hidden = !empty;
   $('stats-tally').hidden = empty;
 
@@ -706,8 +783,13 @@ function renderStats() {
   $('st-rate').textContent = st.played ? `${Math.round((st.won / st.played) * 100)}%` : '0%';
   $('st-streak').textContent = store.currentStreak(dayIndex());
   $('st-max').textContent = st.maxStreak;
-  $('st-gauntlet').textContent = st.bestGauntlet.toLocaleString();
-  $('st-infinite').textContent = st.bestInfinite;
+  for (const mode of ['gauntlet', 'infinite']) {
+    const title = t(mode === 'gauntlet' ? 'stats.bestGauntlet' : 'stats.bestInfinite');
+    for (const d of DIFFICULTIES) {
+      $(`st-${mode}-${d}-label`).textContent = `${title} · ${diffShort(d)}`;
+      $(`st-${mode}-${d}`).textContent = store.bestFor(mode, d).toLocaleString();
+    }
+  }
 
   // Distribution bars, scaled to the most common outcome.
   const dist = $('st-dist');
@@ -775,6 +857,7 @@ function renderArchive() {
 
     const key = dayKey(idx);
     const record = store.getDaily(key);
+    const seen = store.getSeen(key);
 
     const li = document.createElement('li');
     li.className = 'archive__row';
@@ -783,21 +866,26 @@ function renderArchive() {
     date.className = 'archive__date';
     date.textContent = key;
 
+    // Three states, not two. A day played for real keeps its verdict; a day
+    // only read in the Archive is marked as such, so the reader can tell an
+    // earned answer from one they simply looked up.
     const status = document.createElement('span');
-    const state = record ? (record.won ? 'solved' : 'lost') : 'unplayed';
+    const state = record ? (record.won ? 'solved' : 'lost') : (seen ? 'seen' : 'unplayed');
     status.className = `archive__status is-${state}`;
     status.textContent = t(`archive.${state}`);
 
-    // Past figures are already spent, so naming them here is not a spoiler —
-    // but only once the day has actually been played.
+    // Naming a back number is only a spoiler for a reader who has not met it
+    // yet, so the answer appears exactly once they have — by either route.
+    const revealed = Boolean(record || seen);
     const name = document.createElement('span');
-    name.className = 'archive__name';
-    name.textContent = record ? pick(figure.names) : '· · ·';
+    name.className = revealed ? 'archive__name' : 'archive__name is-withheld';
+    name.textContent = revealed ? pick(figure.names) : '· · ·';
+    if (!revealed) name.title = t('archive.withheld');
 
     const btn = document.createElement('button');
     btn.className = 'btn btn--small';
     btn.type = 'button';
-    btn.textContent = t('archive.play');
+    btn.textContent = t(revealed ? 'archive.replay' : 'archive.play');
     btn.addEventListener('click', () => playArchive(idx));
 
     li.append(date, status, name, btn);
@@ -814,6 +902,50 @@ function playArchive(idx) {
   renderRound();
 }
 
+/* ─────────────────────────  how to play  ───────────────────────── */
+
+/**
+ * The two parts of the help sheet that are not fixed copy: the award table,
+ * built from the real scoring ladder, and the register paragraph, which quotes
+ * the actual size of the roster. Both are rebuilt on every language change.
+ */
+function renderHelp() {
+  const table = $('help-awards');
+  table.replaceChildren();
+
+  const head = document.createElement('tr');
+  for (const key of ['help.award.attempt', 'help.award.pays']) {
+    const th = document.createElement('th');
+    th.textContent = t(key);
+    head.appendChild(th);
+  }
+  table.appendChild(head);
+
+  AWARD.forEach((points, i) => {
+    const tr = document.createElement('tr');
+    const n = document.createElement('td');
+    n.textContent = i + 1;
+    const pts = document.createElement('td');
+    pts.className = 'awards__points';
+    pts.textContent = points.toLocaleString();
+    tr.append(n, pts);
+    table.appendChild(tr);
+  });
+
+  $('help-register').textContent = t('help.register', { n: getFigures().length });
+}
+
+/**
+ * `firstVisit` opens the sheet unbidden, so the button reads as an invitation
+ * to start rather than as a way to dismiss a dialog nobody asked for.
+ */
+function openHelp({ firstVisit = false } = {}) {
+  renderHelp();
+  $('btn-help-close').textContent = t(firstVisit ? 'help.begin' : 'help.close');
+  $('help-dialog').showModal();
+  audio.play('page');
+}
+
 /* ─────────────────────────  session start  ───────────────────────── */
 
 function begin(mode) {
@@ -828,7 +960,7 @@ function begin(mode) {
     }
   }
 
-  session = startSession(mode);
+  session = startSession(mode, { difficulty });
   audio.play('unfurl');
   renderRound();
 }
@@ -841,6 +973,7 @@ function showStoredDaily(record, today) {
   const figure = getFigure(record.figureId) ?? dailyPick(poolByTier(1), today);
   session = {
     mode: 'daily',
+    difficulty: 'remarkable', // the daily is always drawn from the Hundred
     config: MODES.daily,
     figures: [figure],
     index: 0,
@@ -879,6 +1012,7 @@ function toggleLanguage() {
   // [data-i18n] labels; everything written by JS — place names, hint bodies,
   // the deed, the score list — has to be rebuilt from the data.
   renderHome();
+  renderHelp();
 
   if (!$('screen-round').hidden && session) {
     const round = currentRound(session);
@@ -903,6 +1037,11 @@ function wire() {
   // Mode buttons.
   for (const btn of document.querySelectorAll('[data-play]')) {
     btn.addEventListener('click', () => begin(btn.dataset.play));
+  }
+
+  // Difficulty picker.
+  for (const btn of document.querySelectorAll('[data-difficulty]')) {
+    btn.addEventListener('click', () => setDifficulty(btn.dataset.difficulty));
   }
 
   // Guess input.
@@ -970,10 +1109,7 @@ function wire() {
 
   // Help dialog.
   const dialog = $('help-dialog');
-  $('btn-help').addEventListener('click', () => {
-    dialog.showModal();
-    audio.play('page');
-  });
+  $('btn-help').addEventListener('click', () => openHelp());
   $('btn-help-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', (e) => {
     // Click on the backdrop (the dialog element itself) closes it.
@@ -1021,6 +1157,7 @@ export async function boot() {
 
   const saved = store.getSettings();
   setLang(saved.lang ?? detectLang());
+  if (DIFFICULTIES.includes(saved.difficulty)) difficulty = saved.difficulty;
   audio.initFromSettings();
   audio.installVisibilityHandling();
 
@@ -1031,7 +1168,13 @@ export async function boot() {
 
   wire();
   renderHome();
+  renderHelp();
   showScreen('home', { sound: false });
+
+  // A first-time reader is shown the rules before anything else. `claimFirstVisit`
+  // records the showing on the way out, so this fires exactly once per browser —
+  // and never for someone whose ledger shows they already know the game.
+  if (store.claimFirstVisit()) openHelp({ firstVisit: true });
 
   // Try immediately. Most browsers will refuse without a gesture, but a player
   // who has allowed autoplay for this origin gets music from the first frame,

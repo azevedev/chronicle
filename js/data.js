@@ -21,6 +21,14 @@ import { FIELDS } from './i18n.js';
  */
 const pair = (v) => (Array.isArray(v) ? v : [v, v]);
 
+/**
+ * How many figures make up the Hundred — the roster's most widely known names,
+ * ranked in `data/figures.js`. It is a round number on purpose: "one of the
+ * Hundred" is a claim a reader can hold in their head, which "one of the 104"
+ * is not. Changing it means re-ranking, not just editing this line.
+ */
+export const HUNDRED = 100;
+
 function point([year, place, lat, lon]) {
   return { year, place: pair(place), lat, lon };
 }
@@ -29,6 +37,7 @@ function normalizeFigure(raw) {
   return {
     id: raw.id,
     tier: raw.tier ?? 2,
+    rank: raw.rank ?? null, // 1–100 for the Hundred, null for everyone else
     names: pair(raw.name),
     aka: raw.aka ?? [],
     field: raw.field,
@@ -48,6 +57,7 @@ function normalizeFigure(raw) {
 export function validate(figures) {
   const problems = [];
   const seen = new Set();
+  const ranks = new Map();
 
   for (const f of figures) {
     const at = `${f.id ?? '(no id)'}`;
@@ -60,6 +70,18 @@ export function validate(figures) {
     if (!f.deed[0] || !f.deed[1]) problems.push(`${at}: deed hint needs both languages`);
     if (!FIELDS[f.field]) problems.push(`${at}: unknown field "${f.field}"`);
     if (![1, 2, 3].includes(f.tier)) problems.push(`${at}: tier must be 1, 2 or 3`);
+
+    // The Hundred and the tier-1 pool must stay the same set of people, or the
+    // Daily Dispatch and the Remarkable difficulty quietly drift apart.
+    if (f.rank === null) {
+      if (f.tier === 1) problems.push(`${at}: tier 1 but no rank — every tier-1 figure is one of the Hundred`);
+    } else if (!Number.isInteger(f.rank) || f.rank < 1 || f.rank > HUNDRED) {
+      problems.push(`${at}: rank ${f.rank} is not an integer in 1–${HUNDRED}`);
+    } else {
+      if (f.tier !== 1) problems.push(`${at}: ranked ${f.rank} but tier ${f.tier} — the Hundred is tier 1`);
+      if (ranks.has(f.rank)) problems.push(`${at}: rank ${f.rank} already taken by ${ranks.get(f.rank)}`);
+      ranks.set(f.rank, f.id);
+    }
 
     for (const [label, p] of [['born', f.born], ['died', f.died]]) {
       if (typeof p.year !== 'number' || !Number.isFinite(p.year)) {
@@ -78,6 +100,12 @@ export function validate(figures) {
     if (span < 0) problems.push(`${at}: died (${f.died.year}) before born (${f.born.year})`);
     // Nobody in this roster lived past ~100; a larger span means a typo.
     if (span > 105) problems.push(`${at}: implausible lifespan of ${span} years`);
+  }
+
+  // Checked on the whole roster rather than per figure: a gap in the ranking is
+  // only visible from outside the loop.
+  for (let r = 1; r <= HUNDRED; r++) {
+    if (!ranks.has(r)) problems.push(`the Hundred: rank ${r} is unassigned`);
   }
 
   return problems;
@@ -103,6 +131,11 @@ export function getFigures() {
 /** Figures at or below a difficulty tier. */
 export function poolByTier(maxTier) {
   return getFigures().filter((f) => f.tier <= maxTier);
+}
+
+/** The Hundred, best known first. Identical to `poolByTier(1)` as a set. */
+export function theHundred() {
+  return getFigures().filter((f) => f.rank !== null).sort((a, b) => a.rank - b.rank);
 }
 
 /** Lifespan in years, or null when the record is too vague to state one. */

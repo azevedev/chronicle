@@ -19,17 +19,36 @@
 
 import { getSettings, setSetting } from './storage.js';
 
-const SFX = [
-  'key1', 'key2', 'key3', 'ding',
-  'correct', 'wrong', 'stamp', 'gong', 'chime',
-  'hint', 'page', 'rustle', 'crumple', 'unfurl', 'pin', 'tick',
+/**
+ * Clips that exist as a numbered set rather than a single file. `play('page')`
+ * resolves to one of page1..page5; the caller never names a variant.
+ *
+ * These are the sounds a player hears most: a screen change, a released hint,
+ * a keystroke. One sample each and the game starts sounding like a machine
+ * rather than a desk covered in paper.
+ */
+const VARIANTS = { key: 3, page: 5, hint: 3 };
+
+const SINGLE = [
+  'ding', 'correct', 'wrong', 'stamp', 'gong', 'chime',
+  'rustle', 'crumple', 'unfurl', 'pin', 'tick',
 ];
 
-/** Per-clip mix, applied on top of the master gain. Set by ear, not by meter. */
+const SFX = [
+  ...SINGLE,
+  ...Object.entries(VARIANTS).flatMap(([base, n]) =>
+    Array.from({ length: n }, (_, i) => `${base}${i + 1}`),
+  ),
+];
+
+/**
+ * Per-clip mix, applied on top of the master gain. Set by ear, not by meter.
+ * Keyed by BASE name, so every variant of a sound shares one level.
+ */
 const LEVELS = {
-  key1: 0.30, key2: 0.30, key3: 0.30,
+  key: 0.30,
   tick: 0.18, rustle: 0.35, pin: 0.45,
-  hint: 0.55, page: 0.55, unfurl: 0.5, crumple: 0.5,
+  hint: 0.55, page: 0.5, unfurl: 0.5, crumple: 0.5,
   ding: 0.5, chime: 0.5, stamp: 0.7, wrong: 0.6,
   correct: 0.6, gong: 0.55,
 };
@@ -53,7 +72,6 @@ let musicReady = false;
 
 let soundOn = true;
 let musicOn = true;
-let keyIndex = 0;
 
 /** 'ogg' where Vorbis is supported, otherwise 'mp3'. Safari needs the fallback. */
 function pickFormat() {
@@ -121,10 +139,33 @@ export async function unlock() {
   if (musicOn) startMusic();
 }
 
-/** play('stamp') · play('key1', { rate: 1.08, volume: 0.4 }) */
+/**
+ * Choose which variant of a set to play.
+ *
+ * Never the same one twice running: pure random repeats itself often enough at
+ * these set sizes that the variety stops being audible, which defeats the
+ * point of having variants at all.
+ */
+const lastVariant = new Map();
+
+function resolveClip(name) {
+  const count = VARIANTS[name];
+  if (!count) return name;
+  if (count === 1) return `${name}1`;
+
+  const previous = lastVariant.get(name);
+  let pick;
+  do {
+    pick = 1 + Math.floor(Math.random() * count);
+  } while (pick === previous);
+  lastVariant.set(name, pick);
+  return `${name}${pick}`;
+}
+
+/** play('stamp') · play('page') · play('key', { rate: 1.08, volume: 0.4 }) */
 export function play(name, opts = {}) {
   if (!soundOn || !ctx || ctx.state !== 'running') return;
-  const buf = buffers.get(name);
+  const buf = buffers.get(resolveClip(name));
   if (!buf) return; // still loading, or failed — never a hard error
 
   const src = ctx.createBufferSource();
@@ -139,10 +180,9 @@ export function play(name, opts = {}) {
   src.start(0);
 }
 
-/** Typewriter keystroke, cycling the three samples so typing doesn't loop audibly. */
+/** Typewriter keystroke. Variant choice and pitch scatter both come free. */
 export function playKey() {
-  keyIndex = (keyIndex + 1) % 3;
-  play(`key${keyIndex + 1}`, { rate: 0.94 + Math.random() * 0.16 });
+  play('key', { rate: 0.94 + Math.random() * 0.16 });
 }
 
 function ensureMusicElement() {

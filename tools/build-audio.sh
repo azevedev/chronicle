@@ -57,8 +57,22 @@ sfx gong    "$UNP/oga_100sfx/gong_01.ogg"     -9
 sfx chime   "$UNP/oga_100sfx/bell_02.ogg"    -11
 
 # --- paper & navigation --------------------------------------------------
-sfx hint     "$UNP/oga_bookflips/book_flip.5.ogg" -12
-sfx page     "$RAW/oga_paper_sound__4.mp3"       -11 "atrim=0:1.5,afade=t=out:st=1.2:d=0.25"
+#
+# `page` and `hint` fire constantly: every screen change, every released hint.
+# A single sample for either becomes machine-stamped within a minute of play, so
+# each gets a set of variants and js/audio.js picks between them. The variants
+# are drawn from DIFFERENT recordings rather than different moments of the same
+# one, which is what actually makes them read as separate sounds.
+sfx page1    "$RAW/oga_paper_sound__4.mp3"       -11 "atrim=0:1.5,afade=t=out:st=1.2:d=0.25"
+sfx page2    "$RAW/wm_page_turn.ogg"             -11 "atrim=0:1.4,afade=t=out:st=1.15:d=0.25"
+sfx page3    "$UNP/oga_bookflips/book_flip.2.ogg" -12
+sfx page4    "$UNP/oga_100sfx/paper_02.ogg"      -12
+sfx page5    "$RAW/oga_paper_sound__3.mp3"       -12
+
+sfx hint1    "$UNP/oga_bookflips/book_flip.5.ogg" -12
+sfx hint2    "$UNP/oga_bookflips/book_flip.7.ogg" -12
+sfx hint3    "$UNP/oga_bookflips/book_flip.9.ogg" -12
+
 sfx rustle   "$RAW/oga_paper_sound__2.mp3"       -16
 sfx crumple  "$RAW/oga_paper_crushed__1.mp3"     -11
 sfx unfurl   "$RAW/oga_map_open.wav"             -12

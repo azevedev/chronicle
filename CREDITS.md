@@ -56,14 +56,20 @@ Vorbis + MP3). Processing does not affect the licence terms.
 
 | Clip | Source | Author | Licence |
 |---|---|---|---|
-| `key1`, `key2`, `key3` | [Typewriter sounds](https://opengameart.org/content/typewriter-sounds) (OpenGameArt) | cassie-orbitgames | CC0 |
+| `key1`–`key3` | [Typewriter sounds](https://opengameart.org/content/typewriter-sounds) (OpenGameArt) | cassie-orbitgames | CC0 |
 | `ding` | [Freesound 406243](https://freesound.org/people/_stubb/sounds/406243/), via Wikimedia Commons | \_stubb | CC0 |
 | `correct` | [Bell-ring.flac](https://commons.wikimedia.org/wiki/File:Bell-ring.flac) (Commons) | qubodup | CC0 |
-| `wrong`, `stamp`, `gong`, `chime`, `pin` | [100 CC0 SFX](https://opengameart.org/content/100-cc0-sfx) (OpenGameArt) | rubberduck | CC0 |
-| `hint` | [10 Book Page Flips](https://opengameart.org/content/10-book-page-flips) (OpenGameArt) | starninjas | CC0 |
-| `page`, `rustle`, `crumple` | [Various Paper Sound Effects](https://opengameart.org/content/various-paper-sound-effects) (OpenGameArt) | luckius | CC0 |
+| `wrong`, `stamp`, `gong`, `chime`, `pin`, `page4` | [100 CC0 SFX](https://opengameart.org/content/100-cc0-sfx) (OpenGameArt) | rubberduck | CC0 |
+| `hint1`–`hint3`, `page3` | [10 Book Page Flips](https://opengameart.org/content/10-book-page-flips) (OpenGameArt) | starninjas | CC0 |
+| `page1`, `page5`, `rustle`, `crumple` | [Various Paper Sound Effects](https://opengameart.org/content/various-paper-sound-effects) (OpenGameArt) | luckius | CC0 |
+| `page2` | [Turning a page.ogg](https://commons.wikimedia.org/wiki/File:Turning_a_page.ogg) (Commons) | planish | Public domain |
 | `unfurl` | [Opening and Closing a Map Sounds](https://opengameart.org/content/opening-and-closing-a-map-sounds) (OpenGameArt) | spring-spring | CC0 |
 | `tick` | [Watch tick.ogg](https://commons.wikimedia.org/wiki/File:Watch_tick.ogg) (Commons) | Marble Toast | CC0 |
+
+The numbered sets are variants of one sound. `page` and `hint` fire on every
+screen change and every released hint, so each is drawn from several different
+*recordings* rather than several moments of one, and `js/audio.js` never plays
+the same variant twice running.
 
 ## Music
 

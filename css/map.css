@@ -1,0 +1,166 @@
+/* ============================================================================
+   map.css — the engraved plate.
+
+   The SVG committed to assets/map/world.svg carries geometry only; every stroke
+   weight and colour is decided here, which is what lets the same paths serve
+   both the main plate and the inset at completely different scales.
+   ========================================================================= */
+
+.plate { margin-top: 1.25rem; }
+
+.plate__frame {
+  position: relative;
+  /* Double border reads as the engraved neatline of a printed map. */
+  border: 1px solid var(--ink-2);
+  outline: 4px solid var(--paper-lit);
+  outline-offset: -6px;
+  box-shadow: inset 0 0 0 5px var(--ink-4), inset 0 0 40px rgba(90, 70, 35, 0.18);
+  background:
+    radial-gradient(120% 140% at 50% 0%, rgba(255, 250, 236, 0.5), transparent 60%),
+    var(--paper-2);
+  overflow: hidden;
+}
+
+.map { display: block; }
+
+.map__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Landmasses: flat sepia fill with a firm coastline, as a copperplate would print. */
+.map__svg #land path,
+.inset__land {
+  fill: var(--paper-3);
+  stroke: var(--ink-2);
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Borders sit under the coastline in weight — present, never competing. */
+.map__svg #borders path,
+.inset__borders {
+  fill: none;
+  stroke: var(--ink-3);
+  stroke-width: 0.5;
+  opacity: 0.45;
+  vector-effect: non-scaling-stroke;
+}
+
+/* The graticule is the faintest thing on the plate. */
+.map__svg #graticule path {
+  fill: none;
+  stroke: var(--ink-4);
+  stroke-width: 0.5;
+  opacity: 0.28;
+  stroke-dasharray: 3 5;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ── the passage between the two pins ──────────────────────────────────── */
+
+.passage {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 7 6;
+  opacity: 0.8;
+  vector-effect: non-scaling-stroke;
+}
+
+.passage--inset { stroke-dasharray: 5 4; }
+
+/* ── pins ──────────────────────────────────────────────────────────────── */
+
+.pin { pointer-events: none; }
+
+.pin__halo {
+  fill: var(--paper-lit);
+  opacity: 0.72;
+  stroke: none;
+}
+
+.pin__mark {
+  stroke: var(--paper-lit);
+  stroke-width: 1.2;
+  paint-order: stroke fill;
+  vector-effect: non-scaling-stroke;
+}
+
+.pin--birth .pin__mark { fill: var(--red); }
+.pin--birth .pin__dot { fill: var(--paper-lit); }
+.pin--death .pin__mark { fill: var(--ink); }
+
+/* ── cartouche ─────────────────────────────────────────────────────────── */
+
+.plate__cartouche {
+  position: absolute;
+  left: 0.9rem;
+  bottom: 0.55rem;
+  font-family: var(--f-antique);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* ── inset detail plate ────────────────────────────────────────────────────
+   Raised only when the two pins are too close to separate on the world map —
+   a convention borrowed straight from period atlases, and the reason the main
+   plate never needs to pan or zoom.
+   ------------------------------------------------------------------------ */
+
+.map-inset {
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  width: clamp(6.5rem, 17%, 10rem);
+  aspect-ratio: 1;
+  margin: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--paper-2);
+  border: 1px solid var(--ink-2);
+  box-shadow:
+    0 0 0 3px var(--paper-lit),
+    0 0 0 4px var(--ink-3),
+    0 8px 20px -10px rgba(40, 30, 10, 0.7);
+  animation: inset-open 520ms 1600ms cubic-bezier(.2, .9, .3, 1) both;
+}
+
+/* js/map.js moves the plate to whichever corner is furthest from the pins. */
+.map-inset--left {
+  right: auto;
+  left: 0.75rem;
+}
+
+.map-inset--bottom {
+  top: auto;
+  bottom: 0.75rem;
+}
+
+/* The cartouche lives in the bottom-left corner; yield it to the inset rather
+   than printing the two on top of each other. */
+.map-inset--left.map-inset--bottom ~ .plate__cartouche {
+  display: none;
+}
+
+.map-inset svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 34rem) {
+  /* The plate is only ~150 px tall at this width, so the inset has to shrink
+     or it swallows the map. */
+  .map-inset { width: 4.6rem; right: 0.4rem; top: 0.4rem; }
+  .map-inset--left { right: auto; left: 0.4rem; }
+  .map-inset--bottom { top: auto; bottom: 0.4rem; }
+  .plate__cartouche { display: none; }
+}

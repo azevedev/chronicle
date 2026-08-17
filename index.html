@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Chronicle — Wherein the Dead Are Named</title>
+<meta name="description" content="A daily game of historical identification. Two pins upon the map, one life between them — name the figure in three attempts.">
+<meta name="theme-color" content="#e8dfc8">
+<meta name="color-scheme" content="light">
+
+<!-- Open Graph tags use relative paths so the game works from any static host. -->
+<meta property="og:title" content="The Chronicle">
+<meta property="og:description" content="Two pins upon the map. One life between. Name the figure in three attempts.">
+<meta property="og:type" content="website">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23e8dfc8'/><text y='24' x='16' text-anchor='middle' font-size='24' font-family='serif' fill='%231d1810'>C</text></svg>">
+
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/map.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body class="is-loading">
+
+<!-- Paper grain, foxing and the printing plate's misregistration. Purely decorative. -->
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead__rule masthead__rule--top" aria-hidden="true"></div>
+
+  <div class="masthead__bar">
+    <span class="masthead__corner masthead__corner--left">
+      <span data-i18n="app.price">One Penny</span>
+    </span>
+
+    <h1 class="masthead__title">
+      <button class="masthead__home" id="btn-home" type="button">
+        <span data-i18n="app.title">The Chronicle</span>
+      </button>
+    </h1>
+
+    <span class="masthead__corner masthead__corner--right">
+      <span data-i18n="app.edition">Edition</span>
+      <span id="edition-no">—</span>
+    </span>
+  </div>
+
+  <p class="masthead__tagline">
+    <span class="orn" aria-hidden="true">❦</span>
+    <span data-i18n="app.motto">Two Pins Upon the Map · One Life Between</span>
+    <span class="orn" aria-hidden="true">❦</span>
+  </p>
+
+  <div class="masthead__rule masthead__rule--bottom" aria-hidden="true"></div>
+
+  <nav class="toolbar" aria-label="Settings">
+    <button class="chip" id="btn-lang" type="button" aria-live="polite">EN</button>
+    <button class="chip" id="btn-sound" type="button" aria-pressed="true">
+      <span class="chip__icon" aria-hidden="true">♪</span>
+      <span data-i18n="set.sound">Sound</span>
+    </button>
+    <button class="chip" id="btn-music" type="button" aria-pressed="false">
+      <span class="chip__icon" aria-hidden="true">𝄞</span>
+      <span data-i18n="set.music">Music</span>
+    </button>
+    <span class="toolbar__gap" aria-hidden="true"></span>
+    <button class="chip" id="btn-stats" type="button" data-i18n="set.stats">Ledger</button>
+    <button class="chip" id="btn-archive" type="button" data-i18n="set.archive">Archive</button>
+    <button class="chip" id="btn-help" type="button" data-i18n="set.help">How to Play</button>
+  </nav>
+</header>
+
+<main id="main" class="screens">
+
+  <!-- ─────────────────────────  FRONT PAGE  ───────────────────────── -->
+  <section class="screen screen--home" id="screen-home">
+    <div class="columns">
+      <article class="mode-card" data-mode="daily">
+        <div class="mode-card__stamp" aria-hidden="true"></div>
+        <p class="mode-card__kicker" data-i18n="mode.daily.sub">One subject. All readers.</p>
+        <h2 class="mode-card__title" data-i18n="mode.daily">The Daily Dispatch</h2>
+        <div class="rule rule--thin" aria-hidden="true"></div>
+        <p class="mode-card__body" data-i18n="mode.daily.desc"></p>
+        <dl class="mode-card__meta">
+          <div><dt data-i18n="stats.streak">Streak</dt><dd id="home-streak">0</dd></div>
+          <div><dt data-i18n="summary.next">Next</dt><dd id="home-countdown">—</dd></div>
+        </dl>
+        <button class="btn btn--primary" data-play="daily" type="button">
+          <span data-i18n="mode.play">Begin</span>
+        </button>
+      </article>
+
+      <article class="mode-card" data-mode="gauntlet">
+        <div class="mode-card__stamp" aria-hidden="true"></div>
+        <p class="mode-card__kicker" data-i18n="mode.gauntlet.sub">Five subjects.</p>
+        <h2 class="mode-card__title" data-i18n="mode.gauntlet">The Gauntlet</h2>
+        <div class="rule rule--thin" aria-hidden="true"></div>
+        <p class="mode-card__body" data-i18n="mode.gauntlet.desc"></p>
+        <dl class="mode-card__meta">
+          <div><dt data-i18n="stats.bestGauntlet">Best</dt><dd id="home-best-gauntlet">0</dd></div>
+        </dl>
+        <button class="btn btn--primary" data-play="gauntlet" type="button">
+          <span data-i18n="mode.play">Begin</span>
+        </button>
+      </article>
+
+      <article class="mode-card" data-mode="infinite">
+        <div class="mode-card__stamp" aria-hidden="true"></div>
+        <p class="mode-card__kicker" data-i18n="mode.infinite.sub">Without end.</p>
+        <h2 class="mode-card__title" data-i18n="mode.infinite">The Perpetual Edition</h2>
+        <div class="rule rule--thin" aria-hidden="true"></div>
+        <p class="mode-card__body" data-i18n="mode.infinite.desc"></p>
+        <dl class="mode-card__meta">
+          <div><dt data-i18n="stats.bestInfinite">Longest run</dt><dd id="home-best-infinite">0</dd></div>
+        </dl>
+        <button class="btn btn--primary" data-play="infinite" type="button">
+          <span data-i18n="mode.play">Begin</span>
+        </button>
+      </article>
+    </div>
+
+    <p class="colophon">
+      <span id="roster-count">—</span> <span class="colophon__label">subjects in the register</span>
+    </p>
+  </section>
+
+  <!-- ─────────────────────────  THE ROUND  ───────────────────────── -->
+  <section class="screen screen--round" id="screen-round" hidden>
+
+    <div class="dispatch-head">
+      <span class="dispatch-head__mode" id="round-mode">—</span>
+      <span class="dispatch-head__no">
+        <span data-i18n="round.dispatch">Dispatch</span>
+        <strong id="round-ordinal">1</strong>
+        <span id="round-of-wrap" hidden>
+          <span data-i18n="round.of">of</span> <strong id="round-total">5</strong>
+        </span>
+      </span>
+      <span class="dispatch-head__score">
+        <span data-i18n="round.total">Total</span>
+        <strong id="round-score">0</strong>
+      </span>
+    </div>
+
+    <!-- The evidence: two places, two years, plotted. -->
+    <div class="plate">
+      <div class="plate__frame">
+        <div class="map" id="map-host"></div>
+        <figure class="map-inset" id="map-inset" hidden></figure>
+        <span class="plate__cartouche" aria-hidden="true">Mare · Incognitvm</span>
+      </div>
+    </div>
+
+    <div class="records">
+      <article class="record record--birth">
+        <span class="record__mark" aria-hidden="true">✦</span>
+        <h3 class="record__label" data-i18n="round.born">Born</h3>
+        <p class="record__place" id="rec-birth-place">—</p>
+        <p class="record__year" id="rec-birth-year">—</p>
+      </article>
+
+      <div class="records__span" aria-hidden="true">
+        <span class="records__rule"></span>
+        <span class="records__age" id="rec-age"></span>
+        <span class="records__rule"></span>
+      </div>
+
+      <article class="record record--death">
+        <span class="record__mark" aria-hidden="true">†</span>
+        <h3 class="record__label" data-i18n="round.died">Died</h3>
+        <p class="record__place" id="rec-death-place">—</p>
+        <p class="record__year" id="rec-death-year">—</p>
+      </article>
+    </div>
+
+    <p class="tradition-note" id="tradition-note" hidden data-i18n="round.traditionNote"></p>
+
+    <!-- Intelligence received: hints, revealed one per spent attempt. -->
+    <section class="hints" id="hints" aria-live="polite">
+      <h3 class="hints__title">
+        <span data-i18n="round.hints">Intelligence Received</span>
+      </h3>
+      <p class="hints__empty" id="hints-empty" data-i18n="round.noHints"></p>
+      <ol class="hints__list" id="hints-list"></ol>
+    </section>
+
+    <!-- The guess. -->
+    <section class="guess">
+      <h3 class="guess__question" data-i18n="round.question">Who was this person?</h3>
+
+      <div class="attempts" id="attempts" role="img" aria-label="Attempts remaining">
+        <span class="attempts__label" data-i18n="round.guessesLeft">Attempts remaining</span>
+        <span class="attempts__marks" id="attempts-marks"></span>
+      </div>
+
+      <div class="combo">
+        <div class="combo__field">
+          <input class="combo__input" id="guess-input" type="text"
+                 autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                 role="combobox" aria-expanded="false" aria-autocomplete="list"
+                 aria-controls="suggestions" data-i18n-placeholder="round.placeholder">
+          <ul class="combo__list" id="suggestions" role="listbox" hidden></ul>
+        </div>
+        <button class="btn btn--submit" id="btn-submit" type="button" data-i18n="round.submit">Submit</button>
+        <button class="btn btn--ghost" id="btn-skip" type="button" data-i18n="round.skip">Skip</button>
+      </div>
+
+      <p class="notice" id="guess-notice" role="status" hidden></p>
+
+      <ul class="tried" id="tried-list"></ul>
+    </section>
+  </section>
+
+  <!-- ─────────────────────────  VERDICT  ───────────────────────── -->
+  <section class="screen screen--verdict" id="screen-verdict" hidden>
+    <article class="broadside">
+      <div class="broadside__stamp" id="verdict-stamp">
+        <span id="verdict-stamp-text">Identified</span>
+      </div>
+
+      <p class="broadside__kicker" data-i18n="verdict.wasBorn">The subject was</p>
+      <h2 class="broadside__name" id="verdict-name">—</h2>
+      <p class="broadside__span" id="verdict-span">—</p>
+
+      <div class="rule rule--ornate" aria-hidden="true"></div>
+
+      <p class="broadside__deed" id="verdict-deed"></p>
+
+      <dl class="broadside__ledger">
+        <div>
+          <dt data-i18n="round.born">Born</dt>
+          <dd id="verdict-birth">—</dd>
+        </div>
+        <div>
+          <dt data-i18n="round.died">Died</dt>
+          <dd id="verdict-death">—</dd>
+        </div>
+        <div>
+          <dt data-i18n="verdict.lifespan">Lifespan</dt>
+          <dd id="verdict-life">—</dd>
+        </div>
+      </dl>
+
+      <p class="broadside__attempts" id="verdict-attempts"></p>
+
+      <div class="award" id="verdict-award">
+        <span class="award__label" data-i18n="verdict.pointsAwarded">Points awarded</span>
+        <span class="award__value" id="verdict-points">0</span>
+      </div>
+
+      <button class="btn btn--primary" id="btn-next" type="button" data-i18n="verdict.next">Next Dispatch</button>
+    </article>
+  </section>
+
+  <!-- ─────────────────────────  FINAL EDITION  ───────────────────────── -->
+  <section class="screen screen--summary" id="screen-summary" hidden>
+    <article class="broadside broadside--summary">
+      <p class="broadside__kicker" id="summary-mode">—</p>
+      <h2 class="broadside__name" data-i18n="summary.title">The Final Edition</h2>
+
+      <div class="rule rule--ornate" aria-hidden="true"></div>
+
+      <div class="tally">
+        <div class="tally__item tally__item--major">
+          <span class="tally__label" data-i18n="summary.totalScore">Total Score</span>
+          <span class="tally__value" id="summary-score">0</span>
+        </div>
+        <div class="tally__item">
+          <span class="tally__label" data-i18n="summary.solved">Identified</span>
+          <span class="tally__value" id="summary-solved">0</span>
+        </div>
+        <div class="tally__item">
+          <span class="tally__label" data-i18n="summary.attempts">Attempts Spent</span>
+          <span class="tally__value" id="summary-attempts">0</span>
+        </div>
+        <div class="tally__item" id="summary-streak-wrap">
+          <span class="tally__label" data-i18n="summary.streak">Current Streak</span>
+          <span class="tally__value" id="summary-streak">0</span>
+        </div>
+      </div>
+
+      <p class="broadside__perfect" id="summary-perfect" hidden data-i18n="summary.perfect"></p>
+
+      <ol class="scorelist" id="summary-rounds"></ol>
+
+      <p class="broadside__next" id="summary-countdown" hidden></p>
+
+      <div class="broadside__actions">
+        <button class="btn btn--primary" id="btn-share" type="button" data-i18n="summary.share">Copy Result</button>
+        <button class="btn" id="btn-again" type="button" data-i18n="summary.again">Play Again</button>
+        <button class="btn btn--ghost" id="btn-summary-home" type="button" data-i18n="summary.home">Return</button>
+      </div>
+    </article>
+  </section>
+
+  <!-- ─────────────────────────  LEDGER  ───────────────────────── -->
+  <section class="screen screen--stats" id="screen-stats" hidden>
+    <article class="broadside">
+      <h2 class="broadside__name" data-i18n="stats.title">The Ledger</h2>
+      <div class="rule rule--ornate" aria-hidden="true"></div>
+
+      <p class="stats__empty" id="stats-empty" hidden data-i18n="stats.empty"></p>
+
+      <div class="tally" id="stats-tally">
+        <div class="tally__item">
+          <span class="tally__label" data-i18n="stats.played">Played</span>
+          <span class="tally__value" id="st-played">0</span>
+        </div>
+        <div class="tally__item">
+          <span class="tally__label" data-i18n="stats.winRate">Win Rate</span>
+          <span class="tally__value" id="st-rate">0%</span>
+        </div>
+        <div class="tally__item">
+          <span class="tally__label" data-i18n="stats.streak">Streak</span>
+          <span class="tally__value" id="st-streak">0</span>
+        </div>
+        <div class="tally__item">
+          <span class="tally__label" data-i18n="stats.maxStreak">Longest</span>
+          <span class="tally__value" id="st-max">0</span>
+        </div>
+      </div>
+
+      <h3 class="stats__subtitle" data-i18n="stats.distribution">Attempts to Identify</h3>
+      <div class="dist" id="st-dist"></div>
+
+      <div class="tally tally--minor">
+        <div class="tally__item">
+          <span class="tally__label" data-i18n="stats.bestGauntlet">Best Gauntlet</span>
+          <span class="tally__value" id="st-gauntlet">0</span>
+        </div>
+        <div class="tally__item">
+          <span class="tally__label" data-i18n="stats.bestInfinite">Longest Run</span>
+          <span class="tally__value" id="st-infinite">0</span>
+        </div>
+      </div>
+
+      <div class="broadside__actions">
+        <button class="btn btn--ghost" id="btn-reset" type="button" data-i18n="stats.reset">Erase the Ledger</button>
+        <button class="btn" id="btn-stats-back" type="button" data-i18n="set.back">Back</button>
+      </div>
+    </article>
+  </section>
+
+  <!-- ─────────────────────────  ARCHIVE  ───────────────────────── -->
+  <section class="screen screen--archive" id="screen-archive" hidden>
+    <article class="broadside broadside--wide">
+      <h2 class="broadside__name" data-i18n="archive.title">The Archive</h2>
+      <p class="broadside__kicker" data-i18n="archive.sub"></p>
+      <div class="rule rule--ornate" aria-hidden="true"></div>
+
+      <ol class="archive" id="archive-list"></ol>
+      <p class="stats__empty" id="archive-empty" hidden data-i18n="archive.empty"></p>
+
+      <div class="broadside__actions">
+        <button class="btn" id="btn-archive-back" type="button" data-i18n="set.back">Back</button>
+      </div>
+    </article>
+  </section>
+</main>
+
+<!-- ─────────────────────────  HOW TO PLAY  ───────────────────────── -->
+<dialog class="sheet" id="help-dialog">
+  <article class="sheet__body">
+    <h2 class="sheet__title" data-i18n="help.title">How to Read This Paper</h2>
+    <div class="rule rule--ornate" aria-hidden="true"></div>
+    <ol class="sheet__steps">
+      <li data-i18n="help.1"></li>
+      <li data-i18n="help.2"></li>
+      <li data-i18n="help.3"></li>
+      <li data-i18n="help.4"></li>
+    </ol>
+    <div class="sheet__legend">
+      <span><b class="mark">✦</b> <span data-i18n="round.born">Born</span></span>
+      <span><b class="mark">†</b> <span data-i18n="round.died">Died</span></span>
+    </div>
+    <button class="btn btn--primary" id="btn-help-close" type="button" data-i18n="help.close">Close</button>
+  </article>
+</dialog>
+
+<div class="boot" id="boot">
+  <span class="boot__text" data-i18n="ui.loading">Setting the type…</span>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# The asset pipeline stages downloads outside the repo; nothing here is needed
+# to run or deploy the game.
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Editor noise
+.vscode/
+.idea/
+*.swp
+
+# Local scratch
+*.log
+/tmp/

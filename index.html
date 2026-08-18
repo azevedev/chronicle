@@ -34,7 +34,12 @@
   base-uri 'none';
   form-action 'none';
 ">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<!-- No X-Content-Type-Options meta tag here on purpose. nosniff is honoured
+     only as a response header; browsers ignore it in a meta tag, so declaring
+     it in markup buys nothing and reads like a control that is in place when
+     it is not. GitHub Pages cannot send the header, and the only way to get
+     it is a proxy in front of a custom domain. Same story for
+     frame-ancestors and HSTS beyond what github.io already preloads. -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
 
 <link rel="canonical" href="https://azevedev.github.io/chronicle/">

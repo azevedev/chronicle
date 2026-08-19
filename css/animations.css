@@ -45,6 +45,8 @@
 }
 
 .hint.is-new { animation: hint-in 420ms cubic-bezier(.2, .9, .3, 1) both; }
+/* The bought clue arrives the same way the free ones do. */
+.cause.is-new { animation: hint-in 420ms cubic-bezier(.2, .9, .3, 1) both; }
 
 /* A rejected guess. Short, sharp, not a wobble. */
 @keyframes shake {

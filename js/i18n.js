@@ -86,6 +86,16 @@ const STRINGS = {
     'round.worth': 'worth {n} now',
     'round.alreadyTried': 'You have already guessed that name.',
 
+    // — the cause of death: a clue bought with points, not with an attempt —
+    'round.cause': 'Cause of death',
+    'round.causeReveal': 'Reveal cause of death · −{n}% points',
+    'round.causeSpent': 'Revealed · −{n}% points',
+    'cause.title': 'Reveal the cause of death?',
+    'cause.body':
+      'How this person died is often a strong clue, so it is not free. Name them after this and the round pays {after} instead of {before}, and less again for every further attempt you spend. It costs you no attempt, and it cannot be taken back.',
+    'cause.confirm': 'Reveal it',
+    'cause.cancel': 'Keep the points',
+
     // — clue ladder —
     'hint.field': 'Clue 1 · Occupation',
     'hint.deed': 'Clue 2 · What they are known for',
@@ -172,6 +182,8 @@ const STRINGS = {
     'help.award.pays': 'Points',
     'help.award.note':
       'Figures from outside the 100 best known pay more, because they are harder to place.',
+    'help.award.cause':
+      'The cause of death can be revealed at any time, from the button under the death record. It spends no attempt, but it takes a quarter of whatever the round would still pay.',
     'help.editions.title': '4 · Game modes',
     'help.editions':
       'Daily Puzzle: one figure a day, the same for every player, changing at midnight UTC — the only mode that builds a streak. Five Rounds: five figures in a row, points added up. Endless Mode: figures keep coming until you miss three.',
@@ -274,6 +286,16 @@ const STRINGS = {
     'round.worth': 'vale {n} agora',
     'round.alreadyTried': 'Você já tentou esse nome.',
 
+    // — a causa da morte: pista comprada com pontos, não com tentativa —
+    'round.cause': 'Causa da morte',
+    'round.causeReveal': 'Revelar a causa da morte · −{n}% dos pontos',
+    'round.causeSpent': 'Revelada · −{n}% dos pontos',
+    'cause.title': 'Revelar a causa da morte?',
+    'cause.body':
+      'O modo como esta pessoa morreu costuma ser uma pista forte, e por isso não é de graça. Se você acertar o nome depois disso, a rodada paga {after} em vez de {before}, e menos ainda a cada tentativa que você gastar. Não custa nenhuma tentativa, e não pode ser desfeito.',
+    'cause.confirm': 'Revelar',
+    'cause.cancel': 'Guardar os pontos',
+
     // — escada de pistas —
     'hint.field': 'Pista 1 · Ocupação',
     'hint.deed': 'Pista 2 · Pelo que é conhecida',
@@ -360,6 +382,8 @@ const STRINGS = {
     'help.award.pays': 'Pontos',
     'help.award.note':
       'Figuras de fora das 100 mais conhecidas pagam mais, por serem mais difíceis de situar.',
+    'help.award.cause':
+      'A causa da morte pode ser revelada a qualquer momento, no botão sob o registro de morte. Não gasta tentativa, mas retira um quarto do que a rodada ainda pagaria.',
     'help.editions.title': '4 · Modos de jogo',
     'help.editions':
       'Desafio Diário: uma figura por dia, a mesma para todos, trocada à meia-noite (UTC) — é o único modo que forma sequência. Cinco Rodadas: cinco figuras seguidas, com os pontos somados. Modo Infinito: as figuras continuam até você errar três.',
@@ -421,7 +445,7 @@ export const FIELDS = {
   explorer:     { en: 'A crosser of unmapped distances.',       pt: 'Um viajante de distâncias não mapeadas.' },
   aviator:      { en: 'A traveller of the upper air.',          pt: 'Um viajante do ar superior.' },
   artist:       { en: 'A worker in paint and stone.',           pt: 'Um trabalhador da tinta e da pedra.' },
-  composer:     { en: 'A setter of notes upon the page.',       pt: 'Alguém que dispôs notas sobre a pauta.' },
+  composer:     { en: 'A setter of music upon the page.',       pt: 'Alguém que dispôs notas sobre a pauta.' },
   musician:     { en: 'A maker of song.',                       pt: 'Um criador de canções.' },
   writer:       { en: 'A worker in ink and paper.',             pt: 'Um trabalhador da tinta e do papel.' },
   economist:    { en: 'A student of wealth and want.',          pt: 'Um estudioso da riqueza e da escassez.' },

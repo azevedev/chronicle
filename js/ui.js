@@ -15,6 +15,7 @@ import {
   MODES, MAX_ATTEMPTS, AWARD, startSession, currentRound, nextRound, submitGuess, skip,
   totalRounds, totalAttempts, isPerfect, hintsFor, potentialScore,
   DIFFICULTIES, DEFAULT_DIFFICULTY, SCALED_MODES, difficultyOf,
+  revealCause, causeFor, CAUSE_PENALTY,
 } from './game.js';
 import { initMap, plotLife, clearMap } from './map.js';
 import * as audio from './audio.js';
@@ -231,6 +232,7 @@ function renderRound() {
 
   renderAttempts(round);
   renderHints(round);
+  renderCause(round);
   renderTried(round);
 
   const input = $('guess-input');
@@ -296,7 +298,7 @@ function renderAttempts(round) {
   // the whole decision the game asks for, and it can't be made well if the
   // cost of the hint is invisible.
   const worth = $('attempts-worth');
-  const potential = round.done ? 0 : potentialScore(round.figure, round.attempt);
+  const potential = round.done ? 0 : potentialScore(round.figure, round.attempt, round.causeShown);
   worth.textContent = potential > 0 ? t('round.worth', { n: potential.toLocaleString() }) : '';
 }
 
@@ -322,6 +324,35 @@ function renderHints(round, animateLast = false) {
 
     li.append(title, body);
     list.appendChild(li);
+  }
+}
+
+/**
+ * The cause of death: the button that sells it, and the clue once sold.
+ *
+ * The button keeps its place on the card after the purchase — disabled, and
+ * reading what was paid — rather than disappearing. A control that vanishes
+ * leaves a reader wondering whether they imagined the offer.
+ */
+function renderCause(round, animate = false) {
+  const pct = Math.round(CAUSE_PENALTY * 100);
+  const btn = $('btn-cause');
+  const block = $('cause');
+
+  btn.textContent = t(round.causeShown ? 'round.causeSpent' : 'round.causeReveal', { n: pct });
+  btn.disabled = round.causeShown || round.done;
+
+  // Unlike a hint, this block is one long-lived element rather than a fresh
+  // list item, so the arrival class has to be cleared and re-applied by hand or
+  // the second purchase of a session would appear without animating.
+  block.classList.remove('is-new');
+  block.hidden = !round.causeShown;
+  if (!round.causeShown) return;
+
+  $('cause-body').textContent = causeFor(round.figure).body;
+  if (animate && !reduced()) {
+    void block.offsetWidth; // restart the animation
+    block.classList.add('is-new');
   }
 }
 
@@ -405,6 +436,7 @@ function lockRound() {
   $('guess-input').disabled = true;
   $('btn-submit').disabled = true;
   $('btn-skip').disabled = true;
+  $('btn-cause').disabled = true;
   hideSuggestions();
 }
 
@@ -482,6 +514,43 @@ function commitSkip() {
     renderHints(round, true);
     setTimeout(() => audio.play('hint'), 220);
   }
+}
+
+/**
+ * Ask before charging.
+ *
+ * The warning quotes both figures rather than the percentage alone: "750
+ * instead of 1000" is a decision a reader can make, and "minus 25%" is
+ * arithmetic they have to do first.
+ */
+function askCause() {
+  const round = currentRound(session);
+  if (round.done || round.causeShown) return;
+
+  const before = potentialScore(round.figure, round.attempt, false);
+  const after = potentialScore(round.figure, round.attempt, true);
+  $('cause-ask').textContent = t('cause.body', {
+    before: before.toLocaleString(),
+    after: after.toLocaleString(),
+  });
+
+  $('cause-dialog').showModal();
+  audio.play('page');
+}
+
+function commitCause() {
+  $('cause-dialog').close();
+
+  const outcome = revealCause(session);
+  if (outcome.type !== 'cause') return;
+
+  const round = currentRound(session);
+  renderCause(round, true);
+  // The stake changed without an attempt being spent, so the worth line has to
+  // be redrawn or it would keep quoting the old price.
+  renderAttempts(round);
+  audio.play('crumple');
+  setTimeout(() => audio.play('hint'), 220);
 }
 
 function shake(el) {
@@ -601,6 +670,10 @@ function showVerdict(round, opts = {}) {
 
   const age = lifespan(f);
   $('verdict-life').textContent = age === null ? t('round.unknownAge') : `${age} ${t('verdict.years')}`;
+
+  // Given away here whether or not it was paid for: the round is over, and it
+  // is the most interesting fact left to tell.
+  $('verdict-cause').textContent = causeFor(f).body;
 
   $('verdict-attempts').textContent = won
     ? (round.attempt === 1
@@ -992,6 +1065,7 @@ function showStoredDaily(record, today) {
       attempt: record.attempts,
       guesses: [],
       hintsShown: 0,
+      causeShown: false,
       done: true,
       won: record.won,
       score: record.score,
@@ -1030,6 +1104,7 @@ function toggleLanguage() {
     // renderRound resets the map, input and progress; restore the round.
     renderAttempts(round);
     renderHints(round);
+    renderCause(round);
     renderTried(round);
     $('guess-input').value = typed;
     if (round.done) lockRound();
@@ -1066,10 +1141,17 @@ function wire() {
       case 'ArrowDown': e.preventDefault(); moveSuggestion(1); break;
       case 'ArrowUp': e.preventDefault(); moveSuggestion(-1); break;
       case 'Escape': hideSuggestions(); break;
-      case 'Enter':
+      case 'Enter': {
         e.preventDefault();
-        commitGuess(suggestionIndex >= 0 ? activeSuggestions[suggestionIndex].label : undefined);
+        // A single remaining suggestion is treated as chosen. The player has
+        // already narrowed the list to one figure, and requiring an ArrowDown
+        // first only punishes whoever typed enough to get there.
+        const only = !$('suggestions').hidden && activeSuggestions.length === 1 ? 0 : -1;
+        const at = suggestionIndex >= 0 ? suggestionIndex : only;
+        if (at >= 0) input.value = activeSuggestions[at].label;
+        commitGuess(at >= 0 ? activeSuggestions[at].label : undefined);
         break;
+      }
       default: break;
     }
   });
@@ -1078,6 +1160,14 @@ function wire() {
 
   $('btn-submit').addEventListener('click', () => commitGuess());
   $('btn-skip').addEventListener('click', commitSkip);
+
+  // Buying the cause of death, and the warning that gates it.
+  $('btn-cause').addEventListener('click', askCause);
+  $('btn-cause-confirm').addEventListener('click', commitCause);
+  $('btn-cause-cancel').addEventListener('click', () => {
+    $('cause-dialog').close();
+    audio.play('tick');
+  });
   $('btn-next').addEventListener('click', advance);
 
   // Summary actions.

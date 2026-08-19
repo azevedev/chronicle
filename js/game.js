@@ -25,6 +25,16 @@ export const MAX_HINTS = 3;
 /** Award by attempt used: full for a first-attempt identification, then less. */
 export const AWARD = [1000, 700, 400, 200];
 
+/**
+ * What the cause of death costs.
+ *
+ * It is the one clue bought with points rather than with time: it spends no
+ * attempt, so it cannot be paid for in the currency the four attempts use.
+ * A quarter of the round's remaining award is dear enough that a player weighs
+ * it, and cheap enough that it stays worth buying when genuinely stuck.
+ */
+export const CAUSE_PENALTY = 0.25;
+
 /** Deeper cuts are worth more, so the Gauntlet isn't just a tier-1 lap. */
 const TIER_MULTIPLIER = { 1: 1, 2: 1.15, 3: 1.3 };
 
@@ -54,10 +64,17 @@ export const SCALED_MODES = new Set(['gauntlet', 'infinite']);
 export const difficultyOf = (session) =>
   (SCALED_MODES.has(session.mode) ? session.difficulty : 'remarkable');
 
-/** Points a round would award if identified on the next attempt. */
-export function potentialScore(figure, attempt) {
+/**
+ * Points a round would award if identified on the next attempt.
+ *
+ * `causeShown` is passed rather than read off a round, so the UI can price the
+ * choice both ways — what this attempt pays now, and what it would pay once
+ * the cause of death is bought — before the player commits to either.
+ */
+export function potentialScore(figure, attempt, causeShown = false) {
   const base = AWARD[attempt] ?? 0;
-  return Math.round(base * (TIER_MULTIPLIER[figure.tier] ?? 1));
+  const tier = TIER_MULTIPLIER[figure.tier] ?? 1;
+  return Math.round(base * tier * (causeShown ? 1 - CAUSE_PENALTY : 1));
 }
 
 /**
@@ -82,6 +99,17 @@ export function hintsFor(figure) {
   ];
 }
 
+/**
+ * The cause of death, paraphrased in the register the other clues use.
+ *
+ * Kept out of `hintsFor` on purpose: the three hints are a ladder released by
+ * spent attempts, and this one is bought out of turn, at any point, for points.
+ * Mixing it into that list would make the ladder's position mean two things.
+ */
+export function causeFor(figure) {
+  return { key: 'cause', title: t('round.cause'), body: pick(figure.end) };
+}
+
 function makeRound(figure, ordinal) {
   return {
     figure,
@@ -89,6 +117,7 @@ function makeRound(figure, ordinal) {
     attempt: 0,       // attempts consumed so far
     guesses: [],      // [{ text, figureId, correct, skipped }]
     hintsShown: 0,
+    causeShown: false, // the cause of death, bought for a quarter of the award
     done: false,
     won: false,
     score: 0,
@@ -184,7 +213,7 @@ export function totalRounds(session) {
 function finish(session, round, won) {
   round.done = true;
   round.won = won;
-  round.score = won ? potentialScore(round.figure, round.attempt - 1) : 0;
+  round.score = won ? potentialScore(round.figure, round.attempt - 1, round.causeShown) : 0;
 
   session.totalScore += round.score;
   if (won) session.solved += 1;
@@ -264,6 +293,24 @@ export function skip(session) {
 
   round.hintsShown = Math.min(round.attempt, MAX_HINTS);
   return { type: 'skipped', round, hint: hintsFor(round.figure)[round.attempt - 1] };
+}
+
+/**
+ * Buy the cause of death.
+ *
+ * Costs no attempt and releases no hint from the ladder — the price is paid out
+ * of the award, once, however many attempts remain. Buying it twice is free,
+ * which is what lets the UI treat the button as idempotent.
+ */
+export function revealCause(session) {
+  const round = currentRound(session);
+  if (round.done) return { type: 'closed' };
+
+  const cause = causeFor(round.figure);
+  if (round.causeShown) return { type: 'already', cause, round };
+
+  round.causeShown = true;
+  return { type: 'cause', cause, round };
 }
 
 /** Advance to the next figure. Returns null when the session is finished. */

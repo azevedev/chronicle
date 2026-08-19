@@ -297,6 +297,16 @@ body.is-playing .screens { margin-top: 0; margin-bottom: clamp(0.75rem, 2vw, 1.5
   .record__place { font-size: 1.02rem; }
   .record__country { font-size: 0.62rem; letter-spacing: 0.12em; }
   .record__year { font-size: 0.92rem; }
+  /* Two record cards side by side leave the buy button about twenty characters
+     of line, so the type comes down with the cards. Every word of it is load
+     bearing — it names the clue and its price — so it is set smaller rather
+     than shortened. */
+  .record__buy {
+    margin: 0.5rem -0.3rem -0.2rem;
+    padding: 0.3rem 0.25rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.06em;
+  }
 }
 
 .tradition-note {

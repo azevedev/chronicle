@@ -44,6 +44,7 @@ function normalizeFigure(raw) {
     born: point(raw.born),
     died: point(raw.died),
     deed: pair(raw.deed),
+    end: pair(raw.end),                // cause of death, bought for points
     legendary: raw.legendary === true, // dates handed down, not documented
     circa: raw.circa === true,
   };
@@ -68,6 +69,9 @@ export function validate(figures) {
 
     if (!f.names[0] || !f.names[1]) problems.push(`${at}: name needs both languages`);
     if (!f.deed[0] || !f.deed[1]) problems.push(`${at}: deed hint needs both languages`);
+    // Required, not optional: the reveal button is offered on every round, so a
+    // figure without a cause would present a purchase the game cannot deliver.
+    if (!f.end[0] || !f.end[1]) problems.push(`${at}: cause of death needs both languages`);
     if (!FIELDS[f.field]) problems.push(`${at}: unknown field "${f.field}"`);
     if (![1, 2, 3].includes(f.tier)) problems.push(`${at}: tier must be 1, 2 or 3`);
 

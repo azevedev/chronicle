@@ -77,6 +77,17 @@ all three showing:
 3. **Initials and name length**, generated from the name in whichever language
    is active.
 
+**The cause of death** is a fourth clue, and the only one bought with points
+instead of with time. A button under the death record offers it at any point in
+a round; taking it spends no attempt and releases no hint, but it costs a
+quarter of whatever that round would still pay (`CAUSE_PENALTY` in `game.js`).
+A dialog states the price in points — "750 instead of 1000" — before charging
+it, because a percentage is arithmetic and the two numbers are a decision. It is
+written in the same voice as the other clues and under the same rule: it must
+not name the figure. Where the historical record is silent or disputed, the
+entry says so; "nobody knows" is a truthful clue, and a better one than a guess.
+The answer sheet states the cause afterwards whether or not it was paid for.
+
 **Guessing** is free text with autocomplete. A typed guess is first *resolved to
 a figure in the register*, and only then compared with the answer — so a typo is
 forgiven, but naming Napoleon III when the answer is Napoleon Bonaparte is a
@@ -138,12 +149,13 @@ tools/                asset pipeline + the test suite
 node tools/check.mjs
 ```
 
-Exercises the register and the whole rules layer headlessly: 661 assertions
-covering scoring, attempt accounting, the hint ladder, mode termination, name
-resolution in both languages, daily determinism and repeat-free cycling, plus
-data integrity: duplicate names, implausible lifespans, out-of-range
-coordinates, pins outside the map's visible latitudes, and hints that leak the
-answer.
+Exercises the register and the whole rules layer headlessly: 702 assertions
+covering scoring, attempt accounting, the hint ladder, the price of the cause of
+death, mode termination, name resolution in both languages, daily determinism
+and repeat-free cycling, plus data integrity: duplicate names, implausible
+lifespans, out-of-range coordinates, pins outside the map's visible latitudes,
+hints or causes of death that leak the answer, and a cause of death that states
+an age the two dates on the card disagree with.
 
 `game.js` and `search.js` deliberately touch no DOM at module scope, which is
 what makes this possible.
@@ -165,6 +177,7 @@ Append to `data/figures.js` and run the tests. The format:
   born: [1815, 'London', 51.51, -0.13],     // [year, place, lat, lon]
   died: [1852, ['London', 'Londres'], 51.51, -0.13],
   deed: ['...', '...'],            // hint 2 — must not name the figure
+  end: ['...', '...'],             // cause of death, bought for points
   // legendary: true               // dates traditional, not documented
   // circa: true                   // approximate; rendered with "c."
 }
@@ -173,6 +186,10 @@ Append to `data/figures.js` and run the tests. The format:
 Negative years are BC. A place is a plain string when it reads the same in both
 languages, or an `[en, pt]` pair when it doesn't. The third hint needs no
 authoring — it is generated from the name.
+
+Both `deed` and `end` are checked against the figure's own name in both
+languages, so a hint that gives the answer away fails the tests rather than the
+player.
 
 **Tier 1 is the Hundred, exactly.** Every tier-1 figure carries a `rank` of
 1–100 and nothing else does; `js/data.js` refuses to load a roster where the two

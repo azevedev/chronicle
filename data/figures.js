@@ -31,6 +31,11 @@
  *   deed   [English, Portuguese] — the SECOND hint. Must describe the person
  *          without naming them, and without naming anyone else famous enough
  *          to give the answer away.
+ *   end    [English, Portuguese] — the cause of death, which the reader may buy
+ *          at any point for a quarter of the round's award. Written in the same
+ *          register as `deed`, and under the same rule: it must not name the
+ *          figure. Where the record is silent or disputed, say so plainly —
+ *          "nobody knows" is a truthful clue and a better one than a guess.
  *   legendary  dates are traditional rather than documented (flagged in the UI)
  *   circa      dates approximate; rendered with "c."
  *
@@ -58,6 +63,10 @@ export const FIGURES = [
       'The last pharaoh of Egypt, who allied with two Roman generals in turn and died by her own hand rather than be paraded through Rome.',
       'A última faraó do Egito, que se aliou a dois generais romanos e preferiu a própria morte a ser exibida em Roma.',
     ],
+    end: [
+      'Dead by her own hand in a sealed chamber, rather than be led through a foreign capital in chains. Venom, the story says, carried in with a basket of figs.',
+      'Morta pela própria mão em uma câmara fechada, para não ser levada em correntes por uma capital estrangeira. Veneno, diz a história, trazido em um cesto de figos.',
+    ],
   },
   {
     id: 'julius-caesar',
@@ -71,6 +80,10 @@ export const FIGURES = [
     deed: [
       'Conquered Gaul and crossed a river he had been forbidden to cross. The senate he had mastered stabbed him to death.',
       'Conquistou a Gália e cruzou um rio que lhe era proibido cruzar. O senado que dominara o apunhalou até a morte.',
+    ],
+    end: [
+      'Stabbed twenty-three times in a single morning, on the floor of the assembly he had mastered, by men who had that week called themselves his friends.',
+      'Apunhalado vinte e três vezes em uma única manhã, no piso da assembleia que dominara, por homens que naquela semana se diziam seus amigos.',
     ],
   },
   {
@@ -86,6 +99,10 @@ export const FIGURES = [
       'Took an army from Greece to the edge of India without losing a battle, and was dead before thirty-three.',
       'Levou um exército da Grécia até os confins da Índia sem perder uma batalha, e morreu antes dos trinta e três anos.',
     ],
+    end: [
+      'A fever that took eleven days to finish him, after a long night of drinking in a conquered palace. Poison was whispered and never proved.',
+      'Uma febre que levou onze dias para acabar com ele, depois de uma longa noite de bebida em um palácio conquistado. Falou-se de veneno, e nunca se provou.',
+    ],
   },
   {
     id: 'socrates',
@@ -99,6 +116,10 @@ export const FIGURES = [
     deed: [
       'He wrote nothing and questioned everyone. His own city condemned him to drink poison for corrupting its youth.',
       'Nada escreveu e questionou a todos. Sua própria cidade o condenou a beber veneno por corromper a juventude.',
+    ],
+    end: [
+      'A cup of hemlock, drunk calmly and on time, by order of a court that had found his questions intolerable.',
+      'Uma taça de cicuta, bebida com calma e na hora marcada, por ordem de um tribunal que achou suas perguntas intoleráveis.',
     ],
   },
   {
@@ -115,6 +136,10 @@ export const FIGURES = [
       'Founded a school in an olive grove and argued that everything we see is a shadow cast on a cave wall.',
       'Fundou uma escola num olival e sustentou que tudo o que vemos é sombra projetada na parede de uma caverna.',
     ],
+    end: [
+      'Old age, quietly, in his own city — at a wedding feast, one account says, having simply fallen asleep.',
+      'A velhice, em silêncio, na própria cidade — em uma festa de casamento, diz um relato, tendo apenas adormecido.',
+    ],
   },
   {
     id: 'aristotle',
@@ -128,6 +153,10 @@ export const FIGURES = [
     deed: [
       'Tutored a future world conqueror, then wrote on physics, poetry, politics and the parts of animals alike.',
       'Foi preceptor de um futuro conquistador do mundo e escreveu igualmente sobre física, poesia, política e as partes dos animais.',
+    ],
+    end: [
+      'An illness of the stomach, in exile on an island, a year after the charge of impiety drove him out of the city where he had taught.',
+      'Uma doença do estômago, exilado em uma ilha, um ano depois de a acusação de impiedade o expulsar da cidade onde ensinara.',
     ],
   },
   {
@@ -143,6 +172,10 @@ export const FIGURES = [
     deed: [
       'Worked out buoyancy in a bath and held off a Roman siege with machines. A soldier killed him in the middle of a diagram.',
       'Descobriu o empuxo num banho e resistiu a um cerco romano com máquinas. Um soldado o matou no meio de um diagrama.',
+    ],
+    end: [
+      'Run through by a soldier during the sack of his city, at his diagrams, having asked for a moment more to finish the problem.',
+      'Trespassado por um soldado durante o saque de sua cidade, diante de seus diagramas, após pedir um instante para terminar o problema.',
     ],
   },
   {
@@ -160,6 +193,10 @@ export const FIGURES = [
       'Credited with the two epics that open Western literature: one of a siege, one of a long voyage home.',
       'A ele se atribuem as duas epopeias que inauguram a literatura ocidental: uma de um cerco, outra de um longo regresso.',
     ],
+    end: [
+      'Vexation, the tradition insists: unable to solve a riddle that fishermen put to him on a beach, he sickened and died of the shame.',
+      'De desgosto, insiste a tradição: incapaz de resolver um enigma que pescadores lhe propuseram na praia, adoeceu e morreu de vergonha.',
+    ],
   },
   {
     id: 'confucius',
@@ -173,6 +210,10 @@ export const FIGURES = [
     deed: [
       'Taught that order in the state begins with order in the family, and shaped Chinese thought for two thousand years.',
       'Ensinou que a ordem do Estado começa na ordem da família, e moldou o pensamento chinês por dois mil anos.',
+    ],
+    end: [
+      'Old age, at seventy-two, in the state of his birth — outlived by none of his hopes for it and by all of his pupils.',
+      'A velhice, aos setenta e dois anos, no estado onde nasceu — sem ver realizada nenhuma de suas esperanças, e sobrevivido por todos os seus discípulos.',
     ],
   },
   {
@@ -190,6 +231,10 @@ export const FIGURES = [
       'A prince who walked out of his palace after seeing sickness, age and death. What he taught afterwards was that craving is the root of suffering.',
       'Um príncipe que saiu do palácio após ver a doença, a velhice e a morte. O que ensinou depois foi que o desejo é a raiz do sofrimento.',
     ],
+    end: [
+      'A last meal that turned in him on the road at eighty, borne without complaint. He lay down between two trees and told his followers not to grieve.',
+      'Uma última refeição que lhe fez mal na estrada, aos oitenta anos, suportada sem queixa. Deitou-se entre duas árvores e pediu aos seguidores que não se lamentassem.',
+    ],
   },
   {
     id: 'jesus',
@@ -206,6 +251,10 @@ export const FIGURES = [
       'A preacher from a Roman province whose execution became the founding event of the largest religion on earth.',
       'Um pregador de uma província romana cuja execução se tornou o acontecimento fundador da maior religião da terra.',
     ],
+    end: [
+      'Nailed to a wooden cross outside the city walls on the order of a provincial governor, after a night of trials and a public flogging.',
+      'Pregado em uma cruz de madeira fora dos muros da cidade por ordem de um governador provincial, após uma noite de julgamentos e um açoitamento público.',
+    ],
   },
   {
     id: 'muhammad',
@@ -220,6 +269,10 @@ export const FIGURES = [
     deed: [
       'Fled his birth city for another, then came back to take it. He left behind a faith and a state at once.',
       'Fugiu de sua cidade natal para outra e depois voltou para tomá-la. Deixou ao mesmo tempo uma fé e um Estado.',
+    ],
+    end: [
+      'A fever that lasted some days, in the house of his wife, at sixty-two — with the peninsula newly united behind him and no successor named.',
+      'Uma febre de alguns dias, na casa de sua esposa, aos sessenta e dois anos — com a península recém-unida atrás de si e nenhum sucessor indicado.',
     ],
   },
   {
@@ -236,6 +289,10 @@ export const FIGURES = [
       'A boy king of no great consequence in life, made the most famous of all pharaohs by an intact tomb found in 1922.',
       'Um rei-menino de pouca importância em vida, tornado o mais famoso dos faraós por uma tumba intacta achada em 1922.',
     ],
+    end: [
+      'Dead at about nineteen, of a broken leg gone bad and a malarial fever together — a frail boy in a golden mask.',
+      'Morto com cerca de dezenove anos, de uma perna quebrada que infeccionou somada a uma febre de malária — um menino frágil em uma máscara de ouro.',
+    ],
   },
   {
     id: 'nefertiti',
@@ -249,6 +306,10 @@ export const FIGURES = [
     deed: [
       'An Egyptian queen of the heretic sun-worshipping court, known to the world by a single painted limestone bust.',
       'Rainha egípcia da herética corte solar, conhecida no mundo inteiro por um único busto de calcário pintado.',
+    ],
+    end: [
+      'Nobody knows. She simply stops appearing in the record, mid-reign, and no tomb has ever been agreed upon as hers.',
+      'Ninguém sabe. Ela simplesmente deixa de aparecer nos registros, no meio do reinado, e nenhuma tumba foi jamais aceita como sua.',
     ],
   },
   {
@@ -264,6 +325,10 @@ export const FIGURES = [
       'Reigned sixty-six years, fought a chariot battle he lost but carved as a victory, and built on a scale nobody matched.',
       'Reinou sessenta e seis anos, travou uma batalha de carros que perdeu mas esculpiu como vitória, e construiu numa escala jamais igualada.',
     ],
+    end: [
+      'Sheer age — past ninety, bent with arthritis, his teeth abscessed — after outliving his heirs and most of his people.',
+      'A pura idade — passados os noventa anos, curvado pela artrite, os dentes em abscesso — após sobreviver aos herdeiros e à maior parte de seu povo.',
+    ],
   },
   {
     id: 'augustus',
@@ -278,6 +343,10 @@ export const FIGURES = [
       'Avenged his adoptive father, outlasted every rival, and became the first emperor while insisting he had restored the republic.',
       'Vingou o pai adotivo, sobreviveu a todos os rivais e tornou-se o primeiro imperador insistindo que havia restaurado a república.',
     ],
+    end: [
+      'An illness on the road, in the same house where his father had died. His wife was accused of poisoned figs, on no evidence at all.',
+      'Uma doença na estrada, na mesma casa onde seu pai morrera. Acusou-se sua esposa de figos envenenados, sem prova alguma.',
+    ],
   },
   {
     id: 'nero',
@@ -290,6 +359,10 @@ export const FIGURES = [
     deed: [
       'Blamed a great fire on a new sect, performed on stage to the horror of the senate, and died a fugitive from his own guard.',
       'Culpou uma nova seita por um grande incêndio, subiu ao palco para horror do senado e morreu fugindo da própria guarda.',
+    ],
+    end: [
+      'His own blade at his throat, held by a freedman because his hand shook, in a villa outside the city that had just declared him an enemy of the state.',
+      'A própria lâmina na garganta, sustentada por um liberto porque sua mão tremia, em uma vila fora da cidade que acabara de declará-lo inimigo público.',
     ],
   },
   {
@@ -304,6 +377,10 @@ export const FIGURES = [
       'Ruled an empire at war while keeping a private notebook of Stoic self-reproach never meant for publication.',
       'Governou um império em guerra enquanto mantinha um caderno privado de autocrítica estoica jamais destinado à publicação.',
     ],
+    end: [
+      'Plague, in a military camp on the northern frontier, in the middle of a war he had spent his best years failing to end.',
+      'A peste, em um acampamento militar na fronteira norte, no meio de uma guerra que passou seus melhores anos sem conseguir encerrar.',
+    ],
   },
   {
     id: 'hannibal',
@@ -316,6 +393,10 @@ export const FIGURES = [
     deed: [
       'Marched an army and its elephants over the Alps to fight Rome in Italy for fifteen years, and never lost a pitched battle there.',
       'Levou um exército e seus elefantes por cima dos Alpes para combater Roma na Itália por quinze anos, sem jamais perder uma batalha campal.',
+    ],
+    end: [
+      'Poison he carried in a ring for exactly this, taken when the soldiers of the republic he had terrified surrounded his last refuge.',
+      'Veneno que levava em um anel exatamente para isso, tomado quando os soldados da república que ele aterrorizara cercaram seu último refúgio.',
     ],
   },
   {
@@ -332,6 +413,10 @@ export const FIGURES = [
       'A gladiator who raised an army of slaves and beat Roman legions repeatedly before being destroyed in southern Italy.',
       'Um gladiador que levantou um exército de escravos e derrotou legiões romanas seguidas vezes antes de ser esmagado no sul da Itália.',
     ],
+    end: [
+      'Killed in the press of his final battle, fighting on foot toward the enemy commander. His body was never identified among the dead.',
+      'Morto no aperto de sua última batalha, lutando a pé em direção ao comandante inimigo. Seu corpo nunca foi identificado entre os mortos.',
+    ],
   },
   {
     id: 'pythagoras',
@@ -347,6 +432,10 @@ export const FIGURES = [
       'Led a secretive brotherhood that held number to be the substance of reality, and lent his name to a theorem about triangles.',
       'Liderou uma irmandade secreta que tinha o número por substância do real, e deu seu nome a um teorema sobre triângulos.',
     ],
+    end: [
+      'Accounts disagree and all of them are strange: starved by his own choice, or cut down at the edge of a bean field he would not cross.',
+      'Os relatos discordam e todos são estranhos: morto de fome por escolha própria, ou abatido à beira de um campo de feijões que se recusou a atravessar.',
+    ],
   },
   {
     id: 'hippocrates',
@@ -360,6 +449,10 @@ export const FIGURES = [
     deed: [
       'Separated medicine from superstition, and gave his name to the oath physicians still swear.',
       'Separou a medicina da superstição e deu seu nome ao juramento que os médicos ainda prestam.',
+    ],
+    end: [
+      'Old age, in a Thessalian town, having taught that the body heals itself and the physician\'s business is to help it and do no harm.',
+      'A velhice, em uma cidade da Tessália, tendo ensinado que o corpo se cura a si mesmo e que o ofício do médico é ajudar e não prejudicar.',
     ],
   },
   {
@@ -375,6 +468,10 @@ export const FIGURES = [
       'Founded the largest empire the world had yet seen, and freed the Jews from their Babylonian captivity.',
       'Fundou o maior império que o mundo já vira e libertou os judeus do cativeiro babilônico.',
     ],
+    end: [
+      'Killed on campaign beyond the eastern river, fighting nomads whose queen — the story goes — dipped his severed head in a skin of blood.',
+      'Morto em campanha além do rio oriental, lutando contra nômades cuja rainha — conta a história — mergulhou sua cabeça decepada em um odre de sangue.',
+    ],
   },
   {
     id: 'ashoka',
@@ -389,6 +486,10 @@ export const FIGURES = [
       'Won a war so bloody it converted him, then carved edicts of tolerance and non-violence onto pillars across his empire.',
       'Venceu uma guerra tão sangrenta que o converteu, e mandou gravar editos de tolerância e não violência em pilares por todo o império.',
     ],
+    end: [
+      'Natural causes, decades after the battlefield that broke him, having spent the rest of his reign carving apologies into rock.',
+      'Causas naturais, décadas depois do campo de batalha que o quebrou, tendo passado o resto do reinado gravando arrependimentos na pedra.',
+    ],
   },
   {
     id: 'qin-shi-huang',
@@ -401,6 +502,10 @@ export const FIGURES = [
     deed: [
       'Unified the warring states into one empire, standardised its script and its axles, and was buried with an army of clay.',
       'Unificou os reinos combatentes num só império, padronizou a escrita e os eixos das carroças, e foi sepultado com um exército de barro.',
+    ],
+    end: [
+      'Dead on an inspection tour, most likely of the mercury pills his physicians fed him to make him immortal.',
+      'Morto em uma viagem de inspeção, muito provavelmente pelas pílulas de mercúrio que seus médicos lhe davam para torná-lo imortal.',
     ],
   },
   {
@@ -416,6 +521,10 @@ export const FIGURES = [
       'Terrorised two Roman empires from the Danube, turned back from Rome itself, and died of a haemorrhage on his wedding night.',
       'Aterrorizou dois impérios romanos a partir do Danúbio, recuou diante da própria Roma e morreu de hemorragia na noite de núpcias.',
     ],
+    end: [
+      'A haemorrhage on his own wedding night. He drowned in his blood, insensible with drink, beside a bride who dared not call out.',
+      'Uma hemorragia na própria noite de núpcias. Afogou-se no próprio sangue, insensível de bebida, ao lado de uma noiva que não ousou chamar ninguém.',
+    ],
   },
   {
     id: 'constantine',
@@ -428,6 +537,10 @@ export const FIGURES = [
     deed: [
       'Won an empire under a sign in the sky, legalised a persecuted religion, and moved the capital to a city he named for himself.',
       'Conquistou um império sob um sinal no céu, legalizou uma religião perseguida e mudou a capital para uma cidade a que deu seu nome.',
+    ],
+    end: [
+      'Illness at sixty-five, a few days after finally accepting baptism — which he had put off for a lifetime so that it might wash everything at once.',
+      'Doença aos sessenta e cinco anos, poucos dias depois de finalmente aceitar o batismo — que adiara a vida toda para que lavasse tudo de uma só vez.',
     ],
   },
   {
@@ -444,6 +557,10 @@ export const FIGURES = [
       'A lyric poet of the archaic Greek islands whose surviving verse is mostly fragments, and whose home island named a word.',
       'Poetisa lírica das ilhas gregas arcaicas, cuja obra sobrevive quase só em fragmentos, e cuja ilha natal deu nome a uma palavra.',
     ],
+    end: [
+      'The tradition, which may be pure invention, has her throw herself from a white cliff into the sea for love of a ferryman.',
+      'A tradição, que pode ser pura invenção, diz que ela se lançou de um penhasco branco ao mar por amor a um barqueiro.',
+    ],
   },
   {
     id: 'virgil',
@@ -456,6 +573,10 @@ export const FIGURES = [
     deed: [
       'Wrote Rome its national epic about a refugee from a burned city, and asked on his deathbed that it be destroyed.',
       'Escreveu para Roma sua epopeia nacional sobre um refugiado de uma cidade queimada, e no leito de morte pediu que fosse destruída.',
+    ],
+    end: [
+      'A fever caught on a voyage home from Greece, with his great poem unfinished. He asked that it be burned; he was disobeyed.',
+      'Uma febre contraída em uma viagem de volta da Grécia, com seu grande poema inacabado. Pediu que fosse queimado; foi desobedecido.',
     ],
   },
   {
@@ -471,6 +592,10 @@ export const FIGURES = [
     deed: [
       'A flogged British queen who burned three Roman cities in revolt before her army was annihilated.',
       'Uma rainha britânica açoitada que incendiou três cidades romanas numa revolta, antes de seu exército ser aniquilado.',
+    ],
+    end: [
+      'Poison, most say, taken after her army was destroyed — the alternative being a Roman triumph with herself as the exhibit.',
+      'Veneno, dizem a maioria, tomado depois que seu exército foi destruído — a alternativa era um triunfo romano tendo a si mesma como atração.',
     ],
   },
 
@@ -489,6 +614,10 @@ export const FIGURES = [
       'United most of western Europe by the sword and was crowned emperor by a pope on Christmas Day of the year 800.',
       'Uniu grande parte da Europa ocidental pela espada e foi coroado imperador por um papa no Natal do ano 800.',
     ],
+    end: [
+      'Pleurisy at sixty-six, a week after a fever set in, in the palace town he had built to be a new capital of the west.',
+      'Pleurisia aos sessenta e seis anos, uma semana depois de começar a febre, na cidade-palácio que erguera para ser a nova capital do ocidente.',
+    ],
   },
   {
     id: 'genghis-khan',
@@ -504,6 +633,10 @@ export const FIGURES = [
       'Welded the steppe tribes into one horde and built the largest contiguous land empire in history from horseback.',
       'Fundiu as tribos da estepe numa só horda e construiu a cavalo o maior império terrestre contínuo da história.',
     ],
+    end: [
+      'On campaign, of causes his own people kept secret: a fall from horseback, an infected wound, a fever. Everyone who buried him was killed.',
+      'Em campanha, de causas que seu próprio povo manteve em segredo: uma queda de cavalo, um ferimento infectado, uma febre. Todos os que o sepultaram foram mortos.',
+    ],
   },
   {
     id: 'kublai-khan',
@@ -516,6 +649,10 @@ export const FIGURES = [
     deed: [
       'Grandson of a great conqueror who finished the conquest of China, founded a dynasty there, and received a Venetian at his court.',
       'Neto de um grande conquistador, completou a conquista da China, fundou ali uma dinastia e recebeu um veneziano em sua corte.',
+    ],
+    end: [
+      'Old age made worse by gout, drink and grief, swollen and half blind, after losing both a favourite wife and his chosen heir.',
+      'A velhice agravada por gota, bebida e luto, inchado e meio cego, depois de perder tanto uma esposa predileta quanto o herdeiro escolhido.',
     ],
   },
   {
@@ -530,6 +667,10 @@ export const FIGURES = [
       'Retook Jerusalem from the crusaders and was so admired by his enemies that Europe wrote poems in his praise.',
       'Retomou Jerusalém dos cruzados e foi tão admirado pelos inimigos que a Europa escreveu poemas em seu louvor.',
     ],
+    end: [
+      'A fever in Damascus, weeks after the truce that ended the war, having given away so much that his estate could not pay for his grave.',
+      'Uma febre em Damasco, semanas depois da trégua que encerrou a guerra, tendo dado tanto que seus bens não pagaram sua própria sepultura.',
+    ],
   },
   {
     id: 'william-the-conqueror',
@@ -543,6 +684,10 @@ export const FIGURES = [
       'Crossed the Channel in 1066, won a battle near Hastings, and had every manor in his new kingdom written into one book.',
       'Cruzou o Canal em 1066, venceu uma batalha perto de Hastings e mandou registrar num único livro cada propriedade do novo reino.',
     ],
+    end: [
+      'An internal rupture from the pommel of his saddle when his horse threw him. His swollen body burst as it was forced into the coffin.',
+      'Uma ruptura interna causada pelo arção da sela quando o cavalo o derrubou. Seu corpo inchado se rompeu ao ser forçado dentro do caixão.',
+    ],
   },
   {
     id: 'richard-lionheart',
@@ -555,6 +700,10 @@ export const FIGURES = [
     deed: [
       'An English king who spent almost none of his reign in England, crusaded in the Holy Land, and died of a crossbow wound at a minor siege.',
       'Um rei inglês que quase não passou o reinado na Inglaterra, cruzou para a Terra Santa e morreu de um ferimento de besta num cerco menor.',
+    ],
+    end: [
+      'A crossbow bolt in the shoulder at a small siege that mattered to nobody. The wound turned gangrenous and killed him in eleven days.',
+      'Uma flecha de besta no ombro em um cerco pequeno que não importava a ninguém. A ferida gangrenou e o matou em onze dias.',
     ],
   },
   {
@@ -570,6 +719,10 @@ export const FIGURES = [
       'A teenage peasant who said voices had sent her to crown a king. She lifted a siege for him and burned as a heretic at nineteen.',
       'Uma camponesa adolescente que dizia ouvir vozes mandando-a coroar um rei. Levantou um cerco por ele e ardeu como herege aos dezenove anos.',
     ],
+    end: [
+      'Burned alive in a market square at nineteen, condemned as a heretic. The ashes were thrown in the river so that nothing could be kept.',
+      'Queimada viva em uma praça de mercado aos dezenove anos, condenada por heresia. As cinzas foram lançadas ao rio para que nada pudesse ser guardado.',
+    ],
   },
   {
     id: 'marco-polo',
@@ -583,6 +736,10 @@ export const FIGURES = [
     deed: [
       'Spent twenty-four years travelling to and serving in the court of a Mongol emperor, and dictated the account in a Genoese prison.',
       'Passou vinte e quatro anos viajando e servindo na corte de um imperador mongol, e ditou o relato numa prisão genovesa.',
+    ],
+    end: [
+      'Old age in his own bed at seventy, a rich man, still insisting to the priest at the end that he had not exaggerated a word of it.',
+      'A velhice na própria cama, aos setenta anos, homem rico, insistindo ainda ao sacerdote, no fim, que não exagerara uma palavra.',
     ],
   },
   {
@@ -598,6 +755,10 @@ export const FIGURES = [
       'Travelled some seventy-five thousand miles across Africa, Arabia, India and China, three times the distance any European contemporary managed.',
       'Percorreu cerca de cento e vinte mil quilômetros pela África, Arábia, Índia e China, o triplo do que qualquer europeu de seu tempo conseguiu.',
     ],
+    end: [
+      'Unrecorded. After thirty years and seventy thousand miles, the man who described half the world died at home with nobody describing him.',
+      'Não registrada. Depois de trinta anos e cem mil quilômetros, o homem que descreveu meio mundo morreu em casa sem que ninguém o descrevesse.',
+    ],
   },
   {
     id: 'avicenna',
@@ -610,6 +771,10 @@ export const FIGURES = [
     deed: [
       'Wrote a medical canon that was the standard textbook in European universities for six hundred years.',
       'Escreveu um cânone médico que foi o manual padrão das universidades europeias durante seiscentos anos.',
+    ],
+    end: [
+      'Colic on campaign, treated by his own prescription too often and too strongly, until the remedy finished what the illness began.',
+      'Cólica em campanha, tratada por sua própria receita com excesso de frequência e de força, até que o remédio terminou o que a doença começou.',
     ],
   },
   {
@@ -624,6 +789,10 @@ export const FIGURES = [
       'Reconciled Greek philosophy with Christian theology in a vast unfinished summary, then called all of it straw.',
       'Conciliou a filosofia grega com a teologia cristã numa vasta suma inacabada, e depois chamou tudo aquilo de palha.',
     ],
+    end: [
+      'A blow to the head from a low branch while riding to a council, followed by weeks of decline in a monastery. He had already stopped writing.',
+      'Uma pancada na cabeça, de um galho baixo, enquanto cavalgava para um concílio, seguida de semanas de declínio em um mosteiro. Já havia parado de escrever.',
+    ],
   },
   {
     id: 'francis-of-assisi',
@@ -636,6 +805,10 @@ export const FIGURES = [
     deed: [
       'A rich merchant\'s son who gave away everything, founded an order sworn to poverty, and is said to have preached to birds.',
       'Filho de um rico mercador que deu tudo o que tinha, fundou uma ordem votada à pobreza e teria pregado aos pássaros.',
+    ],
+    end: [
+      'Years of illness, blindness and self-imposed hardship, at forty-four. He asked to be laid on the bare ground to die.',
+      'Anos de doença, cegueira e privações autoimpostas, aos quarenta e quatro anos. Pediu que o deitassem na terra nua para morrer.',
     ],
   },
   {
@@ -651,6 +824,10 @@ export const FIGURES = [
       'Exiled from the city he loved, he wrote a poem that walks through hell, purgatory and heaven. His enemies are in the first of them.',
       'Exilado da cidade que amava, escreveu um poema que atravessa o inferno, o purgatório e o paraíso. Seus inimigos estão no primeiro deles.',
     ],
+    end: [
+      'Malaria caught on a diplomatic errand through the marshes, in the city that had taken him in after the city of his birth condemned him to burn.',
+      'Malária contraída em uma missão diplomática pelos pântanos, na cidade que o acolheu depois que a cidade onde nasceu o condenou à fogueira.',
+    ],
   },
   {
     id: 'gutenberg',
@@ -664,6 +841,10 @@ export const FIGURES = [
     deed: [
       'Brought movable metal type to Europe and printed a Bible with it, making the written word cheap for the first time.',
       'Trouxe os tipos móveis de metal para a Europa e com eles imprimiu uma Bíblia, tornando a palavra escrita barata pela primeira vez.',
+    ],
+    end: [
+      'Old age, in obscurity, having lost his workshop and his types to the lawsuit of the man who had lent him the money.',
+      'A velhice, na obscuridade, tendo perdido a oficina e os tipos no processo movido pelo homem que lhe emprestara o dinheiro.',
     ],
   },
 
@@ -682,6 +863,10 @@ export const FIGURES = [
       'Painted the most famous portrait in the world, and filled thousands of mirror-written notebook pages with flying machines and anatomy.',
       'Pintou o retrato mais famoso do mundo e encheu milhares de páginas de cadernos escritos em espelho com máquinas voadoras e anatomia.',
     ],
+    end: [
+      'A stroke, most likely, at sixty-seven, in a manor house given to him by a French king, with his right hand already useless.',
+      'Um derrame, muito provavelmente, aos sessenta e sete anos, em uma casa senhorial dada por um rei francês, já com a mão direita inútil.',
+    ],
   },
   {
     id: 'michelangelo',
@@ -696,6 +881,10 @@ export const FIGURES = [
       'Carved a giant marble David, then spent four years on his back painting a chapel ceiling. He insisted to the end that he was a sculptor, not a painter.',
       'Esculpiu um Davi gigante em mármore e depois passou quatro anos de costas pintando o teto de uma capela. Insistiu até o fim que era escultor, não pintor.',
     ],
+    end: [
+      'A short fever at eighty-eight, still at work. His last words asked for more time to learn the trade.',
+      'Uma febre curta aos oitenta e oito anos, ainda trabalhando. Suas últimas palavras pediam mais tempo para aprender o ofício.',
+    ],
   },
   {
     id: 'raphael',
@@ -708,6 +897,10 @@ export const FIGURES = [
     deed: [
       'The youngest of the three great masters of his age, who painted philosophy itself as a gathering under a vaulted arch, and died at thirty-seven.',
       'O mais jovem dos três grandes mestres de sua época, pintou a própria filosofia como uma reunião sob um arco abobadado, e morreu aos trinta e sete anos.',
+    ],
+    end: [
+      'A fever after a night out, badly bled by his doctors, dead in fifteen days at thirty-seven — on the anniversary of his own birth.',
+      'Uma febre depois de uma noite fora, mal sangrado pelos médicos, morto em quinze dias aos trinta e sete anos — no aniversário do próprio nascimento.',
     ],
   },
   {
@@ -722,6 +915,10 @@ export const FIGURES = [
       'Painted a goddess arriving on a scallop shell, then fell under a friar\'s spell and burned some of his own work.',
       'Pintou uma deusa chegando numa concha, depois caiu sob o feitiço de um frade e queimou parte da própria obra.',
     ],
+    end: [
+      'Old age and neglect, lame and dependent on charity, in the city where he had once been the most fashionable painter alive.',
+      'A velhice e o abandono, manco e dependente da caridade, na cidade onde um dia foi o pintor mais requisitado que havia.',
+    ],
   },
   {
     id: 'donatello',
@@ -734,6 +931,10 @@ export const FIGURES = [
     deed: [
       'Cast the first free-standing nude bronze since antiquity, and taught the age how to carve depth into a flat panel.',
       'Fundiu o primeiro nu em bronze independente desde a Antiguidade e ensinou sua época a esculpir profundidade num painel plano.',
+    ],
+    end: [
+      'Old age at about eighty, in the city of his birth, cared for at the end by the family whose money had paid for most of his work.',
+      'A velhice, com cerca de oitenta anos, na cidade onde nasceu, cuidado no fim pela família cujo dinheiro pagara a maior parte de sua obra.',
     ],
   },
   {
@@ -749,6 +950,10 @@ export const FIGURES = [
       'The supreme colourist of the Venetian school, court painter to an emperor, still working at nearly ninety when plague took him.',
       'O supremo colorista da escola veneziana, pintor da corte de um imperador, ainda trabalhando aos quase noventa anos quando a peste o levou.',
     ],
+    end: [
+      'Dead at nearly ninety during a plague year, of fever or of the plague itself — the one man in the city given a church burial regardless.',
+      'Morto com quase noventa anos em um ano de peste, de febre ou da própria peste — o único homem da cidade a receber sepultura em igreja mesmo assim.',
+    ],
   },
   {
     id: 'caravaggio',
@@ -762,6 +967,10 @@ export const FIGURES = [
       'Lit his saints like criminals in a cellar, killed a man in a brawl, and died on a beach fleeing a death sentence.',
       'Iluminou seus santos como criminosos num porão, matou um homem numa briga e morreu numa praia fugindo de uma sentença de morte.',
     ],
+    end: [
+      'A fever on a fever-ridden stretch of coast at thirty-eight, running from a death sentence, with the pardon he had begged for already on its way to him.',
+      'Uma febre em um trecho de costa infestado de febres, aos trinta e oito anos, fugindo de uma sentença de morte, com o perdão que tanto implorara já a caminho.',
+    ],
   },
   {
     id: 'machiavelli',
@@ -774,6 +983,10 @@ export const FIGURES = [
     deed: [
       'Wrote a short handbook advising rulers that it is safer to be feared than loved, and gave his name to political cynicism.',
       'Escreveu um breve manual aconselhando governantes de que é mais seguro ser temido que amado, e deu seu nome ao cinismo político.',
+    ],
+    end: [
+      'An illness of the belly, made worse by a medicine he prescribed himself, weeks after the republic he had served declined to employ him again.',
+      'Uma doença do ventre, agravada por um remédio que ele mesmo receitou, semanas depois de a república que servira recusar-se a empregá-lo outra vez.',
     ],
   },
   {
@@ -789,6 +1002,10 @@ export const FIGURES = [
       'Moved the earth out of the centre of the universe, and delayed publishing until the year he died.',
       'Tirou a Terra do centro do universo, e adiou a publicação até o ano de sua morte.',
     ],
+    end: [
+      'A stroke at seventy, half paralysed and past speech. They say he was woken to be shown the first printed copy of his book, and died that day.',
+      'Um derrame aos setenta anos, meio paralisado e sem fala. Dizem que o acordaram para lhe mostrar o primeiro exemplar impresso de seu livro, e que morreu naquele dia.',
+    ],
   },
   {
     id: 'galileo',
@@ -803,6 +1020,10 @@ export const FIGURES = [
       'Turned a new telescope on the sky and found moons going round another planet. Saying so cost him his last years, under house arrest.',
       'Apontou um telescópio novo para o céu e encontrou luas girando em torno de outro planeta. Dizê-lo lhe custou os últimos anos, em prisão domiciliar.',
     ],
+    end: [
+      'Fever and a failing heart at seventy-seven, blind for four years, still under house arrest by order of the church.',
+      'Febre e um coração fraco aos setenta e sete anos, cego havia quatro, ainda em prisão domiciliar por ordem da igreja.',
+    ],
   },
   {
     id: 'kepler',
@@ -815,6 +1036,10 @@ export const FIGURES = [
     deed: [
       'Proved the planets move in ellipses rather than circles, while defending his own mother against a witchcraft trial.',
       'Provou que os planetas se movem em elipses, e não em círculos, enquanto defendia a própria mãe num processo por bruxaria.',
+    ],
+    end: [
+      'A fever in a strange town, on a journey undertaken to collect years of salary the imperial treasury had never paid him.',
+      'Uma febre em uma cidade estranha, em uma viagem feita para cobrar anos de salário que o tesouro imperial nunca lhe pagara.',
     ],
   },
   {
@@ -830,6 +1055,10 @@ export const FIGURES = [
       'Nailed ninety-five complaints to a church door and was excommunicated for them. Western Christianity split in two behind him.',
       'Pregou noventa e cinco queixas na porta de uma igreja e foi excomungado por elas. A cristandade ocidental rachou em duas atrás dele.',
     ],
+    end: [
+      'A stroke at sixty-two, in the very town where he had been born, having gone back there to settle a quarrel between two counts.',
+      'Um derrame aos sessenta e dois anos, na mesma cidade onde nascera, para onde voltara a fim de resolver uma briga entre dois condes.',
+    ],
   },
   {
     id: 'cervantes',
@@ -843,6 +1072,10 @@ export const FIGURES = [
     deed: [
       'Lost the use of a hand at a great sea battle and spent five years as a captive of pirates. Then he wrote what is often called the first modern novel.',
       'Perdeu o uso de uma das mãos numa grande batalha naval e passou cinco anos cativo de piratas. Depois escreveu o que se costuma chamar o primeiro romance moderno.',
+    ],
+    end: [
+      'Dropsy, almost certainly diabetes, at sixty-eight — poor to the end, and buried so plainly that his bones took four centuries to find again.',
+      'Hidropisia, quase certamente diabetes, aos sessenta e oito anos — pobre até o fim, e sepultado com tal simplicidade que seus ossos levaram quatro séculos para ser reencontrados.',
     ],
   },
   {
@@ -858,6 +1091,10 @@ export const FIGURES = [
       'Wrote thirty-seven plays for a London playhouse and coined hundreds of phrases people still use without knowing it. His will left his wife the second-best bed.',
       'Escreveu trinta e sete peças para um teatro de Londres e cunhou centenas de expressões que ainda se usam sem saber de onde vêm. Seu testamento deixou à esposa a segunda melhor cama.',
     ],
+    end: [
+      'Unknown, on or about his fifty-second birthday. A vicar wrote fifty years later that he had caught a fever after a hard night of drinking with two fellow poets.',
+      'Desconhecida, em seu quinquagésimo segundo aniversário ou perto dele. Um vigário escreveu cinquenta anos depois que ele pegara uma febre após uma noite pesada de bebida com dois outros poetas.',
+    ],
   },
   {
     id: 'rembrandt',
@@ -872,6 +1109,10 @@ export const FIGURES = [
       'Painted a militia company stepping out of the shadows and recorded his own face for forty years. He died bankrupt.',
       'Pintou uma companhia da milícia saindo das sombras e registrou o próprio rosto durante quarenta anos. Morreu na falência.',
     ],
+    end: [
+      'Unrecorded, at sixty-three, bankrupt and outlived by his son. He was put in a rented grave that was emptied again twenty years later.',
+      'Não registrada, aos sessenta e três anos, falido e tendo sobrevivido ao próprio filho. Foi posto em uma sepultura alugada, esvaziada vinte anos depois.',
+    ],
   },
   {
     id: 'vermeer',
@@ -884,6 +1125,10 @@ export const FIGURES = [
     deed: [
       'Left barely thirty-five paintings, most of quiet rooms lit from a left-hand window, and was forgotten for two centuries.',
       'Deixou pouco mais de trinta e cinco quadros, quase todos de quartos silenciosos iluminados por uma janela à esquerda, e foi esquecido por dois séculos.',
+    ],
+    end: [
+      'A collapse of a day and a half at forty-three, which his widow blamed on debt: a war had killed the picture trade and left eleven children unfed.',
+      'Um colapso de um dia e meio aos quarenta e três anos, que a viúva atribuiu às dívidas: uma guerra matara o comércio de quadros e deixara onze filhos sem comer.',
     ],
   },
 
@@ -902,6 +1147,10 @@ export const FIGURES = [
       'Sailed west for Asia under a Spanish flag and struck islands no European knew existed. He died insisting they were the Indies.',
       'Navegou para oeste rumo à Ásia sob bandeira espanhola e topou com ilhas que nenhum europeu sabia existirem. Morreu insistindo que eram as Índias.',
     ],
+    end: [
+      'A wasting arthritic illness at fifty-four, in a rented room, still petitioning a court that had taken his titles away and stopped answering his letters.',
+      'Uma doença artrítica debilitante aos cinquenta e quatro anos, em um quarto alugado, ainda peticionando a uma corte que lhe tirara os títulos e parara de responder suas cartas.',
+    ],
   },
   {
     id: 'magellan',
@@ -917,6 +1166,10 @@ export const FIGURES = [
       'Set out with five ships to sail around the world and was killed in the Philippines; one ship and eighteen men finished the voyage.',
       'Partiu com cinco naus para circundar o mundo e foi morto nas Filipinas; uma nau e dezoito homens completaram a viagem.',
     ],
+    end: [
+      'Killed in knee-deep surf on an island beach, speared and hacked down by its people while his boats watched from too far out to help.',
+      'Morto em águas rasas de uma praia insular, atravessado por lanças e abatido pelos habitantes enquanto seus botes assistiam de longe demais para ajudar.',
+    ],
   },
   {
     id: 'vasco-da-gama',
@@ -930,6 +1183,10 @@ export const FIGURES = [
     deed: [
       'Opened the sea route from Europe to India around the Cape of Good Hope, and died of malaria on his third voyage there.',
       'Abriu a rota marítima da Europa para a Índia contornando o Cabo da Boa Esperança, e morreu de malária em sua terceira viagem.',
+    ],
+    end: [
+      'Malaria, three months after arriving to govern the colony he had opened the sea road to, in a house on the Indian coast.',
+      'Malária, três meses depois de chegar para governar a colônia cujo caminho marítimo ele havia aberto, em uma casa na costa da Índia.',
     ],
   },
   {
@@ -945,6 +1202,10 @@ export const FIGURES = [
       'Sailed for India, swung far west into the Atlantic, and made the European landfall that claimed Brazil for Portugal.',
       'Partiu rumo à Índia, desviou-se para oeste no Atlântico e fez o desembarque europeu que reivindicou o Brasil para Portugal.',
     ],
+    end: [
+      'Unrecorded, in a small river town where he had lived quietly for twenty years, dropped from the fleet lists and never given another command.',
+      'Não registrada, em uma pequena cidade à beira de um rio onde vivera em silêncio por vinte anos, riscado das listas da armada e nunca mais posto no comando.',
+    ],
   },
   {
     id: 'moctezuma',
@@ -959,6 +1220,10 @@ export const FIGURES = [
       'Aztec emperor who received Spanish visitors into his capital as guests, and died a prisoner during the uprising against them.',
       'Imperador asteca que recebeu como hóspedes os visitantes espanhóis em sua capital, e morreu prisioneiro durante a revolta contra eles.',
     ],
+    end: [
+      'Stoned by his own people while pleading with them from a rooftop, say his captors; strangled by those same captors, say his people.',
+      'Apedrejado pelo próprio povo enquanto lhe falava de um terraço, dizem seus captores; estrangulado por esses mesmos captores, diz seu povo.',
+    ],
   },
   {
     id: 'atahualpa',
@@ -972,6 +1237,10 @@ export const FIGURES = [
     deed: [
       'The last independent Inca emperor, who filled a room with gold for his ransom and was garrotted anyway.',
       'O último imperador inca independente, que encheu de ouro um aposento como resgate e mesmo assim foi executado no garrote.',
+    ],
+    end: [
+      'Garrotted in a public square after filling a room with gold for a ransom that was taken and not honoured. He was to be burned; baptism bought him strangling instead.',
+      'Estrangulado no garrote em uma praça pública depois de encher um quarto de ouro por um resgate que foi recebido e não cumprido. Seria queimado; o batismo lhe comprou o estrangulamento.',
     ],
   },
 
@@ -990,6 +1259,10 @@ export const FIGURES = [
       'Worked out gravity and the laws of motion during a plague year stuck at home, and invented calculus while he was at it. He later ran the Royal Mint.',
       'Deduziu a gravidade e as leis do movimento num ano de peste preso em casa, e de quebra inventou o cálculo. Mais tarde dirigiu a Casa da Moeda.',
     ],
+    end: [
+      'A stone in the bladder at eighty-four, in agony for days and refusing the sacrament at the end.',
+      'Uma pedra na bexiga aos oitenta e quatro anos, em agonia por dias e recusando o sacramento no fim.',
+    ],
   },
   {
     id: 'descartes',
@@ -1002,6 +1275,10 @@ export const FIGURES = [
     deed: [
       'Doubted everything until only the doubter was left, and died of pneumonia after a queen made him teach at five in the morning.',
       'Duvidou de tudo até restar apenas quem duvidava, e morreu de pneumonia depois que uma rainha o obrigou a dar aulas às cinco da manhã.',
+    ],
+    end: [
+      'Pneumonia in a northern winter, contracted while giving a queen philosophy lessons at five in the morning in an unheated palace.',
+      'Pneumonia em um inverno nórdico, contraída ao dar lições de filosofia a uma rainha às cinco da manhã em um palácio sem aquecimento.',
     ],
   },
   {
@@ -1016,6 +1293,10 @@ export const FIGURES = [
       'Twice imprisoned and once exiled for his wit, he campaigned against fanaticism and wrote a short novel mocking optimism.',
       'Duas vezes preso e uma vez exilado por sua ironia, combateu o fanatismo e escreveu um breve romance zombando do otimismo.',
     ],
+    end: [
+      'Old age at eighty-three, worn out by the ovations of a city that had twice exiled him, refusing the confession the priests came for.',
+      'A velhice aos oitenta e três anos, esgotado pelas ovações de uma cidade que o exilara duas vezes, recusando a confissão que os sacerdotes vieram buscar.',
+    ],
   },
   {
     id: 'rousseau',
@@ -1028,6 +1309,10 @@ export const FIGURES = [
     deed: [
       'Declared that man is born free but is everywhere in chains, wrote a treatise on education, and gave his own children to a foundling hospital.',
       'Declarou que o homem nasce livre mas está por toda parte acorrentado, escreveu um tratado sobre educação e entregou os próprios filhos a um orfanato.',
+    ],
+    end: [
+      'A haemorrhage of the brain at sixty-six, on the grounds of a country estate where he had gone to be left alone. Suicide was rumoured for a century.',
+      'Uma hemorragia cerebral aos sessenta e seis anos, nos jardins de uma propriedade rural onde fora para ser deixado em paz. Falou-se de suicídio por um século.',
     ],
   },
   {
@@ -1042,6 +1327,10 @@ export const FIGURES = [
       'Never travelled more than a few miles from his birthplace, yet rebuilt philosophy around the limits of what the mind can know.',
       'Nunca se afastou mais que alguns quilômetros do lugar onde nasceu, e ainda assim refundou a filosofia em torno dos limites do que a mente pode conhecer.',
     ],
+    end: [
+      'Old age at seventy-nine, in the only city he ever lived in, so shrunken that he weighed almost nothing. His last words were that it was enough.',
+      'A velhice aos setenta e nove anos, na única cidade em que morou, tão diminuído que quase nada pesava. Suas últimas palavras foram que estava bom assim.',
+    ],
   },
   {
     id: 'adam-smith',
@@ -1055,6 +1344,10 @@ export const FIGURES = [
       'Explained how self-interest in a market can be led as if by an invisible hand, founding the study of economics.',
       'Explicou como o interesse próprio num mercado pode ser guiado como que por uma mão invisível, fundando o estudo da economia.',
     ],
+    end: [
+      'A painful intestinal illness at sixty-seven. Days before, he made his friends burn almost all his unpublished papers in front of him.',
+      'Uma doença intestinal dolorosa aos sessenta e sete anos. Dias antes, fez os amigos queimarem à sua frente quase todos os seus manuscritos inéditos.',
+    ],
   },
   {
     id: 'benjamin-franklin',
@@ -1067,6 +1360,10 @@ export const FIGURES = [
     deed: [
       'Flew a kite in a thunderstorm and invented both a stove and bifocals. He signed the American declaration of independence and the peace that ended the war.',
       'Soltou uma pipa numa tempestade e inventou tanto um fogão quanto as lentes bifocais. Assinou a declaração de independência americana e a paz que encerrou a guerra.',
+    ],
+    end: [
+      'An abscess in the lung burst at eighty-four, after years of gout and stones, in the city where he had set his first type.',
+      'Um abscesso no pulmão que se rompeu aos oitenta e quatro anos, após anos de gota e de pedras, na cidade onde compôs seus primeiros tipos.',
     ],
   },
   {
@@ -1082,6 +1379,10 @@ export const FIGURES = [
       'Commanded a rebel army against the British, then walked away from power twice: once from the army, once from the presidency.',
       'Comandou um exército rebelde contra os britânicos e abriu mão do poder duas vezes: uma do exército, outra da presidência.',
     ],
+    end: [
+      'A throat infection that closed his windpipe in a day — and four physicians who bled away half the blood in his body trying to save him.',
+      'Uma infecção de garganta que lhe fechou a traqueia em um dia — e quatro médicos que lhe sangraram metade do sangue do corpo tentando salvá-lo.',
+    ],
   },
   {
     id: 'thomas-jefferson',
@@ -1094,6 +1395,10 @@ export const FIGURES = [
     deed: [
       'Wrote that all men are created equal while owning hundreds of people, doubled his country with one purchase, and died deep in debt on the Fourth of July.',
       'Escreveu que todos os homens nascem iguais enquanto possuía centenas de escravos, dobrou o território do país com uma só compra e morreu endividado num Quatro de Julho.',
+    ],
+    end: [
+      'Old age and a ruined body at eighty-three, deep in debt — on the fiftieth anniversary of the document he had drafted, within hours of the rival who signed it beside him.',
+      'A velhice e um corpo arruinado aos oitenta e três anos, coberto de dívidas — no cinquentenário do documento que redigira, poucas horas antes do rival que o assinou a seu lado.',
     ],
   },
   {
@@ -1108,6 +1413,10 @@ export const FIGURES = [
       'Reigned seventy-two years, built a palace that swallowed his nobility, and took the sun as his emblem.',
       'Reinou setenta e dois anos, construiu um palácio que engoliu sua nobreza e tomou o sol como emblema.',
     ],
+    end: [
+      'Gangrene in the leg, four days short of seventy-seven, at the end of the longest reign in European history. He told his heir not to copy him.',
+      'Gangrena na perna, quatro dias antes de completar setenta e sete anos, ao fim do reinado mais longo da história europeia. Disse ao herdeiro que não o imitasse.',
+    ],
   },
   {
     id: 'peter-the-great',
@@ -1120,6 +1429,10 @@ export const FIGURES = [
     deed: [
       'Worked incognito in Dutch shipyards to learn the trade, taxed his noblemen for wearing beards, and built a new capital on a swamp.',
       'Trabalhou incógnito em estaleiros holandeses para aprender o ofício, taxou os nobres que usavam barba e ergueu uma nova capital sobre um pântano.',
+    ],
+    end: [
+      'An infection of the bladder at fifty-two, which worsened after he waded into freezing water to help pull drowning soldiers out of it.',
+      'Uma infecção na bexiga aos cinquenta e dois anos, agravada depois que ele entrou em água congelante para ajudar a tirar soldados que se afogavam.',
     ],
   },
   {
@@ -1134,6 +1447,10 @@ export const FIGURES = [
       'A German princess who deposed her own husband, ruled Russia for thirty-four years, and corresponded with the philosophers of the age.',
       'Uma princesa alemã que depôs o próprio marido, governou a Rússia por trinta e quatro anos e se correspondeu com os filósofos de sua época.',
     ],
+    end: [
+      'A stroke at sixty-seven, found on the floor of her dressing room. The obscene story told about her death afterwards was invented by her enemies.',
+      'Um derrame aos sessenta e sete anos, encontrada no chão de seu camarim. A história obscena contada depois sobre sua morte foi inventada por seus inimigos.',
+    ],
   },
   {
     id: 'marie-antoinette',
@@ -1147,6 +1464,10 @@ export const FIGURES = [
       'An Austrian archduchess married into the French court at fourteen, blamed for its extravagance, and guillotined in a public square.',
       'Uma arquiduquesa austríaca casada com a corte francesa aos catorze anos, culpada por sua extravagância e guilhotinada numa praça pública.',
     ],
+    end: [
+      'Beheaded by the new machine, in a public square, at thirty-seven, nine months after her husband. She apologised to the executioner for stepping on his foot.',
+      'Decapitada pela máquina nova, em uma praça pública, aos trinta e sete anos, nove meses depois do marido. Pediu desculpas ao carrasco por lhe pisar o pé.',
+    ],
   },
   {
     id: 'robespierre',
@@ -1159,6 +1480,10 @@ export const FIGURES = [
     deed: [
       'Nicknamed the Incorruptible, he directed a revolutionary terror and went to the same blade within a year.',
       'Apelidado de Incorruptível, dirigiu um terror revolucionário e foi para a mesma lâmina em menos de um ano.',
+    ],
+    end: [
+      'Beheaded by the machine he had kept busy, his jaw shattered by a pistol ball the night before and bound with a filthy bandage the executioner tore off.',
+      'Decapitado pela máquina que mantivera ocupada, com o maxilar destruído por uma bala de pistola na noite anterior e preso por uma bandagem imunda que o carrasco arrancou.',
     ],
   },
   {
@@ -1174,6 +1499,10 @@ export const FIGURES = [
       'Rose from artillery officer to emperor and gave Europe a legal code. Then he lost an army to the Russian winter and died on a rock in the South Atlantic.',
       'Subiu de oficial de artilharia a imperador e deu à Europa um código civil. Depois perdeu um exército para o inverno russo e morreu num rochedo do Atlântico Sul.',
     ],
+    end: [
+      'A cancer of the stomach at fifty-one, on a rock in the south Atlantic, in a damp house he hated. Arsenic in the wallpaper was blamed for two centuries.',
+      'Um câncer de estômago aos cinquenta e um anos, em uma rocha no Atlântico Sul, em uma casa úmida que detestava. Culparam o arsênico do papel de parede por dois séculos.',
+    ],
   },
   {
     id: 'lavoisier',
@@ -1186,6 +1515,10 @@ export const FIGURES = [
     deed: [
       'Named oxygen, showed that matter is neither created nor destroyed, and was guillotined as a tax collector during the Terror.',
       'Batizou o oxigênio, mostrou que a matéria não se cria nem se destrói, e foi guilhotinado como cobrador de impostos durante o Terror.',
+    ],
+    end: [
+      'Beheaded in the morning, eighth in a batch of twenty-eight. It took an instant to remove that head, a mathematician said, and a century will not produce another.',
+      'Decapitado de manhã, o oitavo de um lote de vinte e oito. Bastou um instante para cortar aquela cabeça, disse um matemático, e um século não produzirá outra igual.',
     ],
   },
   {
@@ -1200,6 +1533,10 @@ export const FIGURES = [
       'Noticed that milkmaids did not catch smallpox, tested the idea on a gardener\'s boy, and gave the world vaccination.',
       'Notou que as ordenhadoras não pegavam varíola, testou a ideia no filho de um jardineiro e deu ao mundo a vacinação.',
     ],
+    end: [
+      'A stroke at seventy-three, in the village where he had spent his whole practice, in the same house where he had tried the experiment.',
+      'Um derrame aos setenta e três anos, na aldeia onde exerceu toda a sua clínica, na mesma casa onde fizera a experiência.',
+    ],
   },
   {
     id: 'linnaeus',
@@ -1213,6 +1550,10 @@ export const FIGURES = [
       'Gave every living thing a two-part Latin name, and filed the whole of nature into a single ranked system.',
       'Deu a cada ser vivo um nome latino de duas partes e organizou toda a natureza num único sistema hierárquico.',
     ],
+    end: [
+      'A series of strokes at seventy-one that took his speech and then his memory, until he could no longer recognise the names he had given the world.',
+      'Uma série de derrames aos setenta e um anos que lhe tirou a fala e depois a memória, até não reconhecer mais os nomes que dera ao mundo.',
+    ],
   },
   {
     id: 'james-cook',
@@ -1225,6 +1566,10 @@ export const FIGURES = [
     deed: [
       'Charted New Zealand and the eastern coast of Australia, kept his crews free of scurvy, and was killed on a Pacific beach.',
       'Cartografou a Nova Zelândia e a costa leste da Austrália, manteve suas tripulações livres do escorbuto e foi morto numa praia do Pacífico.',
+    ],
+    end: [
+      'Clubbed and stabbed in the shallows of a Pacific bay, killed by islanders who had welcomed him weeks earlier, in a quarrel over a stolen boat.',
+      'Espancado e apunhalado nas águas rasas de uma baía do Pacífico, morto por ilhéus que o receberam semanas antes, em uma briga por um bote roubado.',
     ],
   },
 
@@ -1243,6 +1588,10 @@ export const FIGURES = [
       'Wrote a cantata a week as a church organist and fathered twenty children. For eighty years after his death almost nobody played him.',
       'Escreveu uma cantata por semana como organista de igreja e teve vinte filhos. Por oitenta anos após sua morte quase ninguém o tocou.',
     ],
+    end: [
+      'A stroke at sixty-five, months after a travelling English surgeon operated twice on his eyes and left him blind and poisoned.',
+      'Um derrame aos sessenta e cinco anos, meses depois de um cirurgião inglês itinerante operar duas vezes seus olhos e deixá-lo cego e envenenado.',
+    ],
   },
   {
     id: 'vivaldi',
@@ -1255,6 +1604,10 @@ export const FIGURES = [
     deed: [
       'A red-haired priest who taught music at a girls\' orphanage, wrote five hundred concertos, and died a pauper far from home.',
       'Um padre ruivo que ensinava música num orfanato de meninas, escreveu quinhentos concertos e morreu na miséria longe de casa.',
+    ],
+    end: [
+      'An internal infection at sixty-three, in a foreign city where he had gone looking for a patron. He was buried a pauper in a hospital ground.',
+      'Uma infecção interna aos sessenta e três anos, em uma cidade estrangeira onde fora buscar um protetor. Foi sepultado como indigente em um terreno de hospital.',
     ],
   },
   {
@@ -1269,6 +1622,10 @@ export const FIGURES = [
       'A German who made his career in England, wrote an oratorio in twenty-four days that audiences still stand up for.',
       'Um alemão que fez carreira na Inglaterra e escreveu em vinte e quatro dias um oratório para o qual o público ainda se levanta.',
     ],
+    end: [
+      'Old age at seventy-four, blind for six years, having collapsed eight days after conducting a performance of his own music.',
+      'A velhice aos setenta e quatro anos, cego havia seis, tendo desmaiado oito dias depois de reger uma apresentação de sua própria música.',
+    ],
   },
   {
     id: 'haydn',
@@ -1281,6 +1638,10 @@ export const FIGURES = [
     deed: [
       'Spent thirty years in livery to one noble family, and in that isolation invented the shape of the symphony and the string quartet.',
       'Passou trinta anos a serviço de uma só família nobre e, nesse isolamento, inventou a forma da sinfonia e do quarteto de cordas.',
+    ],
+    end: [
+      'Old age at seventy-seven, in a city under French bombardment. Cannon shook the windows of the room, and he told his servants not to be afraid.',
+      'A velhice aos setenta e sete anos, em uma cidade bombardeada pelos franceses. O canhão sacudia as janelas do quarto, e ele disse aos criados que não tivessem medo.',
     ],
   },
   {
@@ -1296,6 +1657,10 @@ export const FIGURES = [
       'Toured Europe as a child prodigy and wrote six hundred works in thirty-five years. He was buried in a common grave.',
       'Percorreu a Europa como menino prodígio e escreveu seiscentas obras em trinta e cinco anos. Foi enterrado numa vala comum.',
     ],
+    end: [
+      'A fever with terrible swelling at thirty-five, gone in fifteen days. Bled by his doctors, buried in a common grave, and not poisoned by anyone.',
+      'Uma febre com inchaço terrível aos trinta e cinco anos, que o levou em quinze dias. Sangrado pelos médicos, sepultado em cova comum, e envenenado por ninguém.',
+    ],
   },
   {
     id: 'beethoven',
@@ -1310,6 +1675,10 @@ export const FIGURES = [
       'Went deaf in his twenties and wrote his greatest work unable to hear it, including a choral finale on the brotherhood of man.',
       'Ficou surdo aos vinte e poucos anos e escreveu sua maior obra sem poder ouvi-la, incluindo um final coral sobre a fraternidade humana.',
     ],
+    end: [
+      'Liver failure at fifty-six, after years of illness and four punctures of the abdomen to drain the fluid. Lead, in his hair and bones, is the newest suspect.',
+      'Falência do fígado aos cinquenta e seis anos, após anos de doença e quatro punções no abdômen para drenar o líquido. O chumbo, em seu cabelo e seus ossos, é o suspeito mais recente.',
+    ],
   },
   {
     id: 'schubert',
@@ -1322,6 +1691,10 @@ export const FIGURES = [
     deed: [
       'Wrote six hundred songs and a famously unfinished symphony before dying at thirty-one, barely known outside his circle of friends.',
       'Escreveu seiscentas canções e uma sinfonia célebre por ficar inacabada antes de morrer aos trinta e um anos, mal conhecido fora de seu círculo de amigos.',
+    ],
+    end: [
+      'Typhoid fever at thirty-one, in his brother\'s rooms, having asked to be buried near the older composer he had idolised all his life.',
+      'Febre tifoide aos trinta e um anos, nos aposentos do irmão, tendo pedido para ser sepultado perto do compositor mais velho que idolatrara a vida toda.',
     ],
   },
   {
@@ -1337,6 +1710,10 @@ export const FIGURES = [
       'Wrote almost nothing that was not for the piano. He left his homeland at twenty and never returned, but asked that his heart be sent back to it.',
       'Quase nada escreveu que não fosse para piano. Deixou a pátria aos vinte anos e nunca voltou, mas pediu que seu coração fosse mandado de volta.',
     ],
+    end: [
+      'A disease of the lungs at thirty-nine, coughing blood for years. Terrified of being buried alive, he asked that his heart be cut out and taken home.',
+      'Uma doença dos pulmões aos trinta e nove anos, tossindo sangue havia anos. Com pavor de ser sepultado vivo, pediu que lhe retirassem o coração e o levassem para casa.',
+    ],
   },
   {
     id: 'wagner',
@@ -1349,6 +1726,10 @@ export const FIGURES = [
     deed: [
       'Built his own theatre for a four-opera cycle about a cursed ring, and left a body of music as admired as his politics are condemned.',
       'Construiu o próprio teatro para um ciclo de quatro óperas sobre um anel amaldiçoado, e deixou uma obra tão admirada quanto sua política é condenada.',
+    ],
+    end: [
+      'A heart attack at sixty-nine, in a rented palace on a canal, after an argument. His widow held the body for a day and would not let it go.',
+      'Um ataque do coração aos sessenta e nove anos, em um palácio alugado à beira de um canal, depois de uma discussão. A viúva ficou um dia com o corpo e não o quis entregar.',
     ],
   },
   {
@@ -1363,6 +1744,10 @@ export const FIGURES = [
       'Wrote operas that became the anthems of Italian unification, and endowed a rest home for retired musicians with the proceeds.',
       'Escreveu óperas que viraram hinos da unificação italiana e, com os lucros, fundou um asilo para músicos aposentados.',
     ],
+    end: [
+      'A stroke in a hotel room at eighty-seven. The city spread straw on the street outside to muffle the horses while he took six days to die.',
+      'Um derrame em um quarto de hotel aos oitenta e sete anos. A cidade espalhou palha na rua para abafar os cavalos enquanto ele levava seis dias para morrer.',
+    ],
   },
   {
     id: 'tchaikovsky',
@@ -1375,6 +1760,10 @@ export const FIGURES = [
     deed: [
       'Wrote three ballets that still fill theatres every winter, and died nine days after conducting his despairing final symphony.',
       'Escreveu três balés que ainda lotam teatros todo inverno, e morreu nove dias depois de reger sua desesperada sinfonia final.',
+    ],
+    end: [
+      'Cholera at fifty-three, from a glass of unboiled water drunk in front of witnesses, nine days after conducting his last symphony. Suicide is still argued about.',
+      'Cólera aos cinquenta e três anos, por um copo de água não fervida bebido diante de testemunhas, nove dias depois de reger sua última sinfonia. Ainda se discute suicídio.',
     ],
   },
 
@@ -1393,6 +1782,10 @@ export const FIGURES = [
       'Freed six South American nations from Spanish rule. He died disillusioned on the coast, saying he had ploughed the sea.',
       'Libertou seis nações sul-americanas do domínio espanhol. Morreu desiludido no litoral, dizendo ter arado o mar.',
     ],
+    end: [
+      'Consumption at forty-seven, on the coast, in a borrowed shirt in a borrowed house, exiled from every country he had made.',
+      'Tuberculose aos quarenta e sete anos, no litoral, com uma camisa emprestada em uma casa emprestada, exilado de todos os países que criara.',
+    ],
   },
   {
     id: 'san-martin',
@@ -1405,6 +1798,10 @@ export const FIGURES = [
     deed: [
       'Took an army over the Andes to liberate Chile and Peru, then withdrew from politics entirely and died in European exile.',
       'Levou um exército por cima dos Andes para libertar o Chile e o Peru, depois abandonou de todo a política e morreu exilado na Europa.',
+    ],
+    end: [
+      'Old age at seventy-two, nearly blind, in a French seaside town, having refused for thirty years to fight in the civil wars that followed his victories.',
+      'A velhice aos setenta e dois anos, quase cego, em uma cidade litorânea francesa, tendo recusado por trinta anos lutar nas guerras civis que se seguiram às suas vitórias.',
     ],
   },
   {
@@ -1420,6 +1817,10 @@ export const FIGURES = [
       'Born enslaved, he led the only slave revolt in history to found a nation, and died in a freezing French mountain prison.',
       'Nascido escravizado, liderou a única revolta de escravos da história a fundar uma nação, e morreu numa gélida prisão nas montanhas francesas.',
     ],
+    end: [
+      'Pneumonia and starvation in a freezing mountain fortress, imprisoned without trial after being lured to a meeting under a flag of truce.',
+      'Pneumonia e fome em uma fortaleza glacial nas montanhas, preso sem julgamento após ser atraído a uma reunião sob bandeira de trégua.',
+    ],
   },
   {
     id: 'tiradentes',
@@ -1432,6 +1833,10 @@ export const FIGURES = [
     deed: [
       'A militia ensign and part-time dentist who took sole blame for a Brazilian independence conspiracy and was hanged and quartered for it.',
       'Alferes da milícia e dentista nas horas vagas que assumiu sozinho a culpa por uma conspiração pela independência do Brasil e por isso foi enforcado e esquartejado.',
+    ],
+    end: [
+      'Hanged, then cut into quarters. His head was set on a post in the town square and his limbs nailed along the road he had ridden.',
+      'Enforcado e depois esquartejado. A cabeça foi posta em um poste na praça da vila e os membros pregados ao longo da estrada por onde cavalgara.',
     ],
   },
   {
@@ -1446,6 +1851,10 @@ export const FIGURES = [
       'A Portuguese prince who declared Brazil independent from his own father\'s kingdom, and ruled it as its first emperor.',
       'Um príncipe português que declarou o Brasil independente do reino do próprio pai, e o governou como seu primeiro imperador.',
     ],
+    end: [
+      'Consumption at thirty-five, in the palace where he had been born, two months after winning a civil war for his daughter\'s crown.',
+      'Tuberculose aos trinta e cinco anos, no palácio onde nascera, dois meses depois de vencer uma guerra civil pela coroa da filha.',
+    ],
   },
   {
     id: 'wilberforce',
@@ -1458,6 +1867,10 @@ export const FIGURES = [
     deed: [
       'Spent forty-six years in Parliament fighting the slave trade, and died three days after the bill abolishing slavery passed.',
       'Passou quarenta e seis anos no Parlamento combatendo o tráfico de escravos, e morreu três dias depois da aprovação da lei que aboliu a escravidão.',
+    ],
+    end: [
+      'Old age and long illness at seventy-three, three days after the bill he had fought for across forty-five years passed its decisive reading.',
+      'A velhice e uma longa doença aos setenta e três anos, três dias depois de a lei pela qual lutara por quarenta e cinco anos passar em sua votação decisiva.',
     ],
   },
   {
@@ -1472,6 +1885,10 @@ export const FIGURES = [
       'Argued that women appear inferior only because they are denied education, and died of fever days after giving birth to a future novelist.',
       'Argumentou que as mulheres só parecem inferiores porque lhes negam educação, e morreu de febre dias após dar à luz uma futura romancista.',
     ],
+    end: [
+      'Fever eleven days after childbirth, at thirty-eight, because the doctor reached in with unwashed hands. The daughter survived to write a famous novel about a made man.',
+      'Febre onze dias depois do parto, aos trinta e oito anos, porque o médico a examinou com as mãos sujas. A filha sobreviveu e escreveu um romance famoso sobre um homem fabricado.',
+    ],
   },
   {
     id: 'livingstone',
@@ -1484,6 +1901,10 @@ export const FIGURES = [
     deed: [
       'A Scottish missionary who crossed Africa searching for the Nile\'s source, was presumed lost, and was greeted with a very famous question.',
       'Um missionário escocês que atravessou a África em busca da nascente do Nilo, foi dado por perdido e recebeu uma pergunta muito famosa.',
+    ],
+    end: [
+      'Dysentery and malaria in a village deep in the interior, found kneeling at his bedside. His heart was buried under a tree; the body was carried a thousand miles to the sea.',
+      'Disenteria e malária em uma aldeia no interior profundo, encontrado de joelhos ao lado da cama. O coração foi sepultado sob uma árvore; o corpo foi levado mil e quinhentos quilômetros até o mar.',
     ],
   },
 
@@ -1502,6 +1923,10 @@ export const FIGURES = [
       'Sailed round the world on a survey ship, then sat on his theory of natural selection for twenty years. He published only when someone else nearly beat him to it.',
       'Deu a volta ao mundo num navio de levantamento e depois guardou por vinte anos sua teoria da seleção natural. Só publicou quando outro quase o precedeu.',
     ],
+    end: [
+      'A failing heart at seventy-three, after forty years of an illness nobody diagnosed, in the country house where he had hidden from the argument he started.',
+      'Um coração fraco aos setenta e três anos, após quarenta anos de uma doença que ninguém diagnosticou, na casa de campo onde se escondera da polêmica que iniciara.',
+    ],
   },
   {
     id: 'louis-pasteur',
@@ -1516,6 +1941,10 @@ export const FIGURES = [
       'Proved that germs cause disease rather than springing out of nothing, and saved the silk and wine industries with it. His name is now on a way of heating milk.',
       'Provou que os germes causam doenças em vez de surgirem do nada, e com isso salvou as indústrias da seda e do vinho. Seu nome está hoje num modo de aquecer o leite.',
     ],
+    end: [
+      'A last in a series of strokes at seventy-two, half paralysed for twenty-five years and working through all of them.',
+      'O último de uma série de derrames aos setenta e dois anos, meio paralisado por vinte e cinco anos e trabalhando durante todos eles.',
+    ],
   },
   {
     id: 'gregor-mendel',
@@ -1528,6 +1957,10 @@ export const FIGURES = [
     deed: [
       'An Augustinian friar who bred twenty-nine thousand pea plants in a monastery garden and worked out how traits are inherited. Nobody took any notice until decades after his death.',
       'Um frade agostiniano que cultivou vinte e nove mil pés de ervilha na horta de um mosteiro e deduziu como se herdam as características. Ninguém deu atenção senão décadas após sua morte.',
+    ],
+    end: [
+      'Kidney disease at sixty-one, in his monastery, his experiments unread. The abbot who followed him burned the papers to settle a tax dispute.',
+      'Doença nos rins aos sessenta e um anos, em seu mosteiro, com seus experimentos ainda sem leitores. O abade seguinte queimou os papéis para encerrar uma disputa de impostos.',
     ],
   },
   {
@@ -1542,6 +1975,10 @@ export const FIGURES = [
       'A bookbinder\'s apprentice with almost no schooling who discovered electromagnetic induction and made electricity a usable force.',
       'Um aprendiz de encadernador quase sem estudo formal que descobriu a indução eletromagnética e tornou a eletricidade uma força utilizável.',
     ],
+    end: [
+      'Old age at seventy-five, his memory long gone, in a house the queen had given him — sitting in his study chair.',
+      'A velhice aos setenta e cinco anos, a memória perdida havia muito, em uma casa que a rainha lhe dera — sentado na cadeira de seu gabinete.',
+    ],
   },
   {
     id: 'james-watt',
@@ -1554,6 +1991,10 @@ export const FIGURES = [
     deed: [
       'Improved the steam engine with a separate condenser, made industry possible away from rivers, and lent his name to the unit of power.',
       'Aperfeiçoou a máquina a vapor com um condensador separado, tornou a indústria possível longe dos rios e deu seu nome à unidade de potência.',
+    ],
+    end: [
+      'Old age at eighty-three, in the workshop wing of his own house, rich and finished with inventing.',
+      'A velhice aos oitenta e três anos, na ala de oficina de sua própria casa, rico e sem mais nada a inventar.',
     ],
   },
   {
@@ -1568,6 +2009,10 @@ export const FIGURES = [
       'Illiterate until eighteen, he built the first public steam railway and set the track gauge most of the world still uses.',
       'Analfabeto até os dezoito anos, construiu a primeira ferrovia pública a vapor e fixou a bitola que grande parte do mundo ainda usa.',
     ],
+    end: [
+      'Pleurisy at sixty-seven, at his estate, in a county whose hills he had spent his life proving a loaded train could climb.',
+      'Pleurisia aos sessenta e sete anos, em sua propriedade, em um condado cujas colinas passara a vida provando que um trem carregado podia subir.',
+    ],
   },
   {
     id: 'charles-babbage',
@@ -1580,6 +2025,10 @@ export const FIGURES = [
     deed: [
       'Designed a mechanical general-purpose computer a century before electronics existed, and never managed to finish building one.',
       'Projetou um computador mecânico de uso geral um século antes de existir a eletrônica, e jamais conseguiu terminar de construí-lo.',
+    ],
+    end: [
+      'Kidney failure at seventy-nine, embittered and mocked, with the great machine still in pieces. His brain was cut out and kept; half of it is on display.',
+      'Falência dos rins aos setenta e nove anos, amargurado e ridicularizado, com a grande máquina ainda em pedaços. Seu cérebro foi retirado e guardado; metade está em exposição.',
     ],
   },
   {
@@ -1594,6 +2043,10 @@ export const FIGURES = [
       'Daughter of a famous poet, she wrote what is considered the first computer program, for a machine that was never built.',
       'Filha de um poeta famoso, escreveu o que se considera o primeiro programa de computador, para uma máquina que nunca chegou a ser construída.',
     ],
+    end: [
+      'Cancer of the womb at thirty-six, in months of pain, bled by her physicians — the same age at which her poet father had died.',
+      'Câncer no útero aos trinta e seis anos, em meses de dor, sangrada pelos médicos — a mesma idade com que morrera seu pai poeta.',
+    ],
   },
   {
     id: 'samuel-morse',
@@ -1607,6 +2060,10 @@ export const FIGURES = [
       'A portrait painter until his forties, he built a working telegraph and the dot-and-dash alphabet that ran on it.',
       'Retratista até os quarenta anos, construiu um telégrafo funcional e o alfabeto de pontos e traços que corria nele.',
     ],
+    end: [
+      'Pneumonia at eighty, in his town house, having lived to see his code carried under two oceans.',
+      'Pneumonia aos oitenta anos, em sua casa na cidade, tendo vivido para ver seu código atravessar dois oceanos por baixo da água.',
+    ],
   },
   {
     id: 'alfred-nobel',
@@ -1619,6 +2076,10 @@ export const FIGURES = [
     deed: [
       'Invented dynamite, read his own premature obituary calling him a merchant of death, and left his fortune to found a set of prizes.',
       'Inventou a dinamite, leu o próprio obituário prematuro que o chamava de mercador da morte e deixou sua fortuna para fundar um conjunto de prêmios.',
+    ],
+    end: [
+      'A brain haemorrhage at sixty-three, alone in a villa on the Italian coast, attended only by servants who spoke no language he could answer in.',
+      'Uma hemorragia cerebral aos sessenta e três anos, sozinho em uma vila na costa italiana, assistido apenas por criados que não falavam nenhuma língua em que ele pudesse responder.',
     ],
   },
   {
@@ -1634,6 +2095,10 @@ export const FIGURES = [
       'Held over a thousand patents and built the first industrial research laboratory. He turned the electric light into a household object.',
       'Registrou mais de mil patentes e criou o primeiro laboratório industrial de pesquisa. Transformou a luz elétrica num objeto doméstico.',
     ],
+    end: [
+      'Complications of diabetes at eighty-four. Lamps across the country were dimmed for one minute on the night of his funeral.',
+      'Complicações do diabetes aos oitenta e quatro anos. Lâmpadas por todo o país foram atenuadas por um minuto na noite de seu funeral.',
+    ],
   },
   {
     id: 'nikola-tesla',
@@ -1647,6 +2112,10 @@ export const FIGURES = [
     deed: [
       'Won the war of the currents with alternating current and imagined power sent without wires. He died alone and penniless in a hotel room.',
       'Venceu a guerra das correntes com a corrente alternada e imaginou energia transmitida sem fios. Morreu sozinho e sem dinheiro num quarto de hotel.',
+    ],
+    end: [
+      'A blood clot in the heart at eighty-six, alone in a rented hotel room, found by a maid two days later. He had been feeding the pigeons.',
+      'Um coágulo no coração aos oitenta e seis anos, sozinho em um quarto de hotel alugado, encontrado por uma camareira dois dias depois. Andava alimentando os pombos.',
     ],
   },
   {
@@ -1662,6 +2131,10 @@ export const FIGURES = [
       'A teacher of the deaf whose work on transmitting speech electrically produced the first practical telephone.',
       'Um professor de surdos cujo trabalho sobre a transmissão elétrica da fala produziu o primeiro telefone prático.',
     ],
+    end: [
+      'Complications of diabetes at seventy-five, at his summer estate. Every telephone in North America was silenced for a minute while he was buried.',
+      'Complicações do diabetes aos setenta e cinco anos, em sua propriedade de verão. Todos os telefones da América do Norte ficaram em silêncio por um minuto enquanto era sepultado.',
+    ],
   },
   {
     id: 'marie-curie',
@@ -1676,6 +2149,10 @@ export const FIGURES = [
       'Discovered two elements and became the first person to win Nobel prizes in two different sciences. The radiation she worked with unprotected is what killed her.',
       'Descobriu dois elementos e foi a primeira pessoa a ganhar prêmios Nobel em duas ciências diferentes. Foi a radiação com que trabalhou sem proteção que a matou.',
     ],
+    end: [
+      'Her bone marrow destroyed by the radiation she had worked in for thirty-five years, at sixty-six. Her notebooks are still too dangerous to handle.',
+      'A medula óssea destruída pela radiação em que trabalhou por trinta e cinco anos, aos sessenta e seis. Seus cadernos ainda são perigosos demais para manusear.',
+    ],
   },
   {
     id: 'wilhelm-rontgen',
@@ -1689,6 +2166,10 @@ export const FIGURES = [
       'Noticed a screen glowing across his darkened laboratory, photographed the bones of his wife\'s hand, and refused to patent the discovery.',
       'Notou uma tela brilhando no laboratório escuro, fotografou os ossos da mão da esposa e recusou-se a patentear a descoberta.',
     ],
+    end: [
+      'Cancer of the intestine at seventy-seven, poor: he had refused to patent his discovery and inflation had eaten what he did have.',
+      'Câncer no intestino aos setenta e sete anos, pobre: recusara-se a patentear sua descoberta e a inflação consumira o pouco que tinha.',
+    ],
   },
   {
     id: 'mendeleev',
@@ -1701,6 +2182,10 @@ export const FIGURES = [
     deed: [
       'Arranged the known elements into a table with deliberate gaps, and correctly predicted the properties of the elements that would fill them.',
       'Organizou os elementos conhecidos numa tabela com lacunas propositais, e previu corretamente as propriedades dos elementos que as preencheriam.',
+    ],
+    end: [
+      'Influenza at seventy-two, having lived to see three of the gaps he had left blank in his table filled in exactly as he predicted.',
+      'Gripe aos setenta e dois anos, tendo vivido para ver três das lacunas que deixara em branco em sua tabela preenchidas exatamente como previra.',
     ],
   },
   {
@@ -1716,6 +2201,10 @@ export const FIGURES = [
       'Rewrote space and time while working as a patent clerk. He later warned a president that a bomb was possible, and spent his last decades chasing a theory of everything.',
       'Reescreveu o espaço e o tempo trabalhando num escritório de patentes. Depois alertou um presidente de que uma bomba era possível, e passou as últimas décadas atrás de uma teoria de tudo.',
     ],
+    end: [
+      'A burst blood vessel in the abdomen at seventy-six. He refused the operation, saying it was tasteless to prolong life artificially.',
+      'Uma ruptura de vaso sanguíneo no abdômen aos setenta e seis anos. Recusou a operação, dizendo ser de mau gosto prolongar a vida artificialmente.',
+    ],
   },
   {
     id: 'sigmund-freud',
@@ -1730,6 +2219,10 @@ export const FIGURES = [
       'Invented the talking cure and insisted that dreams and slips of the tongue betray hidden wishes. He fled the Nazis at eighty-two.',
       'Inventou a cura pela fala e sustentou que os sonhos e os lapsos revelam desejos ocultos. Fugiu dos nazistas aos oitenta e dois anos.',
     ],
+    end: [
+      'Morphine, given by his doctor at his own request, after sixteen years and thirty-three operations for a cancer of the jaw caused by his cigars.',
+      'Morfina, aplicada pelo médico a seu próprio pedido, após dezesseis anos e trinta e três operações por um câncer de maxilar causado por seus charutos.',
+    ],
   },
   {
     id: 'florence-nightingale',
@@ -1742,6 +2235,10 @@ export const FIGURES = [
     deed: [
       'Cut death rates in a Crimean war hospital with soap and clean linen, then proved it with pioneering statistical charts. Modern nursing starts with her.',
       'Reduziu a mortalidade num hospital da Guerra da Crimeia com sabão e roupa limpa, e depois provou-o com gráficos estatísticos pioneiros. A enfermagem moderna começa nela.',
+    ],
+    end: [
+      'Old age at ninety, in her sleep, after fifty years bedridden by an illness she caught in the war and never shook off.',
+      'A velhice aos noventa anos, durante o sono, após cinquenta anos acamada por uma doença que contraiu na guerra e nunca superou.',
     ],
   },
   {
@@ -1756,6 +2253,10 @@ export const FIGURES = [
     deed: [
       'Spent decades in a library reading room writing an analysis of capital, and opened a pamphlet by announcing a spectre haunting Europe.',
       'Passou décadas na sala de leitura de uma biblioteca escrevendo uma análise do capital, e abriu um panfleto anunciando um espectro que rondava a Europa.',
+    ],
+    end: [
+      'Bronchitis and a lung abscess at sixty-four, in a rented London house, fifteen months after his wife and two months after his eldest daughter. Eleven people came to the grave.',
+      'Bronquite e um abscesso pulmonar aos sessenta e quatro anos, em uma casa alugada em Londres, quinze meses depois da esposa e dois depois da filha mais velha. Onze pessoas foram ao sepultamento.',
     ],
   },
 
@@ -1773,6 +2274,10 @@ export const FIGURES = [
       'Published six novels of provincial marriage and money anonymously, and was not named as their author until after her death.',
       'Publicou anonimamente seis romances sobre casamento e dinheiro na província, e só foi identificada como sua autora após a morte.',
     ],
+    end: [
+      'A wasting illness at forty-one, in lodgings taken to be near a surgeon. Nobody has ever agreed on the disease; her last writing was a comic poem.',
+      'Uma doença consumptiva aos quarenta e um anos, em um alojamento tomado para ficar perto de um cirurgião. Nunca se chegou a acordo sobre a doença; seu último escrito foi um poema cômico.',
+    ],
   },
   {
     id: 'mary-shelley',
@@ -1785,6 +2290,10 @@ export const FIGURES = [
     deed: [
       'At eighteen, during a rainy summer by a Swiss lake, she won a ghost-story contest with what became the first science fiction novel.',
       'Aos dezoito anos, num verão chuvoso à beira de um lago suíço, venceu um concurso de histórias de fantasmas com o que se tornou o primeiro romance de ficção científica.',
+    ],
+    end: [
+      'A brain tumour at fifty-three, after years of headaches and partial paralysis. She was buried with her drowned husband\'s heart, kept in her desk for thirty years.',
+      'Um tumor no cérebro aos cinquenta e três anos, após anos de dores de cabeça e paralisia parcial. Foi sepultada com o coração do marido afogado, guardado em sua escrivaninha por trinta anos.',
     ],
   },
   {
@@ -1800,6 +2309,10 @@ export const FIGURES = [
       'Wrote of a hunchbacked bell-ringer and of a convict hunted over a stolen loaf. Nineteen years of exile later, two million mourners filled the streets at his funeral.',
       'Escreveu sobre um sineiro corcunda e sobre um condenado perseguido por um pão roubado. Após dezenove anos de exílio, dois milhões de pessoas lotaram as ruas em seu enterro.',
     ],
+    end: [
+      'Pneumonia at eighty-three. Two million people followed the coffin, which he had ordered to be the plainest available, that of a pauper.',
+      'Pneumonia aos oitenta e três anos. Dois milhões de pessoas seguiram o caixão, que ele mandou ser o mais simples disponível, o de um indigente.',
+    ],
   },
   {
     id: 'charles-dickens',
@@ -1813,6 +2326,10 @@ export const FIGURES = [
     deed: [
       'Put into a blacking factory as a boy when his father went to debtors\' prison, he published in monthly instalments and made Victorian poverty impossible to ignore.',
       'Posto numa fábrica de graxa ainda menino quando o pai foi para a prisão por dívidas, publicava em fascículos mensais e tornou impossível ignorar a pobreza vitoriana.',
+    ],
+    end: [
+      'A stroke at fifty-eight, at his dining table, after a full day\'s work on a novel that stops in the middle of a sentence.',
+      'Um derrame aos cinquenta e oito anos, à mesa de jantar, após um dia inteiro de trabalho em um romance que para no meio de uma frase.',
     ],
   },
   {
@@ -1828,6 +2345,10 @@ export const FIGURES = [
       'Invented the detective story and perfected the tale of terror. He was found delirious in another man\'s clothes on a Baltimore street, days before dying.',
       'Inventou a história de detetive e aperfeiçoou o conto de terror. Foi encontrado delirante, com roupas de outro homem, numa rua de Baltimore, dias antes de morrer.',
     ],
+    end: [
+      'Found delirious on a street in another man\'s clothes and dead four days later at forty. The cause was never established; the register lists a phrase nobody can explain.',
+      'Encontrado delirante em uma rua com as roupas de outro homem e morto quatro dias depois, aos quarenta anos. A causa nunca foi estabelecida; o registro traz uma expressão que ninguém sabe explicar.',
+    ],
   },
   {
     id: 'herman-melville',
@@ -1840,6 +2361,10 @@ export const FIGURES = [
     deed: [
       'Sailed on a whaler, wrote a vast novel about a captain\'s hunt for a white whale that nobody bought, and died a forgotten customs inspector.',
       'Embarcou num baleeiro, escreveu um vasto romance sobre a caçada de um capitão a uma baleia branca que ninguém comprou, e morreu esquecido como inspetor alfandegário.',
+    ],
+    end: [
+      'An enlarged heart at seventy-two, working as a customs inspector, so thoroughly forgotten that the newspaper obituary misspelled his name.',
+      'Um coração dilatado aos setenta e dois anos, trabalhando como inspetor de alfândega, tão esquecido que o obituário do jornal errou a grafia de seu nome.',
     ],
   },
   {
@@ -1854,6 +2379,10 @@ export const FIGURES = [
       'Self-published a slim book of unrhymed poems celebrating the body and the republic, then expanded it for the rest of his life.',
       'Publicou por conta própria um livrinho de poemas sem rima celebrando o corpo e a república, e depois o expandiu pelo resto da vida.',
     ],
+    end: [
+      'Pneumonia and tuberculosis at seventy-two, half paralysed for twenty years. The autopsy found one lung entirely gone and a stone the size of an egg.',
+      'Pneumonia e tuberculose aos setenta e dois anos, meio paralisado havia vinte anos. A autópsia encontrou um pulmão inteiramente perdido e uma pedra do tamanho de um ovo.',
+    ],
   },
   {
     id: 'emily-dickinson',
@@ -1867,6 +2396,10 @@ export const FIGURES = [
       'Rarely left her house, published fewer than a dozen poems in life, and left eighteen hundred more in a locked chest.',
       'Quase não saía de casa, publicou menos de uma dúzia de poemas em vida e deixou outros mil e oitocentos num baú trancado.',
     ],
+    end: [
+      'Kidney disease at fifty-five, after two years of failing, in the bedroom of the house she had barely left in twenty years.',
+      'Doença nos rins aos cinquenta e cinco anos, após dois anos de declínio, no quarto da casa de onde quase não saíra em vinte anos.',
+    ],
   },
   {
     id: 'mark-twain',
@@ -1879,6 +2412,10 @@ export const FIGURES = [
     deed: [
       'Took his pen name from a riverboat sounding call and wrote a boy\'s raft journey down the Mississippi. He arrived and left with the same comet.',
       'Tirou seu pseudônimo de um grito de sondagem dos barcos fluviais e escreveu a viagem de jangada de um menino pelo Mississippi. Chegou e partiu com o mesmo cometa.',
+    ],
+    end: [
+      'Angina at seventy-four, the day after the comet that had crossed the sky at his birth came back — which he had said all along it would.',
+      'Angina aos setenta e quatro anos, um dia depois de voltar o cometa que cruzara o céu em seu nascimento — como ele vinha dizendo que aconteceria.',
     ],
   },
   {
@@ -1894,6 +2431,10 @@ export const FIGURES = [
       'Wrote two of the longest great novels in any language, then renounced his wealth and title. At eighty-two he fled his own home and died of pneumonia in a stationmaster\'s house.',
       'Escreveu dois dos maiores romances de qualquer língua e depois renunciou à riqueza e ao título. Aos oitenta e dois anos fugiu da própria casa e morreu de pneumonia na casa de um chefe de estação.',
     ],
+    end: [
+      'Pneumonia at eighty-two, in the house of a stationmaster at a remote railway halt, having fled his own home and his wife in the middle of the night.',
+      'Pneumonia aos oitenta e dois anos, na casa de um chefe de estação em uma parada ferroviária remota, tendo fugido de casa e da esposa no meio da noite.',
+    ],
   },
   {
     id: 'dostoevsky',
@@ -1908,6 +2449,10 @@ export const FIGURES = [
       'Faced a firing squad that was called off at the last second, then served four years in a Siberian prison camp. He wrote novels of guilt and conscience ever after.',
       'Enfrentou um pelotão de fuzilamento cancelado no último segundo e depois cumpriu quatro anos num campo prisional siberiano. Desde então escreveu romances sobre culpa e consciência.',
     ],
+    end: [
+      'A lung haemorrhage at fifty-nine, after decades of epilepsy, hard labour and debt, three months after finishing his last and largest novel.',
+      'Uma hemorragia pulmonar aos cinquenta e nove anos, após décadas de epilepsia, trabalhos forçados e dívidas, três meses depois de terminar seu último e maior romance.',
+    ],
   },
   {
     id: 'jules-verne',
@@ -1921,6 +2466,10 @@ export const FIGURES = [
       'Sent his readers under the sea, to the centre of the earth and around the world in eighty days, decades before any of it was possible.',
       'Levou seus leitores para debaixo do mar, ao centro da Terra e à volta ao mundo em oitenta dias, décadas antes de qualquer disso ser possível.',
     ],
+    end: [
+      'Diabetes at seventy-seven, lame for fourteen years from a bullet his nephew had put in his ankle, half blind and still dictating.',
+      'Diabetes aos setenta e sete anos, manco havia quatorze por uma bala que o sobrinho lhe pusera no tornozelo, meio cego e ainda ditando.',
+    ],
   },
   {
     id: 'hans-christian-andersen',
@@ -1933,6 +2482,10 @@ export const FIGURES = [
     deed: [
       'A cobbler\'s son who wrote of an ugly duckling, a little mermaid and an emperor with no clothes.',
       'Filho de um sapateiro que escreveu sobre um patinho feio, uma pequena sereia e um imperador sem roupa alguma.',
+    ],
+    end: [
+      'Liver cancer at seventy, after a fall out of bed he never recovered from. He had left instructions that his tombstone was not to name his parents.',
+      'Câncer no fígado aos setenta anos, após uma queda da cama de que nunca se recuperou. Deixara instruções para que sua lápide não citasse os pais.',
     ],
   },
   {
@@ -1948,6 +2501,10 @@ export const FIGURES = [
       'The wittiest man in London until a libel suit he brought destroyed him; two years\' hard labour left him broken, and he died in a Paris hotel.',
       'O homem mais espirituoso de Londres até que um processo por difamação que ele mesmo moveu o destruiu; dois anos de trabalhos forçados o quebraram, e morreu num hotel de Paris.',
     ],
+    end: [
+      'Meningitis from an infected ear at forty-six, destitute in a cheap hotel room under a false name, three years after leaving prison.',
+      'Meningite por uma infecção de ouvido aos quarenta e seis anos, na miséria, em um quarto de hotel baratíssimo sob nome falso, três anos depois de sair da prisão.',
+    ],
   },
   {
     id: 'bram-stoker',
@@ -1960,6 +2517,10 @@ export const FIGURES = [
     deed: [
       'A theatre manager by trade who wrote an epistolary novel about a Transylvanian count, and defined the vampire for every century since.',
       'Empresário teatral de ofício que escreveu um romance epistolar sobre um conde da Transilvânia, e definiu o vampiro para todos os séculos seguintes.',
+    ],
+    end: [
+      'A series of strokes at sixty-four, in London, with the great novel out of print and the theatre work that had paid for it long over.',
+      'Uma série de derrames aos sessenta e quatro anos, em Londres, com o grande romance fora de catálogo e o trabalho de teatro que o sustentara havia muito encerrado.',
     ],
   },
   {
@@ -1974,6 +2535,10 @@ export const FIGURES = [
       'A struggling doctor who created the world\'s most famous detective, killed him off, and was forced by public outrage to bring him back.',
       'Um médico sem clientes que criou o detetive mais famoso do mundo, matou-o e foi obrigado pela indignação pública a ressuscitá-lo.',
     ],
+    end: [
+      'A heart attack at seventy-one, in the garden of his house, holding a flower he had picked for his wife.',
+      'Um ataque do coração aos setenta e um anos, no jardim de sua casa, segurando uma flor que colhera para a esposa.',
+    ],
   },
   {
     id: 'machado-de-assis',
@@ -1987,6 +2552,10 @@ export const FIGURES = [
       'Grandson of freed slaves, epileptic and largely self-taught, he founded his country\'s academy of letters and narrated one novel from beyond the grave.',
       'Neto de escravos alforriados, epilético e em grande parte autodidata, fundou a academia de letras de seu país e narrou um romance de além-túmulo.',
     ],
+    end: [
+      'A cancer, at sixty-nine, three months after the wife he had written to every day for thirty-five years died before him.',
+      'Um câncer, aos sessenta e nove anos, três meses depois de morrer antes dele a esposa a quem escrevera todos os dias por trinta e cinco anos.',
+    ],
   },
   {
     id: 'emily-bronte',
@@ -1999,6 +2568,10 @@ export const FIGURES = [
     deed: [
       'One of three literary sisters on the Yorkshire moors, she published a single savage novel under a male pen name and died the year after.',
       'Uma de três irmãs escritoras nas charnecas de Yorkshire, publicou um único romance selvagem sob pseudônimo masculino e morreu no ano seguinte.',
+    ],
+    end: [
+      'Tuberculosis at thirty, refusing every doctor and every medicine to the last afternoon, three months after catching cold at her brother\'s funeral.',
+      'Tuberculose aos trinta anos, recusando todo médico e todo remédio até a última tarde, três meses depois de tomar friagem no funeral do irmão.',
     ],
   },
 
@@ -2016,6 +2589,10 @@ export const FIGURES = [
       'Court painter who went deaf, recorded the atrocities of a war in prints, and covered his own walls with nightmares in black.',
       'Pintor da corte que ficou surdo, registrou em gravuras as atrocidades de uma guerra e cobriu as próprias paredes com pesadelos em preto.',
     ],
+    end: [
+      'A stroke at eighty-two, deaf for thirty-five years, in voluntary exile across the border from the country whose horrors he had drawn.',
+      'Um derrame aos oitenta e dois anos, surdo havia trinta e cinco, em exílio voluntário do outro lado da fronteira do país cujos horrores desenhara.',
+    ],
   },
   {
     id: 'claude-monet',
@@ -2030,6 +2607,10 @@ export const FIGURES = [
       'Painted the same haystacks and cathedral at different hours to catch the light, and gave an art movement its name with one canvas of a sunrise.',
       'Pintou os mesmos palheiros e a mesma catedral em horas diferentes para captar a luz, e deu nome a um movimento artístico com uma única tela de um nascer do sol.',
     ],
+    end: [
+      'Lung cancer at eighty-six, in the garden house he had built to paint a pond, after years of cataracts that turned everything he saw yellow.',
+      'Câncer no pulmão aos oitenta e seis anos, na casa de jardim que construíra para pintar um lago, após anos de cataratas que tornavam amarelo tudo o que via.',
+    ],
   },
   {
     id: 'cezanne',
@@ -2043,6 +2624,10 @@ export const FIGURES = [
       'Painted the same Provençal mountain over and over, breaking objects into planes, and was called the father of modern art by those who came next.',
       'Pintou repetidamente a mesma montanha provençal, decompondo os objetos em planos, e foi chamado de pai da arte moderna pelos que vieram depois.',
     ],
+    end: [
+      'Pneumonia at sixty-seven, caught working outdoors in a storm. He collapsed in the field and went out to paint again the next morning anyway.',
+      'Pneumonia aos sessenta e sete anos, contraída trabalhando ao ar livre em uma tempestade. Desmaiou no campo e saiu para pintar de novo na manhã seguinte.',
+    ],
   },
   {
     id: 'renoir',
@@ -2055,6 +2640,10 @@ export const FIGURES = [
     deed: [
       'Began as a porcelain painter, filled his canvases with dappled sunlight and dancing crowds, and kept painting with brushes strapped to arthritic hands.',
       'Começou pintando porcelana, encheu suas telas de luz filtrada e multidões dançantes, e continuou pintando com pincéis amarrados às mãos artríticas.',
+    ],
+    end: [
+      'A congestion of the lungs at seventy-eight, his hands so deformed by arthritis that the brushes had to be wedged between his fingers.',
+      'Uma congestão pulmonar aos setenta e oito anos, com as mãos tão deformadas pela artrite que os pincéis tinham de ser encaixados entre os dedos.',
     ],
   },
   {
@@ -2070,6 +2659,10 @@ export const FIGURES = [
       'Painted some nine hundred canvases in ten years and sold almost none of them. He cut off part of his own ear, and shot himself in a wheat field at thirty-seven.',
       'Pintou cerca de novecentas telas em dez anos e quase não vendeu nenhuma. Cortou parte da própria orelha e deu um tiro em si mesmo num trigal aos trinta e sete anos.',
     ],
+    end: [
+      'A bullet in the chest in a wheat field, thirty hours of lucid pain, and no gun ever found. He was thirty-seven and had sold almost nothing.',
+      'Uma bala no peito em um campo de trigo, trinta horas de dor lúcida, e nenhuma arma jamais encontrada. Tinha trinta e sete anos e quase nada havia vendido.',
+    ],
   },
   {
     id: 'gauguin',
@@ -2082,6 +2675,10 @@ export const FIGURES = [
     deed: [
       'Left a stockbroking career and his family to paint, sailed to the South Pacific for an unspoilt world, and died there in debt and disgrace.',
       'Abandonou a carreira de corretor e a família para pintar, navegou até o Pacífico Sul em busca de um mundo intocado e ali morreu endividado e em desgraça.',
+    ],
+    end: [
+      'Syphilis and morphine at fifty-four, in a hut on a Pacific island, with a three-month prison sentence for libelling the governor still to serve.',
+      'Sífilis e morfina aos cinquenta e quatro anos, em uma cabana em uma ilha do Pacífico, com três meses de prisão por caluniar o governador ainda por cumprir.',
     ],
   },
   {
@@ -2096,6 +2693,10 @@ export const FIGURES = [
       'Broke both legs as a boy and never grew past five feet; he made the Paris dance halls immortal in posters and died at thirty-six.',
       'Quebrou as duas pernas ainda menino e nunca passou de um metro e meio; imortalizou os salões de dança de Paris em cartazes e morreu aos trinta e seis anos.',
     ],
+    end: [
+      'A stroke at thirty-six, after alcohol and syphilis had finished what a childhood of broken bones began, in his mother\'s arms at the family estate.',
+      'Um derrame aos trinta e seis anos, depois que o álcool e a sífilis terminaram o que uma infância de ossos quebrados começara, nos braços da mãe na propriedade da família.',
+    ],
   },
   {
     id: 'rodin',
@@ -2109,6 +2710,10 @@ export const FIGURES = [
       'Rejected three times by the school of fine arts, he sculpted a seated man resting his chin on his fist that became the emblem of thought itself.',
       'Recusado três vezes pela escola de belas-artes, esculpiu um homem sentado com o queixo apoiado no punho que se tornou o emblema do próprio pensamento.',
     ],
+    end: [
+      'Bronchitis at seventy-seven, in an unheated house in the middle of a war: the state had accepted all his sculptures and would not send coal.',
+      'Bronquite aos setenta e sete anos, em uma casa sem aquecimento no meio de uma guerra: o estado aceitara todas as suas esculturas e não mandava carvão.',
+    ],
   },
   {
     id: 'edvard-munch',
@@ -2121,6 +2726,10 @@ export const FIGURES = [
     deed: [
       'Painted a figure on a bridge under a blood-red sky, holding its face. No image of modern anxiety has been reproduced more often.',
       'Pintou uma figura numa ponte sob um céu vermelho-sangue, segurando o próprio rosto. Nenhuma imagem da angústia moderna foi tão reproduzida.',
+    ],
+    end: [
+      'Pneumonia at eighty, alone on his estate under enemy occupation, having hidden his own paintings in the cellar for fear they would be seized.',
+      'Pneumonia aos oitenta anos, sozinho em sua propriedade sob ocupação inimiga, tendo escondido as próprias pinturas no porão por medo de que fossem confiscadas.',
     ],
   },
 
@@ -2139,6 +2748,10 @@ export const FIGURES = [
       'Reigned sixty-three years over a quarter of the world. After her husband died she wore black for forty of them, and an age took her name.',
       'Reinou sessenta e três anos sobre um quarto do mundo. Depois que o marido morreu, vestiu preto por quarenta deles, e uma época levou seu nome.',
     ],
+    end: [
+      'A brain haemorrhage at eighty-one, on the island where she kept her summer house, in the arms of her son and her German grandson.',
+      'Uma hemorragia cerebral aos oitenta e um anos, na ilha onde mantinha sua casa de verão, nos braços do filho e do neto alemão.',
+    ],
   },
   {
     id: 'abraham-lincoln',
@@ -2153,6 +2766,10 @@ export const FIGURES = [
       'Born in a one-room log cabin, he held a country together through civil war and freed its slaves. He was shot in a theatre five days after it ended.',
       'Nascido numa cabana de um só cômodo, manteve um país unido durante uma guerra civil e libertou seus escravos. Foi baleado num teatro cinco dias depois do fim dela.',
     ],
+    end: [
+      'A single pistol ball behind the left ear, fired at point-blank range in a theatre box during a comedy, five days after the war ended. He died the next morning.',
+      'Uma única bala de pistola atrás da orelha esquerda, disparada à queima-roupa em um camarote de teatro durante uma comédia, cinco dias após o fim da guerra. Morreu na manhã seguinte.',
+    ],
   },
   {
     id: 'ulysses-grant',
@@ -2165,6 +2782,10 @@ export const FIGURES = [
     deed: [
       'A failed businessman who became the Union\'s winning general, served two troubled terms as president, and finished his memoirs days before dying of throat cancer.',
       'Um comerciante fracassado que se tornou o general vitorioso da União, cumpriu dois mandatos conturbados como presidente e terminou suas memórias dias antes de morrer de câncer na garganta.',
+    ],
+    end: [
+      'Throat cancer at sixty-three, from twenty cigars a day. He finished his memoirs four days before he died so that the book would keep his family out of poverty.',
+      'Câncer na garganta aos sessenta e três anos, por vinte charutos diários. Terminou suas memórias quatro dias antes de morrer para que o livro tirasse a família da pobreza.',
     ],
   },
   {
@@ -2179,6 +2800,10 @@ export const FIGURES = [
       'Offered command of the Union army, he refused and led the Confederate one instead, surrendering at a Virginia courthouse in 1865.',
       'Recebeu a oferta de comandar o exército da União, recusou e liderou o confederado, rendendo-se num tribunal da Virgínia em 1865.',
     ],
+    end: [
+      'A stroke at sixty-three, after standing through a long meeting in a cold church, followed by two weeks of silence. He never wrote his memoirs.',
+      'Um derrame aos sessenta e três anos, depois de ficar de pé em uma longa reunião em uma igreja fria, seguido de duas semanas de silêncio. Nunca escreveu suas memórias.',
+    ],
   },
   {
     id: 'frederick-douglass',
@@ -2191,6 +2816,10 @@ export const FIGURES = [
     deed: [
       'Taught himself to read in defiance of the law, escaped slavery disguised as a sailor, and became the most photographed American of his century.',
       'Aprendeu a ler sozinho desafiando a lei, escapou da escravidão disfarçado de marinheiro e tornou-se o americano mais fotografado de seu século.',
+    ],
+    end: [
+      'A heart attack at seventy-seven, at home in the early evening, hours after speaking to a council of women about their vote.',
+      'Um ataque do coração aos setenta e sete anos, em casa no início da noite, horas depois de falar a um conselho de mulheres sobre o voto delas.',
     ],
   },
   {
@@ -2206,6 +2835,10 @@ export const FIGURES = [
       'Escaped slavery, then went back thirteen times to lead some seventy others out along a secret network, and never lost a passenger.',
       'Fugiu da escravidão e voltou treze vezes para conduzir uns setenta outros por uma rede secreta, sem jamais perder um passageiro.',
     ],
+    end: [
+      'Pneumonia at about ninety-one, in the home for the aged that she had founded herself and then had to be admitted to as a resident.',
+      'Pneumonia com cerca de noventa e um anos, no asilo para idosos que ela mesma fundara e no qual teve depois de ser admitida como residente.',
+    ],
   },
   {
     id: 'susan-b-anthony',
@@ -2218,6 +2851,10 @@ export const FIGURES = [
     deed: [
       'Arrested and fined for voting illegally, she never paid, and died fourteen years before the amendment she fought for was ratified.',
       'Presa e multada por votar ilegalmente, jamais pagou, e morreu catorze anos antes de ser ratificada a emenda pela qual lutou.',
+    ],
+    end: [
+      'Heart failure and pneumonia at eighty-six, fourteen years before the amendment she had drafted was ratified. She had already said failure was impossible.',
+      'Insuficiência cardíaca e pneumonia aos oitenta e seis anos, quatorze anos antes de ser ratificada a emenda que redigira. Já havia dito que o fracasso era impossível.',
     ],
   },
   {
@@ -2232,6 +2869,10 @@ export const FIGURES = [
       'Led a militant campaign of window-breaking, arson and hunger strikes for the vote, and died weeks before British women won it on equal terms.',
       'Liderou uma campanha militante de vidraças quebradas, incêndios e greves de fome pelo direito ao voto, e morreu semanas antes de as britânicas o conquistarem em igualdade.',
     ],
+    end: [
+      'Illness at sixty-nine, her body broken by repeated hunger strikes and force-feeding, eighteen days before women were given the vote on the same terms as men.',
+      'Doença aos sessenta e nove anos, com o corpo destruído por greves de fome repetidas e alimentação forçada, dezoito dias antes de as mulheres receberem o voto nas mesmas condições que os homens.',
+    ],
   },
   {
     id: 'clara-barton',
@@ -2244,6 +2885,10 @@ export const FIGURES = [
     deed: [
       'Carried supplies to battlefields under fire during a civil war, traced its missing soldiers afterwards, and founded her country\'s Red Cross.',
       'Levou suprimentos aos campos de batalha sob fogo durante uma guerra civil, depois rastreou seus soldados desaparecidos e fundou a Cruz Vermelha de seu país.',
+    ],
+    end: [
+      'Pneumonia at ninety, at home, having said that she was tired of being sick and would rather go.',
+      'Pneumonia aos noventa anos, em casa, tendo dito que estava cansada de estar doente e que preferia partir.',
     ],
   },
   {
@@ -2258,6 +2903,10 @@ export const FIGURES = [
       'Blinded by an accident with his father\'s awl at three, he devised a six-dot reading system at fifteen that bears his name worldwide.',
       'Cego aos três anos por um acidente com a sovela do pai, criou aos quinze um sistema de leitura de seis pontos que leva seu nome no mundo inteiro.',
     ],
+    end: [
+      'Tuberculosis at forty-three, two days after his birthday. The system he had invented as a boy was banned at his own school and adopted two years after his funeral.',
+      'Tuberculose aos quarenta e três anos, dois dias depois de seu aniversário. O sistema que inventara menino foi proibido em sua própria escola e adotado dois anos após seu funeral.',
+    ],
   },
   {
     id: 'napoleon-iii',
@@ -2270,6 +2919,10 @@ export const FIGURES = [
     deed: [
       'Nephew of a famous emperor, he was elected president, made himself emperor by coup, rebuilt his capital in wide boulevards, and lost an empire at Sedan.',
       'Sobrinho de um imperador famoso, foi eleito presidente, fez-se imperador por um golpe, reconstruiu a capital em largos bulevares e perdeu um império em Sedan.',
+    ],
+    end: [
+      'Blood poisoning at sixty-four, after surgeons broke up a bladder stone in three operations, in exile in an English village, two years after losing his throne and a war.',
+      'Infecção generalizada aos sessenta e quatro anos, depois que cirurgiões fragmentaram uma pedra na bexiga em três operações, exilado em uma aldeia inglesa, dois anos após perder o trono e uma guerra.',
     ],
   },
   {
@@ -2284,6 +2937,10 @@ export const FIGURES = [
       'Said the great questions would be settled by iron and blood, fought three short wars to unify Germany, and then spent twenty years keeping the peace.',
       'Disse que as grandes questões se resolveriam com ferro e sangue, travou três guerras curtas para unificar a Alemanha e depois passou vinte anos mantendo a paz.',
     ],
+    end: [
+      'Gangrene at eighty-three, at his country estate, eight years after the young emperor dismissed him. His stone reads that he was a servant of the old one.',
+      'Gangrena aos oitenta e três anos, em sua propriedade rural, oito anos depois de o jovem imperador o demitir. Sua lápide diz que foi um servidor do imperador antigo.',
+    ],
   },
   {
     id: 'garibaldi',
@@ -2296,6 +2953,10 @@ export const FIGURES = [
     deed: [
       'Fought for republics in South America, then sailed with a thousand red-shirted volunteers to conquer a kingdom and hand it to a king.',
       'Lutou por repúblicas na América do Sul e depois zarpou com mil voluntários de camisa vermelha para conquistar um reino e entregá-lo a um rei.',
+    ],
+    end: [
+      'Old age at seventy-four, on the rocky island where he farmed. He asked to be burned on an open pyre by the sea; the state buried him in a tomb instead.',
+      'A velhice aos setenta e quatro anos, na ilha rochosa onde cultivava a terra. Pediu para ser queimado em uma pira aberta junto ao mar; o estado o sepultou em um túmulo.',
     ],
   },
   {
@@ -2310,6 +2971,10 @@ export const FIGURES = [
       'Crowned at fourteen, he ruled Brazil for fifty-eight years as a scholar-emperor, and accepted deposition without resistance.',
       'Coroado aos catorze anos, governou o Brasil por cinquenta e oito anos como um imperador erudito, e aceitou a deposição sem resistir.',
     ],
+    end: [
+      'Pneumonia at sixty-six, in a modest Paris hotel two years into exile, with a packet of soil from home under his pillow.',
+      'Pneumonia aos sessenta e seis anos, em um hotel modesto de Paris, dois anos após o exílio, com um pacote de terra de sua pátria sob o travesseiro.',
+    ],
   },
   {
     id: 'princesa-isabel',
@@ -2322,6 +2987,10 @@ export const FIGURES = [
     deed: [
       'Acting as regent for her travelling father, she signed the law that abolished slavery in her country, and lost the throne months later.',
       'Como regente no lugar do pai em viagem, assinou a lei que aboliu a escravidão em seu país, e perdeu o trono poucos meses depois.',
+    ],
+    end: [
+      'Old age at seventy-five, at a French country house, thirty-two years into an exile that ended six months after her own death, when the law was finally repealed.',
+      'A velhice aos setenta e cinco anos, em uma casa de campo francesa, trinta e dois anos de um exílio que só terminou seis meses depois de sua morte, quando a lei foi finalmente revogada.',
     ],
   },
   {
@@ -2336,6 +3005,10 @@ export const FIGURES = [
       'An orphaned Zapotec shepherd who learned Spanish at twelve, became president, and drove a French-imposed emperor from his country.',
       'Um pastor zapoteca órfão que aprendeu espanhol aos doze anos, tornou-se presidente e expulsou de seu país um imperador imposto pelos franceses.',
     ],
+    end: [
+      'A heart attack at sixty-six, at his desk in the national palace, still president, with a doctor pouring boiling water on his chest to try to restart him.',
+      'Um ataque do coração aos sessenta e seis anos, à sua mesa no palácio nacional, ainda presidente, com um médico derramando água fervente em seu peito para tentar reanimá-lo.',
+    ],
   },
   {
     id: 'jose-marti',
@@ -2348,6 +3021,10 @@ export const FIGURES = [
     deed: [
       'A poet and essayist exiled at seventeen who organised his island\'s war of independence, and was killed in his first month of fighting.',
       'Poeta e ensaísta exilado aos dezessete anos que organizou a guerra de independência de sua ilha, e morreu no primeiro mês de combate.',
+    ],
+    end: [
+      'Shot out of the saddle in his very first battle, at forty-two, riding a white horse straight at the enemy line after a lifetime of writing instead of fighting.',
+      'Baleado e derrubado da sela em sua primeiríssima batalha, aos quarenta e dois anos, cavalgando um cavalo branco direto contra a linha inimiga após uma vida escrevendo em vez de lutar.',
     ],
   },
   {
@@ -2363,6 +3040,10 @@ export const FIGURES = [
       'A Lakota holy man whose vision preceded the destruction of a US cavalry regiment at the Little Bighorn; he was shot by reservation police fifteen years later.',
       'Um homem santo lacota cuja visão precedeu a destruição de um regimento de cavalaria americano em Little Bighorn; foi morto a tiros pela polícia da reserva quinze anos depois.',
     ],
+    end: [
+      'Shot in the chest and the head during an arrest at his own cabin, at fifty-nine, by police recruited from his own nation.',
+      'Baleado no peito e na cabeça durante uma prisão em sua própria cabana, aos cinquenta e nove anos, por policiais recrutados entre os de sua própria nação.',
+    ],
   },
   {
     id: 'geronimo',
@@ -2377,6 +3058,10 @@ export const FIGURES = [
       'An Apache leader who evaded five thousand soldiers with a few dozen followers, surrendered last of all, and died a prisoner of war after twenty-three years.',
       'Um líder apache que escapou de cinco mil soldados com algumas dezenas de seguidores, rendeu-se por último e morreu prisioneiro de guerra após vinte e três anos.',
     ],
+    end: [
+      'Pneumonia at seventy-nine, after falling from his horse at night and lying in the cold until morning. He died a prisoner of war, having never been allowed home.',
+      'Pneumonia aos setenta e nove anos, depois de cair do cavalo à noite e ficar deitado no frio até a manhã. Morreu prisioneiro de guerra, sem nunca ter sido autorizado a voltar para casa.',
+    ],
   },
   {
     id: 'jesse-james',
@@ -2389,6 +3074,10 @@ export const FIGURES = [
     deed: [
       'Robbed banks and trains for sixteen years with his brother, and was shot in the back of the head by a member of his own gang for the reward.',
       'Assaltou bancos e trens por dezesseis anos com o irmão, e levou um tiro na nuca de um membro da própria quadrilha em troca da recompensa.',
+    ],
+    end: [
+      'Shot in the back of the head at thirty-four while standing on a chair to straighten a picture, by a new member of his own gang who wanted the reward.',
+      'Baleado na parte de trás da cabeça aos trinta e quatro anos enquanto estava em uma cadeira ajeitando um quadro, por um novo integrante de sua própria gangue que queria a recompensa.',
     ],
   },
   {
@@ -2403,6 +3092,10 @@ export const FIGURES = [
       'A lawman, gambler and saloon-keeper remembered for a thirty-second gunfight near a Tombstone corral, he died in bed at eighty.',
       'Xerife, jogador e dono de saloon lembrado por um tiroteio de trinta segundos perto de um curral em Tombstone, morreu na cama aos oitenta anos.',
     ],
+    end: [
+      'A chronic bladder infection at eighty, in a small Los Angeles apartment, poor and unpaid for a lifetime of stories, the last survivor of his own famous gunfight.',
+      'Uma infecção crônica na bexiga aos oitenta anos, em um pequeno apartamento em Los Angeles, pobre e sem receber nada por uma vida de histórias, o último sobrevivente de seu famoso duelo.',
+    ],
   },
   {
     id: 'sun-yat-sen',
@@ -2416,6 +3109,10 @@ export const FIGURES = [
       'Overthrew the last imperial dynasty and became the first president of a Chinese republic, and is honoured on both sides of a strait.',
       'Derrubou a última dinastia imperial e tornou-se o primeiro presidente de uma república chinesa, sendo honrado dos dois lados de um estreito.',
     ],
+    end: [
+      'Cancer of the liver at fifty-eight, in the northern capital, with the country he had founded already broken into warlord fiefdoms.',
+      'Câncer no fígado aos cinquenta e oito anos, na capital do norte, com o país que fundara já dividido em feudos de senhores da guerra.',
+    ],
   },
   {
     id: 'ataturk',
@@ -2428,6 +3125,10 @@ export const FIGURES = [
     deed: [
       'Defended a peninsula against an Allied landing, then abolished a caliphate, changed his nation\'s alphabet, and gave it a new name for himself.',
       'Defendeu uma península de um desembarque aliado, depois aboliu um califado, mudou o alfabeto de sua nação e adotou para si um novo sobrenome.',
+    ],
+    end: [
+      'Cirrhosis of the liver at fifty-seven, from a lifetime of hard drinking, in a palace bedroom. The clocks in his museum still read five past nine.',
+      'Cirrose do fígado aos cinquenta e sete anos, por uma vida de bebida forte, em um quarto de palácio. Os relógios de seu museu ainda marcam nove e cinco.',
     ],
   },
 
@@ -2446,6 +3147,10 @@ export const FIGURES = [
       'Returned from exile in a sealed train and seized power in October. Against his widow\'s wishes he was embalmed and put on permanent display.',
       'Voltou do exílio num trem lacrado e tomou o poder em outubro. Contra a vontade da viúva, foi embalsamado e posto em exposição permanente.',
     ],
+    end: [
+      'The last of four strokes at fifty-three, mute and paralysed for months. His brain was cut into thirty thousand slices in search of genius.',
+      'O último de quatro derrames aos cinquenta e três anos, mudo e paralisado por meses. Seu cérebro foi cortado em trinta mil lâminas à procura da genialidade.',
+    ],
   },
   {
     id: 'stalin',
@@ -2459,6 +3164,10 @@ export const FIGURES = [
     deed: [
       'A seminary dropout turned bank robber who took over a revolution and then starved and purged millions. He died on his own floor while the guards were too afraid to enter.',
       'Um desistente de seminário virado assaltante de bancos que se apossou de uma revolução e depois matou milhões de fome e expurgos. Morreu no chão do próprio quarto enquanto os guardas tinham medo de entrar.',
+    ],
+    end: [
+      'A stroke at seventy-four. He lay on his bedroom floor for many hours because not one guard dared open the door without being called.',
+      'Um derrame aos setenta e quatro anos. Ficou horas no chão do quarto porque nenhum guarda ousou abrir a porta sem ser chamado.',
     ],
   },
   {
@@ -2474,6 +3183,10 @@ export const FIGURES = [
       'A rejected art student who took power by election and then destroyed the republic that elected him. He ordered a continental genocide and shot himself in a bunker.',
       'Um estudante de arte recusado que chegou ao poder pelo voto e destruiu a república que o elegeu. Ordenou um genocídio continental e matou-se num bunker.',
     ],
+    end: [
+      'A pistol shot in a concrete bunker beneath a burning capital, with cyanide, beside a wife of one day. The bodies were carried up and burned in the garden.',
+      'Um tiro de pistola em um bunker de concreto sob uma capital em chamas, com cianeto, ao lado de uma esposa de um dia. Os corpos foram levados para cima e queimados no jardim.',
+    ],
   },
   {
     id: 'mussolini',
@@ -2486,6 +3199,10 @@ export const FIGURES = [
     deed: [
       'A socialist journalist who invented fascism, marched on his capital, and was shot by partisans and hung upside down in a Milan square.',
       'Um jornalista socialista que inventou o fascismo, marchou sobre sua capital e foi fuzilado por partisans e pendurado de cabeça para baixo numa praça de Milão.',
+    ],
+    end: [
+      'Shot against a wall by partisans while trying to reach the border in a German coat, then hung upside down from the roof of a petrol station in a city square.',
+      'Fuzilado contra um muro por guerrilheiros ao tentar chegar à fronteira em um casaco alemão, e depois pendurado de cabeça para baixo no teto de um posto de gasolina em uma praça.',
     ],
   },
   {
@@ -2501,6 +3218,10 @@ export const FIGURES = [
       'Offered his country nothing but blood, toil, tears and sweat, and led it through its darkest year. He was voted out at the moment of victory, and won a Nobel for literature.',
       'Ofereceu ao país apenas sangue, esforço, lágrimas e suor, e conduziu-o em seu ano mais sombrio. Foi derrotado nas urnas no momento da vitória, e ganhou um Nobel de literatura.',
     ],
+    end: [
+      'A stroke at ninety, nine days in a coma, seventy years to the day after his father died the same way. Three hundred thousand people filed past the coffin.',
+      'Um derrame aos noventa anos, nove dias em coma, exatamente setenta anos depois de seu pai morrer do mesmo modo. Trezentas mil pessoas desfilaram diante do caixão.',
+    ],
   },
   {
     id: 'fdr',
@@ -2515,6 +3236,10 @@ export const FIGURES = [
       'Paralysed from the waist down at thirty-nine, he was elected four times and rebuilt his country from a depression. He died weeks before the war ended.',
       'Paralisado da cintura para baixo aos trinta e nove anos, foi eleito quatro vezes e reconstruiu o país de uma depressão. Morreu semanas antes do fim da guerra.',
     ],
+    end: [
+      'A brain haemorrhage at sixty-three, while sitting for a portrait, three weeks before the war in Europe ended and eleven weeks into a fourth term.',
+      'Uma hemorragia cerebral aos sessenta e três anos, enquanto posava para um retrato, três semanas antes do fim da guerra na Europa e onze semanas após iniciar um quarto mandato.',
+    ],
   },
   {
     id: 'theodore-roosevelt',
@@ -2527,6 +3252,10 @@ export const FIGURES = [
     deed: [
       'A sickly boy who became a cowboy, a cavalry colonel and the youngest president; he was shot before a speech and delivered it anyway.',
       'Um menino doente que virou vaqueiro, coronel de cavalaria e o mais jovem presidente; levou um tiro antes de um discurso e mesmo assim o proferiu.',
+    ],
+    end: [
+      'A blood clot in the lung, in his sleep, at sixty — his health broken by a jungle expedition, and his youngest son shot down in the war six months before.',
+      'Um coágulo no pulmão, durante o sono, aos sessenta anos — a saúde destruída por uma expedição na selva, e o filho mais novo abatido na guerra seis meses antes.',
     ],
   },
   {
@@ -2542,6 +3271,10 @@ export const FIGURES = [
       'Walked two hundred and forty miles to make salt from the sea in defiance of an empire, and won a subcontinent its freedom without arms. A fellow countryman shot him.',
       'Caminhou quase quatrocentos quilômetros para tirar sal do mar em desafio a um império, e conquistou sem armas a liberdade de um subcontinente. Um compatriota o matou a tiros.',
     ],
+    end: [
+      'Three pistol shots at close range on the way to evening prayer, at seventy-eight, fired by a man of his own faith who thought him too generous to the other one.',
+      'Três tiros de pistola à queima-roupa no caminho para a oração da tarde, aos setenta e oito anos, disparados por um homem de sua própria fé que o julgava generoso demais com a outra.',
+    ],
   },
   {
     id: 'mao-zedong',
@@ -2556,6 +3289,10 @@ export const FIGURES = [
       'Led a six-thousand-mile retreat that saved his party and founded a republic in 1949. The famine and cultural upheaval he then launched killed tens of millions.',
       'Liderou uma retirada de dez mil quilômetros que salvou seu partido e fundou uma república em 1949. A fome e a convulsão cultural que depois desencadeou mataram dezenas de milhões.',
     ],
+    end: [
+      'The third heart attack in months, at eighty-two, after two years of a disease of the nerves that had already taken his speech and his hands.',
+      'O terceiro ataque do coração em poucos meses, aos oitenta e dois anos, após dois anos de uma doença dos nervos que já lhe havia tirado a fala e as mãos.',
+    ],
   },
   {
     id: 'ho-chi-minh',
@@ -2569,6 +3306,10 @@ export const FIGURES = [
       'Worked as a pastry cook in Paris and London before leading his country to independence from France, and died six years before it was reunified.',
       'Trabalhou como confeiteiro em Paris e Londres antes de conduzir seu país à independência da França, e morreu seis anos antes de sua reunificação.',
     ],
+    end: [
+      'Heart failure at seventy-nine, with the war still six years from its end. He asked for cremation and a simple house; the state built a marble hall instead.',
+      'Insuficiência cardíaca aos setenta e nove anos, com a guerra ainda a seis anos do fim. Pediu cremação e uma casa simples; o estado construiu um mausoléu de mármore.',
+    ],
   },
   {
     id: 'de-gaulle',
@@ -2581,6 +3322,10 @@ export const FIGURES = [
     deed: [
       'Broadcast from London that his defeated country had lost a battle but not the war, led its liberation, and returned to found its fifth republic.',
       'Transmitiu de Londres que seu país derrotado perdera uma batalha, mas não a guerra, liderou sua libertação e voltou para fundar sua quinta república.',
+    ],
+    end: [
+      'A ruptured artery at seventy-nine, at home in his village, playing cards after the evening news, thirteen days short of his birthday.',
+      'A ruptura de uma artéria aos setenta e nove anos, em casa, em sua aldeia, jogando cartas depois do noticiário da noite, treze dias antes de seu aniversário.',
     ],
   },
   {
@@ -2596,6 +3341,10 @@ export const FIGURES = [
       'Hid for two years in a concealed annexe above her father\'s warehouse and kept a diary there. She died of typhus in a camp at fifteen.',
       'Escondeu-se por dois anos num anexo secreto acima do armazém do pai e ali manteve um diário. Morreu de tifo num campo aos quinze anos.',
     ],
+    end: [
+      'Typhus in a camp at fifteen, a few days after her sister and a few weeks before British soldiers arrived at the gate. Of eight people in the hiding place, one came home.',
+      'Tifo em um campo de concentração aos quinze anos, poucos dias depois da irmã e poucas semanas antes de os soldados britânicos chegarem ao portão. Das oito pessoas do esconderijo, uma voltou para casa.',
+    ],
   },
   {
     id: 'mandela',
@@ -2609,6 +3358,10 @@ export const FIGURES = [
     deed: [
       'Spent twenty-seven years in prison, eighteen of them breaking rocks on an island, then walked out and became his country\'s first freely elected president.',
       'Passou vinte e sete anos na prisão, dezoito deles quebrando pedras numa ilha, depois saiu e tornou-se o primeiro presidente livremente eleito de seu país.',
+    ],
+    end: [
+      'A lung infection at ninety-five, at home, after tuberculosis contracted in a damp prison cell had damaged his lungs half a century earlier.',
+      'Uma infecção pulmonar aos noventa e cinco anos, em casa, depois que uma tuberculose contraída em uma cela úmida lhe danificara os pulmões meio século antes.',
     ],
   },
   {
@@ -2624,6 +3377,10 @@ export const FIGURES = [
       'Told a quarter of a million people on the National Mall about a dream, and won a Nobel at thirty-five. He was shot on a motel balcony at thirty-nine.',
       'Falou a um quarto de milhão de pessoas no National Mall sobre um sonho e ganhou um Nobel aos trinta e cinco anos. Foi baleado na varanda de um motel aos trinta e nove.',
     ],
+    end: [
+      'One rifle shot from a rooming-house window across the street, on a motel balcony, at thirty-nine. He had spoken the night before as though he already knew.',
+      'Um único tiro de rifle da janela de uma pensão do outro lado da rua, na sacada de um motel, aos trinta e nove anos. Falara na noite anterior como se já soubesse.',
+    ],
   },
   {
     id: 'malcolm-x',
@@ -2637,6 +3394,10 @@ export const FIGURES = [
       'Educated himself in prison, preached black self-reliance and separatism, changed his views after a pilgrimage to Mecca, and was assassinated in a Harlem ballroom.',
       'Educou-se na prisão, pregou a autossuficiência e o separatismo negros, mudou de posição após uma peregrinação a Meca e foi assassinado num salão do Harlem.',
     ],
+    end: [
+      'Twenty-one shots on a ballroom stage at thirty-nine, in front of his wife and daughters, by three men from the movement he had left.',
+      'Vinte e um tiros no palco de um salão de baile, aos trinta e nove anos, diante da esposa e das filhas, por três homens do movimento que ele havia deixado.',
+    ],
   },
   {
     id: 'rosa-parks',
@@ -2649,6 +3410,10 @@ export const FIGURES = [
     deed: [
       'Refused to give up a bus seat in Montgomery, touching off a boycott that lasted three hundred and eighty-one days.',
       'Recusou-se a ceder um assento de ônibus em Montgomery, provocando um boicote que durou trezentos e oitenta e um dias.',
+    ],
+    end: [
+      'Dementia at ninety-two, in her apartment. She lay in honour in the rotunda of the Capitol, the first woman ever granted it.',
+      'Demência aos noventa e dois anos, em seu apartamento. Foi velada com honras na rotunda do Capitólio, a primeira mulher a receber essa homenagem.',
     ],
   },
   {
@@ -2664,6 +3429,10 @@ export const FIGURES = [
       'Faced down a missile crisis over Cuba and promised to put a man on the moon within the decade. He was shot in an open car after a thousand days in office.',
       'Enfrentou uma crise de mísseis por causa de Cuba e prometeu levar um homem à Lua antes do fim da década. Foi baleado num carro aberto após mil dias de mandato.',
     ],
+    end: [
+      'Two rifle shots from a warehouse window, in an open car in a motorcade, at forty-six. The second took away the back of his head.',
+      'Dois tiros de rifle da janela de um depósito, em um carro aberto durante um cortejo, aos quarenta e seis anos. O segundo levou a parte de trás de sua cabeça.',
+    ],
   },
   {
     id: 'che-guevara',
@@ -2677,6 +3446,10 @@ export const FIGURES = [
     deed: [
       'An asthmatic Argentine doctor who rode a motorcycle across a continent and helped win a Caribbean revolution. He was executed in a Bolivian schoolhouse.',
       'Um médico argentino asmático que cruzou um continente de motocicleta e ajudou a vencer uma revolução caribenha. Foi executado numa escola boliviana.',
+    ],
+    end: [
+      'Shot nine times in a schoolhouse in a mountain village, the day after his capture, at thirty-nine. His hands were cut off to prove who he had been.',
+      'Fuzilado com nove tiros na escola de uma aldeia nas montanhas, no dia seguinte à sua captura, aos trinta e nove anos. Suas mãos foram cortadas para provar quem havia sido.',
     ],
   },
   {
@@ -2692,6 +3465,10 @@ export const FIGURES = [
       'Landed with eighty-two men on a yacht and took an island in two years. He outlasted eleven American presidents and survived hundreds of assassination plots.',
       'Desembarcou com oitenta e dois homens num iate e tomou uma ilha em dois anos. Sobreviveu a onze presidentes americanos e a centenas de planos de assassinato.',
     ],
+    end: [
+      'Old age at ninety, in the capital, nine years after handing power to his brother and surviving, by his own count, six hundred attempts on his life.',
+      'A velhice aos noventa anos, na capital, nove anos depois de entregar o poder ao irmão e de sobreviver, por sua própria conta, a seiscentos atentados.',
+    ],
   },
   {
     id: 'eva-peron',
@@ -2704,6 +3481,10 @@ export const FIGURES = [
     deed: [
       'An illegitimate provincial actress who became her nation\'s first lady, won women the vote there, and died of cancer at thirty-three to national mourning.',
       'Uma atriz provinciana e filha ilegítima que se tornou primeira-dama de sua nação, conquistou ali o voto feminino e morreu de câncer aos trinta e três anos em luto nacional.',
+    ],
+    end: [
+      'Cancer of the cervix at thirty-three, weighing thirty-six kilos at the end. Her body was embalmed for display, then stolen and hidden abroad for sixteen years.',
+      'Câncer de colo do útero aos trinta e três anos, pesando trinta e seis quilos no fim. Seu corpo foi embalsamado para exposição, depois roubado e escondido no exterior por dezesseis anos.',
     ],
   },
   {
@@ -2718,6 +3499,10 @@ export const FIGURES = [
       'Ruled Brazil for eighteen years across a dictatorship and an elected term, and shot himself in the presidential palace leaving a farewell letter.',
       'Governou o Brasil por dezoito anos entre uma ditadura e um mandato eleito, e deu um tiro no peito no palácio presidencial deixando uma carta de despedida.',
     ],
+    end: [
+      'A pistol shot through his own heart, in his bedroom in the presidential palace, at seventy-two, leaving a letter that said he was stepping out of life to enter history.',
+      'Um tiro de pistola no próprio coração, em seu quarto no palácio presidencial, aos setenta e dois anos, deixando uma carta que dizia que saía da vida para entrar na história.',
+    ],
   },
   {
     id: 'indira-gandhi',
@@ -2730,6 +3515,10 @@ export const FIGURES = [
     deed: [
       'India\'s only woman prime minister, who declared a state of emergency, won a war that created Bangladesh, and was killed by her own bodyguards.',
       'A única mulher primeira-ministra da Índia, que decretou estado de emergência, venceu uma guerra que criou Bangladesh e foi morta pelos próprios guarda-costas.',
+    ],
+    end: [
+      'Thirty-one bullets in her own garden at sixty-six, on the way to an interview, fired by two of the bodyguards who were there to protect her.',
+      'Trinta e um tiros em seu próprio jardim, aos sessenta e seis anos, no caminho para uma entrevista, disparados por dois dos guarda-costas que estavam ali para protegê-la.',
     ],
   },
   {
@@ -2744,6 +3533,10 @@ export const FIGURES = [
       'Raised in Milwaukee, she signed her nation\'s declaration of independence and became its first and only woman prime minister.',
       'Criada em Milwaukee, assinou a declaração de independência de sua nação e tornou-se sua primeira e única mulher primeira-ministra.',
     ],
+    end: [
+      'Lymphoma at eighty, which she had concealed for twelve years — through an election and through a war — telling almost no one.',
+      'Linfoma aos oitenta anos, que ela ocultara por doze anos — durante uma eleição e durante uma guerra — sem contar a quase ninguém.',
+    ],
   },
   {
     id: 'margaret-thatcher',
@@ -2757,6 +3550,10 @@ export const FIGURES = [
       'A grocer\'s daughter and research chemist who became Britain\'s first woman prime minister, broke the miners\' strike, and was toppled by her own party.',
       'Filha de um merceeiro e química de laboratório que se tornou a primeira mulher primeira-ministra britânica, quebrou a greve dos mineiros e foi derrubada pelo próprio partido.',
     ],
+    end: [
+      'A stroke at eighty-seven, in a hotel suite where she had been living, after years of small strokes and a failing memory.',
+      'Um derrame aos oitenta e sete anos, em uma suíte de hotel onde vivia, após anos de pequenos derrames e de memória em declínio.',
+    ],
   },
   {
     id: 'ronald-reagan',
@@ -2769,6 +3566,10 @@ export const FIGURES = [
     deed: [
       'A Hollywood actor and union leader who became president at sixty-nine, survived being shot, and told a Soviet leader to tear down a wall.',
       'Um ator de Hollywood e líder sindical que virou presidente aos sessenta e nove anos, sobreviveu a um atentado e mandou um líder soviético derrubar um muro.',
+    ],
+    end: [
+      'Pneumonia at ninety-three, at the end of ten years of a disease of the brain that he had announced to the country himself in a handwritten letter.',
+      'Pneumonia aos noventa e três anos, ao fim de dez anos de uma doença do cérebro que ele mesmo anunciara ao país em uma carta escrita à mão.',
     ],
   },
   {
@@ -2784,6 +3585,10 @@ export const FIGURES = [
       'Became heir when her uncle abdicated and served as a wartime mechanic. She then reigned seventy years, over fifteen prime ministers.',
       'Tornou-se herdeira quando o tio abdicou e serviu como mecânica na guerra. Depois reinou setenta anos, sobre quinze primeiros-ministros.',
     ],
+    end: [
+      'Old age at ninety-six, at her Scottish castle, two days after she stood to appoint the fifteenth prime minister of her reign.',
+      'A velhice aos noventa e seis anos, em seu castelo na Escócia, dois dias depois de se levantar para nomear o décimo quinto primeiro-ministro de seu reinado.',
+    ],
   },
   {
     id: 'hirohito',
@@ -2796,6 +3601,10 @@ export const FIGURES = [
     deed: [
       'Reigned sixty-two years, made the first broadcast his subjects had ever heard of his voice to announce a surrender, and renounced his own divinity.',
       'Reinou sessenta e dois anos, fez a primeira transmissão em que seus súditos ouviram sua voz para anunciar uma rendição, e renunciou à própria divindade.',
+    ],
+    end: [
+      'Cancer of the duodenum at eighty-seven, after a year in which his temperature and pulse were published in the newspapers every morning.',
+      'Câncer de duodeno aos oitenta e sete anos, após um ano em que sua temperatura e seu pulso eram publicados nos jornais toda manhã.',
     ],
   },
   {
@@ -2811,6 +3620,10 @@ export const FIGURES = [
       'An Albanian nun who left her convent to work in the slums of an Indian city. She founded an order for the dying and won a Nobel Peace Prize.',
       'Uma freira albanesa que deixou o convento para trabalhar nas favelas de uma cidade indiana. Fundou uma ordem para os moribundos e ganhou o Nobel da Paz.',
     ],
+    end: [
+      'A heart attack at eighty-seven, in the house of her own order in the city she had adopted, after years of failing heart and refused rest.',
+      'Um ataque do coração aos oitenta e sete anos, na casa de sua própria ordem, na cidade que adotara, após anos de coração fraco e de descanso recusado.',
+    ],
   },
   {
     id: 'john-paul-ii',
@@ -2824,6 +3637,10 @@ export const FIGURES = [
     deed: [
       'An actor and quarry worker under Nazi occupation who became the first non-Italian pontiff in four hundred and fifty-five years. He survived being shot and visited a hundred and twenty-nine countries.',
       'Ator e trabalhador de pedreira sob a ocupação nazista que se tornou o primeiro pontífice não italiano em quatrocentos e cinquenta e cinco anos. Sobreviveu a um atentado e visitou cento e vinte e nove países.',
+    ],
+    end: [
+      'Septic shock at eighty-four, at the end of a long decline from a disease of the nerves, in the apartment above the square where the crowds were praying.',
+      'Choque séptico aos oitenta e quatro anos, ao fim de um longo declínio por uma doença dos nervos, no apartamento acima da praça onde a multidão rezava.',
     ],
   },
 
@@ -2842,6 +3659,10 @@ export const FIGURES = [
       'Broke the German naval cipher at Bletchley Park and defined what a computer is. He was chemically castrated for being gay, and died beside a poisoned apple.',
       'Quebrou a cifra naval alemã em Bletchley Park e definiu o que é um computador. Foi castrado quimicamente por ser homossexual, e morreu ao lado de uma maçã envenenada.',
     ],
+    end: [
+      'Cyanide at forty-one, with a half-eaten apple beside the bed, two years after a court sentenced him to hormone injections for being what he was.',
+      'Cianeto aos quarenta e um anos, com uma maçã meio comida ao lado da cama, dois anos depois de um tribunal condená-lo a injeções de hormônios por ser o que era.',
+    ],
   },
   {
     id: 'stephen-hawking',
@@ -2856,6 +3677,10 @@ export const FIGURES = [
       'Given two years to live at twenty-one, he survived fifty-five more. He showed that black holes leak radiation, and wrote a bestseller about time.',
       'Recebeu dois anos de vida aos vinte e um e sobreviveu mais cinquenta e cinco. Mostrou que buracos negros emitem radiação e escreveu um best-seller sobre o tempo.',
     ],
+    end: [
+      'A disease of the motor nerves at seventy-six — the same one he had been given two years to live with, fifty-five years earlier.',
+      'Uma doença dos nervos motores aos setenta e seis anos — a mesma para a qual lhe deram dois anos de vida, cinquenta e cinco anos antes.',
+    ],
   },
   {
     id: 'max-planck',
@@ -2868,6 +3693,10 @@ export const FIGURES = [
     deed: [
       'Discovered that energy comes in indivisible packets, reluctantly founding quantum theory, and lost a son to the Gestapo.',
       'Descobriu que a energia vem em pacotes indivisíveis, fundando a contragosto a teoria quântica, e perdeu um filho para a Gestapo.',
+    ],
+    end: [
+      'A stroke at eighty-nine, having lost his house to bombs, one son to the first war and another to the executioners of the second.',
+      'Um derrame aos oitenta e nove anos, tendo perdido a casa para as bombas, um filho para a primeira guerra e outro para os carrascos da segunda.',
     ],
   },
   {
@@ -2882,6 +3711,10 @@ export const FIGURES = [
       'Explained the structure of the atom, argued with a friend about whether God plays dice, and escaped occupied Denmark in a bomb bay.',
       'Explicou a estrutura do átomo, discutiu com um amigo se Deus joga dados e escapou da Dinamarca ocupada no compartimento de bombas de um avião.',
     ],
+    end: [
+      'Heart failure at seventy-seven, at home, after lunch, having lain down for the nap he took every day.',
+      'Insuficiência cardíaca aos setenta e sete anos, em casa, depois do almoço, tendo se deitado para a sesta que fazia todos os dias.',
+    ],
   },
   {
     id: 'heisenberg',
@@ -2894,6 +3727,10 @@ export const FIGURES = [
     deed: [
       'Formulated the uncertainty principle at twenty-five, and led a wartime nuclear programme whose failure historians still argue about.',
       'Formulou o princípio da incerteza aos vinte e cinco anos e chefiou um programa nuclear de guerra cujo fracasso os historiadores ainda discutem.',
+    ],
+    end: [
+      'Cancer of the kidney at seventy-four, at home, still arguing about how much he had really been trying to build for his government.',
+      'Câncer de rim aos setenta e quatro anos, em casa, ainda discutindo o quanto de fato tentara construir para seu governo.',
     ],
   },
   {
@@ -2908,6 +3745,10 @@ export const FIGURES = [
       'Used a Nobel trip to flee fascist Italy, then built the first nuclear reactor under the stands of a university squash court.',
       'Usou a viagem do Nobel para fugir da Itália fascista, e depois construiu o primeiro reator nuclear sob as arquibancadas de uma quadra universitária.',
     ],
+    end: [
+      'Stomach cancer at fifty-three, almost certainly from the radiation he had worked in, ten years after the pile he built under a squash court.',
+      'Câncer de estômago aos cinquenta e três anos, quase certamente pela radiação em que trabalhou, dez anos depois da pilha que construiu sob uma quadra de esportes.',
+    ],
   },
   {
     id: 'oppenheimer',
@@ -2920,6 +3761,10 @@ export const FIGURES = [
     deed: [
       'Directed the desert laboratory that built the first atomic bomb, quoted Hindu scripture as it went off, and was stripped of his clearance nine years later.',
       'Dirigiu o laboratório no deserto que construiu a primeira bomba atômica, citou uma escritura hindu quando ela explodiu, e teve sua credencial cassada nove anos depois.',
+    ],
+    end: [
+      'Throat cancer at sixty-two, from four packs of cigarettes a day, twelve years after the hearing that stripped him of his clearance.',
+      'Câncer na garganta aos sessenta e dois anos, por quatro maços de cigarro diários, doze anos depois da audiência que lhe retirou a credencial de segurança.',
     ],
   },
   {
@@ -2934,6 +3779,10 @@ export const FIGURES = [
       'Came back from holiday to a mouldy culture dish he had forgotten to clean, and found the first antibiotic growing in it.',
       'Voltou das férias e encontrou uma placa de cultura mofada que esquecera de lavar, e nela achou o primeiro antibiótico.',
     ],
+    end: [
+      'A heart attack at seventy-three, at home, having spent the last years explaining to anyone who would listen that the mould must not be misused.',
+      'Um ataque do coração aos setenta e três anos, em casa, tendo passado os últimos anos explicando a quem quisesse ouvir que o mofo não devia ser mal utilizado.',
+    ],
   },
   {
     id: 'rosalind-franklin',
@@ -2946,6 +3795,10 @@ export const FIGURES = [
     deed: [
       'Took the X-ray photograph that revealed the double helix, saw it shown to rivals without her knowledge, and died of ovarian cancer at thirty-seven.',
       'Fez a fotografia de raios X que revelou a dupla hélice, viu-a mostrada a rivais sem seu conhecimento e morreu de câncer de ovário aos trinta e sete anos.',
+    ],
+    end: [
+      'Ovarian cancer at thirty-seven, likely caused by the X-rays she worked with — four years before the prize her photograph made possible was handed to three men.',
+      'Câncer no ovário aos trinta e sete anos, provavelmente causado pelos raios X com que trabalhava — quatro anos antes de o prêmio que sua fotografia tornou possível ser entregue a três homens.',
     ],
   },
   {
@@ -2960,6 +3813,10 @@ export const FIGURES = [
       'Developed the first effective polio vaccine and tested it on himself and his own children. He refused to patent it, asking whether you could patent the sun.',
       'Desenvolveu a primeira vacina eficaz contra a poliomielite e testou-a em si mesmo e nos próprios filhos. Recusou-se a patenteá-la, perguntando se alguém patentearia o sol.',
     ],
+    end: [
+      'Heart failure at eighty, having refused to patent what he made. Asked who owned it, he had said that it belonged to the people, like the sun.',
+      'Insuficiência cardíaca aos oitenta anos, tendo se recusado a patentear o que fez. Perguntado sobre quem era o dono, disse que pertencia ao povo, como o sol.',
+    ],
   },
   {
     id: 'carl-sagan',
@@ -2972,6 +3829,10 @@ export const FIGURES = [
     deed: [
       'Put a gold record of Earth\'s sounds aboard two departing probes, and asked that one of them turn round to photograph our pale blue dot.',
       'Pôs um disco de ouro com os sons da Terra a bordo de duas sondas que partiam, e pediu que uma delas se voltasse para fotografar nosso pálido ponto azul.',
+    ],
+    end: [
+      'Pneumonia at sixty-two, after two years of a disease of the bone marrow and three transplants from his sister.',
+      'Pneumonia aos sessenta e dois anos, após dois anos de uma doença da medula óssea e três transplantes doados pela irmã.',
     ],
   },
   {
@@ -2986,6 +3847,10 @@ export const FIGURES = [
       'Built the rockets that bombed London for the Nazis, surrendered to the Americans, and went on to build the one that reached the moon.',
       'Construiu os foguetes que bombardearam Londres para os nazistas, rendeu-se aos americanos e depois construiu o que chegou à Lua.',
     ],
+    end: [
+      'Cancer of the pancreas at sixty-five, eight years after the rocket he designed put men on another world, and thirty after the one he designed fell on London.',
+      'Câncer no pâncreas aos sessenta e cinco anos, oito anos depois de o foguete que projetou levar homens a outro mundo, e trinta depois de o que projetou cair sobre Londres.',
+    ],
   },
   {
     id: 'santos-dumont',
@@ -2998,6 +3863,10 @@ export const FIGURES = [
     deed: [
       'Flew a dirigible around the Eiffel Tower for a prize, then made the first public powered flight in Europe, and killed himself in despair at the use of aircraft in war.',
       'Contornou a Torre Eiffel num dirigível para ganhar um prêmio, depois fez o primeiro voo motorizado público da Europa, e suicidou-se em desespero pelo uso de aviões na guerra.',
+    ],
+    end: [
+      'Hanged by his own hand with two neckties in a seaside hotel at fifty-nine, in despair at seeing the machines he had given the world dropping bombs on his own countrymen.',
+      'Enforcado pela própria mão com duas gravatas em um hotel de praia, aos cinquenta e nove anos, em desespero por ver as máquinas que dera ao mundo lançando bombas sobre seus compatriotas.',
     ],
   },
   {
@@ -3012,6 +3881,10 @@ export const FIGURES = [
       'A bicycle mechanic who, with his brother, made a twelve-second powered flight over a North Carolina beach, and lived to see jet aircraft.',
       'Um mecânico de bicicletas que, com o irmão, fez um voo motorizado de doze segundos sobre uma praia da Carolina do Norte, e viveu para ver aviões a jato.',
     ],
+    end: [
+      'A second heart attack at seventy-six, having lived long enough to see bombers cross oceans and to regret it out loud.',
+      'Um segundo ataque do coração aos setenta e seis anos, tendo vivido o bastante para ver bombardeiros cruzarem oceanos e para se arrepender disso em voz alta.',
+    ],
   },
   {
     id: 'charles-lindbergh',
@@ -3024,6 +3897,10 @@ export const FIGURES = [
     deed: [
       'Flew alone and non-stop from New York to Paris in thirty-three hours, became the most famous man alive, and lost a kidnapped infant son to a notorious murder.',
       'Voou sozinho e sem escalas de Nova York a Paris em trinta e três horas, tornou-se o homem mais famoso do mundo e perdeu um filho pequeno num sequestro e assassinato notórios.',
+    ],
+    end: [
+      'Lymphoma at seventy-two, in a simple house on a Pacific island, where he had planned the grave, the coffin and the wording himself.',
+      'Linfoma aos setenta e dois anos, em uma casa simples em uma ilha do Pacífico, onde ele mesmo planejara a cova, o caixão e as palavras da lápide.',
     ],
   },
   {
@@ -3039,6 +3916,10 @@ export const FIGURES = [
       'First woman to fly the Atlantic alone; she vanished over the Pacific two-thirds of the way through a flight around the world, and was never found.',
       'Primeira mulher a cruzar o Atlântico sozinha de avião; desapareceu sobre o Pacífico a dois terços de uma volta ao mundo, e nunca foi encontrada.',
     ],
+    end: [
+      'Nobody knows. The radio calls stopped somewhere over open ocean short of a tiny island, and the largest search in naval history found nothing at all.',
+      'Ninguém sabe. As chamadas de rádio cessaram em algum ponto sobre o oceano aberto antes de uma ilha minúscula, e a maior busca da história naval não encontrou absolutamente nada.',
+    ],
   },
   {
     id: 'roald-amundsen',
@@ -3051,6 +3932,10 @@ export const FIGURES = [
     deed: [
       'First to reach the South Pole, beating a British party by thirty-four days, and disappeared in the Arctic on a flight to rescue a rival.',
       'Primeiro a alcançar o Polo Sul, batendo uma expedição britânica por trinta e quatro dias, e desapareceu no Ártico num voo para resgatar um rival.',
+    ],
+    end: [
+      'A crash into the Arctic sea at fifty-five, in a flying boat, on a mission to search for a rival who had gone down on the ice. No wreck was ever found.',
+      'Uma queda no mar do Ártico aos cinquenta e cinco anos, em um hidroavião, em missão para procurar um rival que caíra no gelo. Nenhum destroço foi jamais encontrado.',
     ],
   },
   {
@@ -3065,6 +3950,10 @@ export const FIGURES = [
       'Lost his ship to the ice, sailed eight hundred miles in an open boat for help, and brought every one of his twenty-seven men home alive.',
       'Perdeu o navio para o gelo, navegou mil e trezentos quilômetros num bote aberto em busca de socorro, e trouxe vivos todos os seus vinte e sete homens.',
     ],
+    end: [
+      'A heart attack at forty-seven, in his cabin aboard ship at a whaling station, at the very start of a fourth expedition south. He was buried on the island.',
+      'Um ataque do coração aos quarenta e sete anos, em sua cabine, a bordo do navio em uma estação baleeira, no início de uma quarta expedição ao sul. Foi sepultado na ilha.',
+    ],
   },
   {
     id: 'edmund-hillary',
@@ -3078,6 +3967,10 @@ export const FIGURES = [
       'A beekeeper who, with a Sherpa guide, became the first confirmed to stand on the highest point on earth, and spent his life building schools for the people who took him there.',
       'Um apicultor que, com um guia sherpa, foi o primeiro confirmado a pisar no ponto mais alto da Terra, e passou a vida construindo escolas para o povo que o levou até lá.',
     ],
+    end: [
+      'Heart failure at eighty-eight, at home in the city of his birth, having spent his last decades building schools for the people who carried his loads.',
+      'Insuficiência cardíaca aos oitenta e oito anos, em casa, na cidade onde nasceu, tendo passado as últimas décadas construindo escolas para o povo que carregava suas cargas.',
+    ],
   },
   {
     id: 'jacques-cousteau',
@@ -3090,6 +3983,10 @@ export const FIGURES = [
     deed: [
       'Co-invented the aqualung, filmed the ocean floor in colour for the first time, and turned a converted minesweeper into the most famous research ship afloat.',
       'Coinventou o cilindro de mergulho autônomo, filmou o fundo do mar em cores pela primeira vez e transformou um caça-minas reformado no navio de pesquisa mais famoso do mundo.',
+    ],
+    end: [
+      'A heart attack at eighty-seven, at home, after a respiratory illness — on dry land, in the middle of a lawsuit with his own son.',
+      'Um ataque do coração aos oitenta e sete anos, em casa, após uma doença respiratória — em terra firme, no meio de um processo contra o próprio filho.',
     ],
   },
   {
@@ -3105,6 +4002,10 @@ export const FIGURES = [
       'A foundry worker\'s son who became the first human being in space, orbiting once in one hundred and eight minutes. He died in a training jet crash at thirty-four.',
       'Filho de um operário de fundição que se tornou o primeiro ser humano no espaço, dando uma órbita em cento e oito minutos. Morreu aos trinta e quatro anos na queda de um jato de treinamento.',
     ],
+    end: [
+      'A training jet into the ground at thirty-four, on a routine flight, in a crash the state classified for twenty years and has still not fully explained.',
+      'Um caça de treinamento no chão, aos trinta e quatro anos, em um voo de rotina, em um acidente que o estado manteve em sigilo por vinte anos e ainda não explicou por completo.',
+    ],
   },
   {
     id: 'neil-armstrong',
@@ -3118,6 +4019,10 @@ export const FIGURES = [
     deed: [
       'Took a step in July 1969 that six hundred million people watched, then spent the rest of his life avoiding the fame it brought.',
       'Deu em julho de 1969 um passo que seiscentos milhões de pessoas assistiram, e passou o resto da vida evitando a fama que ele trouxe.',
+    ],
+    end: [
+      'Complications after heart surgery at eighty-two, two weeks after the operation, having spent forty years declining to be a monument.',
+      'Complicações após uma cirurgia cardíaca aos oitenta e dois anos, duas semanas depois da operação, tendo passado quarenta anos recusando-se a ser um monumento.',
     ],
   },
 
@@ -3135,6 +4040,10 @@ export const FIGURES = [
       'Learned the cornet in a home for delinquent boys, invented the jazz solo, and knocked a famous band off the top of the charts at sixty-two.',
       'Aprendeu corneta num reformatório para meninos infratores, inventou o solo de jazz e derrubou uma banda famosa do topo das paradas aos sessenta e dois anos.',
     ],
+    end: [
+      'A heart attack in his sleep at sixty-nine, at home, weeks after playing a two-week engagement his doctors had forbidden outright.',
+      'Um ataque do coração durante o sono, aos sessenta e nove anos, em casa, semanas depois de cumprir uma temporada de duas semanas que os médicos haviam proibido terminantemente.',
+    ],
   },
   {
     id: 'billie-holiday',
@@ -3147,6 +4056,10 @@ export const FIGURES = [
     deed: [
       'Sang a song about lynching that her label refused to record, and died at forty-four under police guard in a hospital bed.',
       'Cantou uma canção sobre linchamentos que sua gravadora se recusou a registrar, e morreu aos quarenta e quatro anos sob guarda policial num leito de hospital.',
+    ],
+    end: [
+      'Cirrhosis and heart failure at forty-four, under police guard in her hospital bed, arrested for narcotics as she lay dying, with seventy cents in the bank.',
+      'Cirrose e insuficiência cardíaca aos quarenta e quatro anos, sob guarda policial em seu leito de hospital, presa por narcóticos enquanto morria, com setenta centavos no banco.',
     ],
   },
   {
@@ -3161,6 +4074,10 @@ export const FIGURES = [
       'The most famous soprano of the century, who lost eighty pounds and much of her voice with it, and died alone in a Paris apartment at fifty-three.',
       'A soprano mais famosa do século, que perdeu quarenta quilos e boa parte da voz com eles, e morreu sozinha num apartamento em Paris aos cinquenta e três anos.',
     ],
+    end: [
+      'A heart attack at fifty-three, alone in her Paris apartment, four years after her last concert and a lifetime of drastic dieting.',
+      'Um ataque do coração aos cinquenta e três anos, sozinha em seu apartamento em Paris, quatro anos depois do último concerto e após uma vida de dietas drásticas.',
+    ],
   },
   {
     id: 'frank-sinatra',
@@ -3173,6 +4090,10 @@ export const FIGURES = [
     deed: [
       'Made teenage girls scream a generation before rock and roll, won an Oscar after his career collapsed, and recorded an anthem about doing it his way.',
       'Fez adolescentes gritarem uma geração antes do rock, ganhou um Oscar depois de sua carreira desabar e gravou um hino sobre fazer as coisas à sua maneira.',
+    ],
+    end: [
+      'A heart attack at eighty-two, after years of failing health. His last words were that he was losing. The lights of a famous skyscraper were turned blue.',
+      'Um ataque do coração aos oitenta e dois anos, após anos de saúde em declínio. Suas últimas palavras foram que estava perdendo. As luzes de um arranha-céu famoso ficaram azuis.',
     ],
   },
   {
@@ -3188,6 +4109,10 @@ export const FIGURES = [
       'A truck driver who recorded a song for his mother and was then filmed only from the waist up for shaking his hips. He died at forty-two in his own mansion.',
       'Um caminhoneiro que gravou uma canção para a mãe e depois passou a ser filmado só da cintura para cima por rebolar os quadris. Morreu aos quarenta e dois anos na própria mansão.',
     ],
+    end: [
+      'A heart attack at forty-two, on his bathroom floor, after years of prescriptions from a doctor who wrote them by the thousand.',
+      'Um ataque do coração aos quarenta e dois anos, no chão de seu banheiro, após anos de receitas de um médico que as emitia por milhares.',
+    ],
   },
   {
     id: 'ray-charles',
@@ -3200,6 +4125,10 @@ export const FIGURES = [
     deed: [
       'Blind from seven after watching his brother drown, he fused gospel with the blues and was called the father of soul.',
       'Cego desde os sete anos, após ver o irmão se afogar, fundiu o gospel com o blues e foi chamado de pai do soul.',
+    ],
+    end: [
+      'Liver disease at seventy-three, at home, six weeks before the opening of the last studio he had built.',
+      'Doença no fígado aos setenta e três anos, em casa, seis semanas antes da inauguração do último estúdio que construíra.',
     ],
   },
   {
@@ -3215,6 +4144,10 @@ export const FIGURES = [
       'Formed the most successful band in history in his home city, then staged a protest from a bed and asked the world to imagine no countries. He was shot outside his apartment building.',
       'Formou a banda mais bem-sucedida da história em sua cidade natal, depois protestou de dentro de uma cama e pediu ao mundo que imaginasse um planeta sem países. Foi baleado na porta de seu prédio.',
     ],
+    end: [
+      'Four shots in the back at the entrance of his own apartment building, at forty, fired by a man he had signed an autograph for that same afternoon.',
+      'Quatro tiros nas costas na entrada de seu próprio edifício, aos quarenta anos, disparados por um homem para quem ele havia dado um autógrafo naquela mesma tarde.',
+    ],
   },
   {
     id: 'jimi-hendrix',
@@ -3228,6 +4161,10 @@ export const FIGURES = [
       'Played a left-handed guitar strung upside down, set one alight on stage, tore apart a national anthem at Woodstock, and died at twenty-seven.',
       'Tocava uma guitarra canhota com as cordas invertidas, incendiou uma no palco, dilacerou um hino nacional em Woodstock e morreu aos vinte e sete anos.',
     ],
+    end: [
+      'Choked in his sleep at twenty-seven, after German sleeping pills and red wine, in a London hotel room.',
+      'Asfixiado durante o sono aos vinte e sete anos, depois de comprimidos alemães para dormir e vinho tinto, em um quarto de hotel em Londres.',
+    ],
   },
   {
     id: 'janis-joplin',
@@ -3240,6 +4177,10 @@ export const FIGURES = [
     deed: [
       'Bullied out of a Texas town for looking different, she sang the blues with a shredded voice and died at twenty-seven, sixteen days after a friend and rival.',
       'Expulsa por bullying de uma cidade do Texas por ser diferente, cantou o blues com a voz em frangalhos e morreu aos vinte e sete anos, dezesseis dias depois de um amigo e rival.',
+    ],
+    end: [
+      'A heroin overdose at twenty-seven, alone in a Los Angeles motel room, sixteen days after the guitarist who died the same way and the same age.',
+      'Uma dose excessiva de heroína aos vinte e sete anos, sozinha em um quarto de motel em Los Angeles, dezesseis dias depois do guitarrista que morreu do mesmo modo e na mesma idade.',
     ],
   },
   {
@@ -3255,6 +4196,10 @@ export const FIGURES = [
       'Took his island\'s music to the world, and played a concert two days after being shot. On stage he joined the hands of two rival politicians. Melanoma killed him at thirty-six.',
       'Levou a música de sua ilha ao mundo e tocou num festival dois dias após levar um tiro. No palco, uniu as mãos de dois políticos rivais. Um melanoma o matou aos trinta e seis anos.',
     ],
+    end: [
+      'A melanoma at thirty-six that had started under a toenail four years earlier. He had refused amputation on religious grounds and it reached his brain.',
+      'Um melanoma aos trinta e seis anos, iniciado sob a unha de um dedo do pé quatro anos antes. Recusara a amputação por motivos religiosos, e o câncer chegou ao cérebro.',
+    ],
   },
   {
     id: 'freddie-mercury',
@@ -3269,6 +4214,10 @@ export const FIGURES = [
       'Fled a revolution as a teenager, fronted a band with a four-octave range, stole a stadium concert in twenty-one minutes, and announced his illness the day before he died.',
       'Fugiu de uma revolução ainda adolescente, liderou uma banda com quatro oitavas de extensão, roubou a cena num show de estádio em vinte e um minutos e anunciou sua doença um dia antes de morrer.',
     ],
+    end: [
+      'Pneumonia brought on by the immune disease at forty-five, at home, one day after finally letting the world be told what he had.',
+      'Pneumonia provocada pela doença imunológica aos quarenta e cinco anos, em casa, um dia depois de finalmente permitir que se contasse ao mundo o que tinha.',
+    ],
   },
   {
     id: 'david-bowie',
@@ -3281,6 +4230,10 @@ export const FIGURES = [
     deed: [
       'Reinvented himself every few years, killed off his own alien alter ego on stage, and released a farewell album two days before dying of cancer.',
       'Reinventou-se a cada poucos anos, matou no palco seu próprio alter ego alienígena e lançou um álbum de despedida dois dias antes de morrer de câncer.',
+    ],
+    end: [
+      'Liver cancer at sixty-nine, kept secret for eighteen months, two days after releasing a record that turned out to be a farewell note.',
+      'Câncer no fígado aos sessenta e nove anos, mantido em segredo por dezoito meses, dois dias depois de lançar um disco que se revelou uma carta de despedida.',
     ],
   },
   {
@@ -3296,6 +4249,10 @@ export const FIGURES = [
       'Started performing at five with his brothers, made the best-selling album ever recorded, and made a backwards walk look like gliding.',
       'Começou a se apresentar aos cinco anos com os irmãos, fez o álbum mais vendido já gravado e transformou um passo para trás na ilusão de deslizar.',
     ],
+    end: [
+      'An overdose of a surgical anaesthetic at fifty, given to him nightly to make him sleep by a doctor who went to prison for it.',
+      'Uma dose excessiva de anestésico cirúrgico aos cinquenta anos, aplicada todas as noites para fazê-lo dormir por um médico que foi preso por isso.',
+    ],
   },
   {
     id: 'pavarotti',
@@ -3309,6 +4266,10 @@ export const FIGURES = [
       'A baker\'s son and trained schoolteacher whose nine high Cs made him famous, and whose aria became the anthem of a World Cup.',
       'Filho de padeiro e professor formado cujos nove dós de peito o tornaram famoso, e cuja ária virou o hino de uma Copa do Mundo.',
     ],
+    end: [
+      'Cancer of the pancreas at seventy-one, at home in the town where he was born, a year after his last performance.',
+      'Câncer no pâncreas aos setenta e um anos, em casa, na cidade onde nasceu, um ano depois de sua última apresentação.',
+    ],
   },
   {
     id: 'tom-jobim',
@@ -3321,6 +4282,10 @@ export const FIGURES = [
     deed: [
       'Co-created bossa nova at a piano in Ipanema, and wrote a song about a passing girl that became one of the most recorded in the world.',
       'Cocriou a bossa nova ao piano em Ipanema e escreveu uma canção sobre uma garota que passava, tornada uma das mais gravadas do mundo.',
+    ],
+    end: [
+      'Heart failure at sixty-seven, in a New York hospital after an operation, five weeks after his last recording session.',
+      'Insuficiência cardíaca aos sessenta e sete anos, em um hospital de Nova York depois de uma operação, cinco semanas após sua última gravação.',
     ],
   },
 
@@ -3339,6 +4304,10 @@ export const FIGURES = [
       'Grew up in workhouses, created a bowler-hatted vagrant known on every continent, mocked a dictator in his first talking film, and was barred from the country that made him rich.',
       'Cresceu em asilos para pobres, criou um vagabundo de chapéu-coco conhecido em todos os continentes, ridicularizou um ditador em seu primeiro filme falado e foi proibido de voltar ao país que o enriqueceu.',
     ],
+    end: [
+      'A stroke in his sleep at eighty-eight, on Christmas morning, in Swiss exile. Three months later his coffin was dug up and held for ransom.',
+      'Um derrame durante o sono aos oitenta e oito anos, na manhã de Natal, no exílio suíço. Três meses depois seu caixão foi desenterrado e mantido como resgate.',
+    ],
   },
   {
     id: 'walt-disney',
@@ -3353,6 +4322,10 @@ export const FIGURES = [
       'Went bankrupt at twenty-one, gambled everything on a feature-length cartoon everyone called folly, and won twenty-two Academy Awards.',
       'Faliu aos vinte e um anos, apostou tudo num desenho animado de longa-metragem que todos chamavam de loucura, e ganhou vinte e dois prêmios da Academia.',
     ],
+    end: [
+      'Lung cancer at sixty-five, from a lifetime of cigarettes, ten days after his birthday. He was cremated, whatever the story about the freezer says.',
+      'Câncer no pulmão aos sessenta e cinco anos, por uma vida de cigarros, dez dias depois de seu aniversário. Foi cremado, diga o que disser a história do congelador.',
+    ],
   },
   {
     id: 'alfred-hitchcock',
@@ -3366,6 +4339,10 @@ export const FIGURES = [
       'Made an audience afraid of a shower in forty-five seconds of cutting, appeared briefly in almost all his own films, and never won an Oscar for directing.',
       'Fez uma plateia inteira temer o chuveiro em quarenta e cinco segundos de montagem, apareceu rapidamente em quase todos os seus filmes e nunca ganhou um Oscar de direção.',
     ],
+    end: [
+      'Kidney failure at eighty, at home, having given up on the film he was preparing a few months earlier.',
+      'Falência dos rins aos oitenta anos, em casa, tendo desistido poucos meses antes do filme que preparava.',
+    ],
   },
   {
     id: 'orson-welles',
@@ -3378,6 +4355,10 @@ export const FIGURES = [
     deed: [
       'Panicked a nation with a radio broadcast about Martians at twenty-three, made what is often called the greatest film ever at twenty-five, and spent decades unable to finance his projects.',
       'Apavorou uma nação com uma transmissão de rádio sobre marcianos aos vinte e três anos, fez aos vinte e cinco o que muitos chamam do maior filme de todos os tempos, e passou décadas sem conseguir financiar seus projetos.',
+    ],
+    end: [
+      'A heart attack at seventy, alone at his typewriter in the small hours, working on a script for a picture nobody would fund.',
+      'Um ataque do coração aos setenta anos, sozinho diante da máquina de escrever, na madrugada, trabalhando no roteiro de um filme que ninguém financiaria.',
     ],
   },
   {
@@ -3393,6 +4374,10 @@ export const FIGURES = [
       'Raised in foster homes and an orphanage, became the defining screen icon of her decade, fought her studio for control of her career, and died at thirty-six.',
       'Criada em lares adotivos e num orfanato, tornou-se o ícone maior das telas de sua década, enfrentou o estúdio pelo controle da carreira e morreu aos trinta e seis anos.',
     ],
+    end: [
+      'An overdose of barbiturates at thirty-six, found face down in her own bed with the telephone in her hand. The verdict was probable suicide.',
+      'Uma dose excessiva de barbitúricos aos trinta e seis anos, encontrada de bruços em sua própria cama com o telefone na mão. O veredicto foi provável suicídio.',
+    ],
   },
   {
     id: 'audrey-hepburn',
@@ -3405,6 +4390,10 @@ export const FIGURES = [
     deed: [
       'Ran messages for the Dutch resistance as a starving child, won an Oscar for her first major role, and spent her last years working for UNICEF.',
       'Levou mensagens para a resistência holandesa quando criança e faminta, ganhou um Oscar em seu primeiro papel de destaque e passou os últimos anos trabalhando para o UNICEF.',
+    ],
+    end: [
+      'A rare cancer of the appendix at sixty-three, at her Swiss house, three months after a last trip to feed children in a famine.',
+      'Um câncer raro no apêndice aos sessenta e três anos, em sua casa na Suíça, três meses depois de uma última viagem para alimentar crianças em uma fome coletiva.',
     ],
   },
   {
@@ -3419,6 +4408,10 @@ export const FIGURES = [
       'Starred in only three films, all released around his death in a car crash at twenty-four, and became the permanent image of teenage rebellion.',
       'Estrelou apenas três filmes, todos lançados em torno de sua morte num acidente de carro aos vinte e quatro anos, e virou a imagem permanente da rebeldia adolescente.',
     ],
+    end: [
+      'A head-on collision at twenty-four, in a silver sports car on a country road, two weeks after filming a public warning against driving fast.',
+      'Uma colisão frontal aos vinte e quatro anos, em um carro esporte prateado em uma estrada rural, duas semanas depois de gravar um alerta público contra a direção em alta velocidade.',
+    ],
   },
   {
     id: 'grace-kelly',
@@ -3431,6 +4424,10 @@ export const FIGURES = [
     deed: [
       'Won an Oscar, left Hollywood at twenty-six to marry a reigning prince, and died after a stroke sent her car off a mountain road.',
       'Ganhou um Oscar, deixou Hollywood aos vinte e seis anos para casar com um príncipe reinante, e morreu depois que um derrame lançou seu carro para fora de uma estrada de montanha.',
+    ],
+    end: [
+      'A stroke at the wheel on a steep coast road at fifty-two. The car went over the edge; her daughter, beside her, survived.',
+      'Um derrame ao volante em uma estrada costeira de encosta, aos cinquenta e dois anos. O carro caiu no barranco; a filha, ao seu lado, sobreviveu.',
     ],
   },
   {
@@ -3446,6 +4443,10 @@ export const FIGURES = [
       'Founded his own martial art, made Chinese cinema a global force in four finished films, and died of a brain oedema at thirty-two.',
       'Fundou sua própria arte marcial, tornou o cinema chinês uma força mundial em quatro filmes concluídos e morreu de edema cerebral aos trinta e dois anos.',
     ],
+    end: [
+      'Swelling of the brain at thirty-two, an allergic reaction to a headache tablet, in a friend\'s apartment, weeks before his greatest film opened.',
+      'Inchaço do cérebro aos trinta e dois anos, uma reação alérgica a um comprimido para dor de cabeça, no apartamento de uma amiga, semanas antes da estreia de seu maior filme.',
+    ],
   },
   {
     id: 'akira-kurosawa',
@@ -3458,6 +4459,10 @@ export const FIGURES = [
     deed: [
       'Told one crime four contradictory ways, sent seven swordsmen to defend a village, and was remade by Hollywood again and again.',
       'Contou um mesmo crime de quatro maneiras contraditórias, mandou sete espadachins defenderem um vilarejo e foi refilmado por Hollywood vezes sem conta.',
+    ],
+    end: [
+      'A stroke at eighty-eight, at home, four years after a fall ended his working life and twenty-eight after he tried to end it himself.',
+      'Um derrame aos oitenta e oito anos, em casa, quatro anos depois de uma queda encerrar sua vida de trabalho e vinte e oito depois de tentar encerrá-la ele mesmo.',
     ],
   },
   {
@@ -3472,6 +4477,10 @@ export const FIGURES = [
       'Turned his own dreams and childhood into films, gave the world a word for a swarm of photographers, and won four foreign-language Oscars.',
       'Transformou os próprios sonhos e a infância em filmes, deu ao mundo uma palavra para designar um enxame de fotógrafos e ganhou quatro Oscars de filme estrangeiro.',
     ],
+    end: [
+      'A stroke at seventy-three, in hospital, one day after his fiftieth wedding anniversary. He choked on a piece of cheese while recovering and never woke again.',
+      'Um derrame aos setenta e três anos, no hospital, um dia depois de suas bodas de ouro. Engasgou com um pedaço de queijo durante a recuperação e nunca mais acordou.',
+    ],
   },
   {
     id: 'carmen-miranda',
@@ -3484,6 +4493,10 @@ export const FIGURES = [
     deed: [
       'Born in Portugal and raised in Rio, she went to Hollywood in a fruit-laden headdress and became the highest-paid woman in the United States.',
       'Nascida em Portugal e criada no Rio, foi para Hollywood com um turbante carregado de frutas e tornou-se a mulher mais bem paga dos Estados Unidos.',
+    ],
+    end: [
+      'A heart attack at forty-six, at home in the small hours, after collapsing on live television the evening before and finishing the number anyway.',
+      'Um ataque do coração aos quarenta e seis anos, em casa, na madrugada, depois de desmaiar em um programa de televisão ao vivo na noite anterior e terminar o número mesmo assim.',
     ],
   },
 
@@ -3502,6 +4515,10 @@ export const FIGURES = [
       'Won a world title at twenty-two, was stripped of it for refusing the Vietnam draft, won it back twice, and lit an Olympic flame with shaking hands.',
       'Conquistou um título mundial aos vinte e dois anos, foi despojado dele por recusar a convocação para o Vietnã, reconquistou-o duas vezes e acendeu uma chama olímpica com as mãos trêmulas.',
     ],
+    end: [
+      'Septic shock at seventy-four, after thirty-two years of a disease of the nerves that took first his hands and then his voice.',
+      'Choque séptico aos setenta e quatro anos, após trinta e dois anos de uma doença dos nervos que lhe tirou primeiro as mãos e depois a voz.',
+    ],
   },
   {
     id: 'jesse-owens',
@@ -3515,6 +4532,10 @@ export const FIGURES = [
       'Won four gold medals in Berlin in 1936 in front of a regime preaching racial superiority, and came home to a country that still made him use the freight lift.',
       'Ganhou quatro medalhas de ouro em Berlim, em 1936, diante de um regime que pregava a superioridade racial, e voltou para um país que ainda o obrigava a usar o elevador de serviço.',
     ],
+    end: [
+      'Lung cancer at sixty-six, after a pack of cigarettes a day for thirty-five years.',
+      'Câncer no pulmão aos sessenta e seis anos, após um maço de cigarros por dia durante trinta e cinco anos.',
+    ],
   },
   {
     id: 'babe-ruth',
@@ -3527,6 +4548,10 @@ export const FIGURES = [
     deed: [
       'Raised in a Catholic reformatory, he was sold between rival clubs in a deal blamed for an eighty-six-year curse, and hit more home runs than entire teams.',
       'Criado num reformatório católico, foi vendido entre clubes rivais num negócio culpado por uma maldição de oitenta e seis anos, e rebateu mais home runs do que times inteiros.',
+    ],
+    end: [
+      'Throat cancer at fifty-three. He was one of the first patients ever given radiation and drugs together, and the treatment is in the medical literature.',
+      'Câncer na garganta aos cinquenta e três anos. Foi um dos primeiros pacientes a receber radiação e medicamentos ao mesmo tempo, e o tratamento está na literatura médica.',
     ],
   },
   {
@@ -3542,6 +4567,10 @@ export const FIGURES = [
       'Won a World Cup at seventeen and two more after, scored over a thousand goals, and once had a war paused so both sides could watch him play.',
       'Ganhou uma Copa do Mundo aos dezessete anos e mais duas depois, marcou mais de mil gols, e certa vez fez uma guerra ser interrompida para que os dois lados o vissem jogar.',
     ],
+    end: [
+      'Cancer of the colon at eighty-two, in the hospital of the city where he had made his name, after a year of failing kidneys and a heart that gave out at the end.',
+      'Câncer no cólon aos oitenta e dois anos, no hospital da cidade onde firmou seu nome, após um ano de rins em falência e um coração que cedeu no fim.',
+    ],
   },
   {
     id: 'garrincha',
@@ -3554,6 +4583,10 @@ export const FIGURES = [
     deed: [
       'Born with legs bent in opposite directions, he dribbled past defenders who knew exactly what he would do, won two World Cups, and died penniless of cirrhosis.',
       'Nasceu com as pernas tortas em direções opostas, driblava zagueiros que sabiam exatamente o que ele faria, ganhou duas Copas do Mundo e morreu sem dinheiro, de cirrose.',
+    ],
+    end: [
+      'Cirrhosis at forty-nine, in a public hospital, penniless and alcoholic, twenty years after the crowds and eight children into a life nobody managed for him.',
+      'Cirrose aos quarenta e nove anos, em um hospital público, sem dinheiro e alcoólatra, vinte anos depois das multidões e com oito filhos, em uma vida que ninguém administrou para ele.',
     ],
   },
   {
@@ -3569,6 +4602,10 @@ export const FIGURES = [
       'Scored twice in four minutes against England in 1986, once with his hand and once after beating half a team, then carried his country to a World Cup almost single-handed.',
       'Marcou dois gols em quatro minutos contra a Inglaterra em 1986, um com a mão e outro após driblar meio time, e depois carregou seu país a uma Copa do Mundo quase sozinho.',
     ],
+    end: [
+      'Heart failure at sixty, in a rented house, two weeks after brain surgery — with the doctors who were watching him later charged over the way they did it.',
+      'Insuficiência cardíaca aos sessenta anos, em uma casa alugada, duas semanas depois de uma cirurgia no cérebro — com os médicos que o acompanhavam depois acusados pelo modo como o fizeram.',
+    ],
   },
   {
     id: 'ayrton-senna',
@@ -3583,6 +4620,10 @@ export const FIGURES = [
       'Three times a world champion, unmatched in the rain and over one flying lap, he died at a San Marino circuit on the blackest weekend his sport has known.',
       'Tricampeão mundial, imbatível na chuva e numa volta rápida, morreu num circuito de San Marino no fim de semana mais negro que seu esporte já viveu.',
     ],
+    end: [
+      'A crash into a concrete wall at a flat-out corner, at thirty-four: a suspension arm tore loose and went through the visor of his helmet.',
+      'Uma batida em um muro de concreto em uma curva de velocidade máxima, aos trinta e quatro anos: um braço da suspensão se soltou e atravessou a viseira de seu capacete.',
+    ],
   },
   {
     id: 'kobe-bryant',
@@ -3595,6 +4636,10 @@ export const FIGURES = [
     deed: [
       'Went straight from high school to the professional game, scored eighty-one points in a single match, won five championships, and died in a helicopter crash with his daughter.',
       'Foi direto do ensino médio para o basquete profissional, marcou oitenta e um pontos numa única partida, ganhou cinco títulos e morreu na queda de um helicóptero com a filha.',
+    ],
+    end: [
+      'A helicopter into a hillside in thick fog at forty-one, on a Sunday morning, with his thirteen-year-old daughter and seven other people aboard.',
+      'Um helicóptero contra uma encosta em neblina densa, aos quarenta e um anos, em uma manhã de domingo, com sua filha de treze anos e outras sete pessoas a bordo.',
     ],
   },
 
@@ -3612,6 +4657,10 @@ export const FIGURES = [
       'Left his native city at twenty-two and wrote about nothing else, compressing one ordinary day there into a novel banned for obscenity.',
       'Deixou sua cidade natal aos vinte e dois anos e não escreveu sobre mais nada, comprimindo um dia comum dali num romance proibido por obscenidade.',
     ],
+    end: [
+      'A perforated ulcer at fifty-eight, in Swiss exile, two days after surgery. He asked whether anyone understood and was not answered.',
+      'Uma úlcera perfurada aos cinquenta e oito anos, no exílio suíço, dois dias depois de uma cirurgia. Perguntou se ninguém entendia e não foi respondido.',
+    ],
   },
   {
     id: 'virginia-woolf',
@@ -3624,6 +4673,10 @@ export const FIGURES = [
     deed: [
       'Argued that a woman needs money and a room of her own to write fiction, invented a prose that follows thought itself, and drowned herself with stones in her pockets.',
       'Defendeu que uma mulher precisa de dinheiro e de um quarto só seu para escrever ficção, inventou uma prosa que acompanha o próprio pensamento e afogou-se com pedras nos bolsos.',
+    ],
+    end: [
+      'Drowned by her own choice at fifty-nine, walking into a river with a large stone in her coat pocket, leaving a letter that thanked her husband for her happiness.',
+      'Afogada por escolha própria aos cinquenta e nove anos, entrando em um rio com uma pedra grande no bolso do casaco, deixando uma carta que agradecia ao marido pela felicidade que teve.',
     ],
   },
   {
@@ -3639,6 +4692,10 @@ export const FIGURES = [
       'An insurance clerk who wrote at night about a man waking as an insect and another tried for an unnamed crime, and asked his friend to burn all of it.',
       'Um funcionário de seguros que escrevia à noite sobre um homem que acorda inseto e outro julgado por um crime jamais nomeado, e pediu ao amigo que queimasse tudo.',
     ],
+    end: [
+      'Tuberculosis of the throat at forty, unable to swallow or speak, correcting the proofs of a story about a starving artist. He had asked a friend to burn everything.',
+      'Tuberculose na garganta aos quarenta anos, sem poder engolir nem falar, corrigindo as provas de um conto sobre um artista da fome. Havia pedido a um amigo que queimasse tudo.',
+    ],
   },
   {
     id: 'ernest-hemingway',
@@ -3652,6 +4709,10 @@ export const FIGURES = [
     deed: [
       'Drove ambulances at eighteen, wrote in short hard sentences about bullfights and war, survived two plane crashes in two days, and shot himself at sixty-one.',
       'Dirigiu ambulâncias aos dezoito anos, escreveu em frases curtas e duras sobre touradas e guerra, sobreviveu a dois acidentes de avião em dois dias e matou-se aos sessenta e um.',
+    ],
+    end: [
+      'A shotgun in the front hall of his mountain house at sixty-one, weeks after electric shock treatment took away the memory he wrote from.',
+      'Uma espingarda no vestíbulo de sua casa nas montanhas, aos sessenta e um anos, semanas depois de um tratamento de eletrochoque lhe tirar a memória de onde tirava o que escrevia.',
     ],
   },
   {
@@ -3667,6 +4728,10 @@ export const FIGURES = [
       'Served as a colonial policeman, was shot through the throat in Spain, and wrote a fable about pigs and a novel about a telescreen watching everyone.',
       'Serviu como policial colonial, levou um tiro na garganta na Espanha e escreveu uma fábula sobre porcos e um romance sobre uma teletela que vigia todos.',
     ],
+    end: [
+      'A burst artery in a tubercular lung at forty-six, in a hospital room, with a fishing rod on order for a convalescence he was never going to have.',
+      'A ruptura de uma artéria em um pulmão tuberculoso, aos quarenta e seis anos, em um quarto de hospital, com uma vara de pescar encomendada para uma convalescença que nunca teria.',
+    ],
   },
   {
     id: 'agatha-christie',
@@ -3680,6 +4745,10 @@ export const FIGURES = [
     deed: [
       'The best-selling novelist of all time, who worked in a wartime dispensary to learn her poisons, and vanished herself for eleven days in 1926.',
       'A romancista mais vendida de todos os tempos, que trabalhou numa farmácia de guerra para aprender sobre venenos, e ela própria desapareceu por onze dias em 1926.',
+    ],
+    end: [
+      'Old age at eighty-five, in her country house, in a wheelchair by the fire — having outlived her detectives, both of whom she had already killed off in manuscripts kept in a vault.',
+      'A velhice aos oitenta e cinco anos, em sua casa de campo, em uma cadeira de rodas junto à lareira — tendo sobrevivido a seus detetives, ambos já mortos em manuscritos guardados em um cofre.',
     ],
   },
   {
@@ -3695,6 +4764,10 @@ export const FIGURES = [
       'An Oxford philologist who survived the Somme, invented whole languages first and then a world for them to be spoken in.',
       'Um filólogo de Oxford que sobreviveu ao Somme, inventou primeiro línguas inteiras e depois um mundo em que fossem faladas.',
     ],
+    end: [
+      'A bleeding ulcer and a chest infection at eighty-one, twenty-one months after his wife, whose name he had already had carved on their shared stone beneath a lover from his own legends.',
+      'Uma úlcera sangrante e uma infecção no peito aos oitenta e um anos, vinte e um meses depois da esposa, cujo nome ele já havia mandado gravar na lápide comum sob o de uma amante de suas próprias lendas.',
+    ],
   },
   {
     id: 'fernando-pessoa',
@@ -3707,6 +4780,10 @@ export const FIGURES = [
     deed: [
       'Wrote under more than seventy invented identities, each with its own biography and style, and left a trunk of twenty-five thousand unpublished papers.',
       'Escreveu sob mais de setenta identidades inventadas, cada uma com biografia e estilo próprios, e deixou uma arca com vinte e cinco mil papéis inéditos.',
+    ],
+    end: [
+      'Cirrhosis of the liver at forty-seven, from years of drinking alone. His last words were written, not spoken, and they were in English: he did not know what tomorrow would bring.',
+      'Cirrose do fígado aos quarenta e sete anos, por anos bebendo sozinho. Suas últimas palavras foram escritas, não faladas, e em inglês: ele não sabia o que o amanhã traria.',
     ],
   },
   {
@@ -3721,6 +4798,10 @@ export const FIGURES = [
       'Directed a national library while going blind, and wrote short stories about infinite libraries, forking paths and a map the size of its empire.',
       'Dirigiu uma biblioteca nacional enquanto ficava cego, e escreveu contos sobre bibliotecas infinitas, caminhos que se bifurcam e um mapa do tamanho de seu império.',
     ],
+    end: [
+      'Liver cancer and emphysema at eighty-six, in a Swiss city he had chosen to die in, blind for the last thirty years of his life.',
+      'Câncer no fígado e enfisema aos oitenta e seis anos, em uma cidade suíça que escolheu para morrer, cego nos últimos trinta anos de vida.',
+    ],
   },
   {
     id: 'pablo-neruda',
@@ -3733,6 +4814,10 @@ export const FIGURES = [
     deed: [
       'Published twenty love poems at nineteen, served as a senator and a diplomat, won a Nobel, and died twelve days after the coup that ended his country\'s democracy.',
       'Publicou vinte poemas de amor aos dezenove anos, foi senador e diplomata, ganhou um Nobel e morreu doze dias depois do golpe que encerrou a democracia de seu país.',
+    ],
+    end: [
+      'Heart failure at sixty-nine, twelve days after the coup, with soldiers searching his house. Poisoning has been investigated twice and ruled neither in nor out.',
+      'Insuficiência cardíaca aos sessenta e nove anos, doze dias depois do golpe, com soldados revistando sua casa. O envenenamento foi investigado duas vezes e nunca confirmado nem descartado.',
     ],
   },
   {
@@ -3748,6 +4833,10 @@ export const FIGURES = [
       'Sold his car to finish a novel about seven generations of one family in a town called Macondo, and made magical realism the voice of a continent.',
       'Vendeu o carro para terminar um romance sobre sete gerações de uma família numa cidade chamada Macondo, e fez do realismo mágico a voz de um continente.',
     ],
+    end: [
+      'Pneumonia and a cancer of the lymph at eighty-seven, at home, after years in which his memory — the thing he had lived by — went first.',
+      'Pneumonia e um câncer no sistema linfático aos oitenta e sete anos, em casa, após anos em que a memória — aquilo de que vivera — se foi primeiro.',
+    ],
   },
   {
     id: 'clarice-lispector',
@@ -3761,6 +4850,10 @@ export const FIGURES = [
       'Brought to Brazil as an infant refugee, she wrote interior novels of sudden revelation and was called the most important Jewish writer since Kafka.',
       'Trazida ao Brasil ainda bebê como refugiada, escreveu romances interiores de revelação súbita e foi chamada a mais importante escritora judia desde Kafka.',
     ],
+    end: [
+      'Inoperable cancer of the ovaries at fifty-six, the day before her birthday, having written that she was going to die in a hospital that smelled of ether.',
+      'Câncer inoperável nos ovários aos cinquenta e seis anos, um dia antes de seu aniversário, tendo escrito que morreria em um hospital com cheiro de éter.',
+    ],
   },
   {
     id: 'drummond',
@@ -3773,6 +4866,10 @@ export const FIGURES = [
     deed: [
       'A civil servant for most of his life, he opened his best-known poem with a stone in the middle of the road, and became his country\'s central modern poet.',
       'Funcionário público a maior parte da vida, abriu seu poema mais conhecido com uma pedra no meio do caminho, e tornou-se o poeta moderno central de seu país.',
+    ],
+    end: [
+      'A heart attack at eighty-four, twelve days after the death of his only daughter. He had said he did not want to outlive her, and barely did.',
+      'Um ataque do coração aos oitenta e quatro anos, doze dias depois da morte de sua única filha. Dissera que não queria sobreviver a ela, e quase não sobreviveu.',
     ],
   },
 
@@ -3791,6 +4888,10 @@ export const FIGURES = [
       'Invented cubism with a friend, painted a grey mural screaming about a bombed Basque town, and left some fifty thousand works behind.',
       'Inventou o cubismo com um amigo, pintou um mural cinzento que grita sobre uma cidade basca bombardeada e deixou cerca de cinquenta mil obras.',
     ],
+    end: [
+      'Heart failure and fluid in the lungs at ninety-one, at his house in the south of France, the morning after entertaining friends at dinner.',
+      'Insuficiência cardíaca e líquido nos pulmões aos noventa e um anos, em sua casa no sul da França, na manhã seguinte a um jantar com amigos.',
+    ],
   },
   {
     id: 'matisse',
@@ -3803,6 +4904,10 @@ export const FIGURES = [
     deed: [
       'Took up painting while recovering from appendicitis, led the wild beasts of colour, and when too ill to stand made art with scissors and painted paper.',
       'Começou a pintar convalescendo de uma apendicite, liderou as feras da cor e, quando já não podia ficar de pé, fez arte com tesoura e papel pintado.',
+    ],
+    end: [
+      'A heart attack at eighty-four, in a flat above the sea, after thirteen years in a bed and a wheelchair, cutting shapes out of painted paper to the end.',
+      'Um ataque do coração aos oitenta e quatro anos, em um apartamento sobre o mar, após treze anos entre a cama e a cadeira de rodas, recortando formas em papel pintado até o fim.',
     ],
   },
   {
@@ -3817,6 +4922,10 @@ export const FIGURES = [
       'Son of a gold engraver, he covered his canvases in gold leaf, scandalised his university with ceiling panels, and painted a famous embrace.',
       'Filho de um gravador de ouro, cobriu suas telas de folha de ouro, escandalizou sua universidade com painéis de teto e pintou um abraço famoso.',
     ],
+    end: [
+      'A stroke at fifty-five, then pneumonia in the great influenza that was killing everyone that year. He left many canvases unfinished on the easels.',
+      'Um derrame aos cinquenta e cinco anos, e depois pneumonia na grande gripe que matava todo mundo naquele ano. Deixou muitas telas inacabadas nos cavaletes.',
+    ],
   },
   {
     id: 'gaudi',
@@ -3829,6 +4938,10 @@ export const FIGURES = [
     deed: [
       'Built curving stone buildings that look grown rather than made, spent forty-three years on one unfinished church, and was run over by a tram and mistaken for a beggar.',
       'Ergueu edifícios de pedra curva que parecem crescidos e não construídos, passou quarenta e três anos numa igreja inacabada, e foi atropelado por um bonde e confundido com um mendigo.',
+    ],
+    end: [
+      'Run over by a tram at seventy-three on his daily walk to church. Shabby and without papers, he was taken for a beggar and left in a paupers\' ward for a day.',
+      'Atropelado por um bonde aos setenta e três anos em sua caminhada diária até a igreja. Maltrapilho e sem documentos, foi tomado por mendigo e deixado um dia em uma enfermaria de indigentes.',
     ],
   },
   {
@@ -3844,6 +4957,10 @@ export const FIGURES = [
       'Broken in a tram accident at eighteen, she painted mostly herself from a bed with a mirror above it, in a house painted blue.',
       'Estraçalhada num acidente de bonde aos dezoito anos, pintou sobretudo a si mesma de uma cama com um espelho acima, numa casa pintada de azul.',
     ],
+    end: [
+      'A clot in the lung at forty-seven, eight days after her leg was amputated, some say by her own hand with the pills. Her last diary line hoped the exit would be joyful.',
+      'Um coágulo no pulmão aos quarenta e sete anos, oito dias depois de amputarem sua perna, alguns dizem pela própria mão, com os comprimidos. A última linha de seu diário esperava que a saída fosse alegre.',
+    ],
   },
   {
     id: 'diego-rivera',
@@ -3856,6 +4973,10 @@ export const FIGURES = [
     deed: [
       'Painted vast public murals of workers and revolution, and had one destroyed in New York for including a portrait of a Soviet leader.',
       'Pintou vastos murais públicos de trabalhadores e revolução, e teve um deles destruído em Nova York por incluir o retrato de um líder soviético.',
+    ],
+    end: [
+      'Heart failure at seventy, three years after the wife he had married twice, in the studio city where he had covered the public walls with history.',
+      'Insuficiência cardíaca aos setenta anos, três anos depois da esposa com quem se casou duas vezes, na cidade-ateliê onde cobriu as paredes públicas de história.',
     ],
   },
   {
@@ -3870,6 +4991,10 @@ export const FIGURES = [
       'Silkscreened soup tins and film stars in a studio he called the Factory, predicted fifteen minutes of fame for everyone, and survived being shot by a visitor.',
       'Serigrafou latas de sopa e estrelas de cinema num ateliê que chamava de Fábrica, previu quinze minutos de fama para todos e sobreviveu a um tiro disparado por uma visitante.',
     ],
+    end: [
+      'A heart arrhythmia the night after routine gallbladder surgery at fifty-eight, in a hospital that gave him too much fluid and too little watching.',
+      'Uma arritmia cardíaca na noite seguinte a uma cirurgia rotineira de vesícula, aos cinquenta e oito anos, em um hospital que lhe deu líquido em excesso e vigilância de menos.',
+    ],
   },
   {
     id: 'henry-ford',
@@ -3882,6 +5007,10 @@ export const FIGURES = [
     deed: [
       'Put the assembly line into car-making, doubled his workers\' wages so they could buy what they built, and offered any colour so long as it was black.',
       'Levou a linha de montagem para a fabricação de automóveis, dobrou o salário dos operários para que pudessem comprar o que produziam, e oferecia qualquer cor desde que fosse preta.',
+    ],
+    end: [
+      'A brain haemorrhage at eighty-three, in a house whose electric light had failed in a flood, so that the richest industrialist in the world died by candle and oil lamp.',
+      'Uma hemorragia cerebral aos oitenta e três anos, em uma casa cuja luz elétrica falhara por causa de uma enchente, de modo que o maior industrial do mundo morreu à luz de velas e lampiões.',
     ],
   },
   {
@@ -3896,6 +5025,10 @@ export const FIGURES = [
       'Controlled ninety per cent of American oil refining until the courts broke his company into thirty-four pieces, and gave away half a billion dollars.',
       'Controlou noventa por cento do refino de petróleo americano até os tribunais partirem sua empresa em trinta e quatro pedaços, e doou meio bilhão de dólares.',
     ],
+    end: [
+      'Hardening of the arteries at ninety-seven, in his Florida winter house, two years short of the hundred he had been aiming at.',
+      'Endurecimento das artérias aos noventa e sete anos, em sua casa de inverno na Flórida, a dois anos dos cem que pretendia alcançar.',
+    ],
   },
   {
     id: 'andrew-carnegie',
@@ -3909,6 +5042,10 @@ export const FIGURES = [
       'Arrived as a penniless immigrant weaver\'s son, built the largest steel company on earth, then wrote that dying rich is a disgrace and funded three thousand libraries.',
       'Chegou como filho pobre de um tecelão imigrante, construiu a maior siderúrgica do mundo e depois escreveu que morrer rico é uma desgraça, financiando três mil bibliotecas.',
     ],
+    end: [
+      'Pneumonia at eighty-three, at his summer estate, having given away nine tenths of the largest fortune of his age and failed to give away the rest in time.',
+      'Pneumonia aos oitenta e três anos, em sua propriedade de verão, tendo doado nove décimos da maior fortuna de seu tempo e não conseguido doar o resto a tempo.',
+    ],
   },
   {
     id: 'coco-chanel',
@@ -3921,6 +5058,10 @@ export const FIGURES = [
     deed: [
       'Raised in an orphanage, she freed women from the corset, made a suntan and a little black dress fashionable, and numbered a perfume five.',
       'Criada num orfanato, libertou as mulheres do espartilho, tornou o bronzeado e o vestidinho preto elegantes e deu a um perfume o número cinco.',
+    ],
+    end: [
+      'Old age at eighty-seven, on a Sunday evening, in the hotel suite where she had lived for thirty years. She said to her maid: you see, this is how you die.',
+      'A velhice aos oitenta e sete anos, em uma noite de domingo, na suíte de hotel onde vivera por trinta anos. Disse à criada: veja, é assim que se morre.',
     ],
   },
   {
@@ -3936,6 +5077,10 @@ export const FIGURES = [
       'Built a computer company in a garage, was forced out of it, came back a decade later, and put a thousand songs and then the internet in a pocket.',
       'Montou uma empresa de computadores numa garagem, foi expulso dela, voltou uma década depois e pôs mil músicas e depois a internet dentro de um bolso.',
     ],
+    end: [
+      'A rare tumour of the pancreas at fifty-six, eight years and one liver transplant after the diagnosis he delayed treating for nine months.',
+      'Um tumor raro no pâncreas aos cinquenta e seis anos, oito anos e um transplante de fígado depois do diagnóstico cujo tratamento ele adiou por nove meses.',
+    ],
   },
   {
     id: 'helen-keller',
@@ -3948,6 +5093,10 @@ export const FIGURES = [
     deed: [
       'Deaf and blind from nineteen months, she learned language at a water pump, became the first such person to earn a degree, and campaigned for the vote and for labour.',
       'Surda e cega desde os dezenove meses, aprendeu a linguagem junto a uma bomba d\'água, foi a primeira pessoa nessa condição a se formar e militou pelo voto e pelos trabalhadores.',
+    ],
+    end: [
+      'A heart attack in her sleep at eighty-seven, at home, three weeks short of her birthday, after a series of strokes.',
+      'Um ataque do coração durante o sono, aos oitenta e sete anos, em casa, três semanas antes de seu aniversário, após uma série de derrames.',
     ],
   },
   {
@@ -3962,6 +5111,10 @@ export const FIGURES = [
     deed: [
       'Married an heir at twenty, shook hands with an AIDS patient without gloves, campaigned against landmines, and died in a tunnel with photographers in pursuit.',
       'Casou-se com um herdeiro aos vinte anos, apertou sem luvas a mão de um paciente com AIDS, fez campanha contra as minas terrestres e morreu num túnel perseguida por fotógrafos.',
+    ],
+    end: [
+      'Internal bleeding from a car crash in a river tunnel at thirty-six: a chauffeur three times over the limit, a chase by photographers, and no seatbelt.',
+      'Hemorragia interna causada por um acidente de carro em um túnel à beira do rio, aos trinta e seis anos: um motorista com três vezes o limite de álcool, uma perseguição de fotógrafos e nenhum cinto de segurança.',
     ],
   },
 
@@ -3980,6 +5133,10 @@ export const FIGURES = [
       'One of very few women to rule Egypt in her own right, she wore a false beard in statuary and had her monuments defaced by her successor.',
       'Uma das pouquíssimas mulheres a governar o Egito por direito próprio, usava barba postiça nas estátuas e teve seus monumentos desfigurados pelo sucessor.',
     ],
+    end: [
+      'Bone cancer and an abscessed tooth at about fifty, made worse by a skin ointment that turns out to have been laced with tar. Her images were chiselled off the walls afterwards.',
+      'Câncer nos ossos e um dente em abscesso, com cerca de cinquenta anos, agravados por um unguento de pele que se descobriu conter alcatrão. Suas imagens foram raspadas das paredes depois.',
+    ],
   },
   {
     id: 'hypatia',
@@ -3994,6 +5151,10 @@ export const FIGURES = [
       'Taught mathematics and Neoplatonic philosophy in a great library city, and was murdered by a Christian mob in a street.',
       'Ensinou matemática e filosofia neoplatônica numa cidade de grande biblioteca, e foi assassinada por uma multidão cristã numa rua.',
     ],
+    end: [
+      'Dragged from her carriage by a mob, stripped, torn apart with roof tiles in the street and burned, for teaching the wrong philosophy in a city choosing sides.',
+      'Arrancada de sua carruagem por uma turba, despida, esquartejada com telhas na rua e queimada, por ensinar a filosofia errada em uma cidade que escolhia lados.',
+    ],
   },
   {
     id: 'rumi',
@@ -4006,6 +5167,10 @@ export const FIGURES = [
     deed: [
       'A sober jurist until a wandering dervish transformed him, he poured out fifty thousand lines of mystical verse and inspired an order that whirls.',
       'Um jurista sóbrio até que um dervixe errante o transformou; verteu cinquenta mil versos místicos e inspirou uma ordem que gira em transe.',
+    ],
+    end: [
+      'An illness at sixty-six, at sunset. He had told those around him not to weep, because he called the night of his death his wedding night.',
+      'Uma doença aos sessenta e seis anos, ao pôr do sol. Dissera aos que o cercavam que não chorassem, pois chamava a noite de sua morte de noite de núpcias.',
     ],
   },
   {
@@ -4020,6 +5185,10 @@ export const FIGURES = [
       'Solved cubic equations and reformed a calendar more accurate than the Gregorian, but is remembered in the West for quatrains about wine and time.',
       'Resolveu equações cúbicas e reformou um calendário mais exato que o gregoriano, mas no Ocidente é lembrado por quadras sobre o vinho e o tempo.',
     ],
+    end: [
+      'Old age at eighty-three, in the city of his birth, having asked to be buried where the north wind would scatter blossom over the grave. It does.',
+      'A velhice aos oitenta e três anos, na cidade onde nasceu, tendo pedido para ser sepultado onde o vento do norte espalhasse flores sobre a sepultura. E é o que acontece.',
+    ],
   },
   {
     id: 'timur',
@@ -4032,6 +5201,10 @@ export const FIGURES = [
     deed: [
       'Lamed by an arrow in youth, he built an empire from Delhi to Damascus, raised towers of skulls, and died marching on China.',
       'Coxo por uma flecha na juventude, ergueu um império de Delhi a Damasco, levantou torres de crânios e morreu marchando sobre a China.',
+    ],
+    end: [
+      'A fever in a winter camp at sixty-eight, on the march east toward China with two hundred thousand men behind him. The army turned round and went home.',
+      'Uma febre em um acampamento de inverno, aos sessenta e oito anos, na marcha para o leste em direção à China com duzentos mil homens atrás de si. O exército deu meia-volta e foi para casa.',
     ],
   },
   {
@@ -4046,6 +5219,10 @@ export const FIGURES = [
       'Ruled the Ottoman empire at its height for forty-six years, reformed its law so thoroughly his people called him the Lawgiver, and died during a siege.',
       'Governou o império otomano em seu auge por quarenta e seis anos, reformou tanto sua lei que seu povo o chamou de Legislador, e morreu durante um cerco.',
     ],
+    end: [
+      'Natural causes in his own tent at seventy-one, during the siege of a Hungarian fortress. His death was hidden from the army for days so the assault would not stop.',
+      'Causas naturais em sua própria tenda, aos setenta e um anos, durante o cerco de uma fortaleza húngara. Sua morte foi escondida do exército por dias para que o ataque não parasse.',
+    ],
   },
   {
     id: 'akbar',
@@ -4058,6 +5235,10 @@ export const FIGURES = [
     deed: [
       'Illiterate yet endlessly curious, he abolished a tax on non-Muslims and invited priests of every faith to argue theology in his court.',
       'Analfabeto e ainda assim insaciavelmente curioso, aboliu um imposto sobre os não muçulmanos e convidou sacerdotes de todas as fés a debater teologia em sua corte.',
+    ],
+    end: [
+      'Dysentery at sixty-three, after weeks of failing — possibly helped along by poison, and quite possibly by his own son, who had already rebelled once.',
+      'Disenteria aos sessenta e três anos, após semanas de declínio — possivelmente ajudada por veneno, e muito possivelmente pelo próprio filho, que já se rebelara uma vez.',
     ],
   },
   {
@@ -4072,6 +5253,10 @@ export const FIGURES = [
       'Built a white marble tomb for a wife who died in childbirth, and was deposed by his own son and imprisoned in a fort within sight of it.',
       'Ergueu um túmulo de mármore branco para a esposa morta de parto, e foi deposto pelo próprio filho e preso num forte de onde podia vê-lo.',
     ],
+    end: [
+      'Illness at seventy-four, after eight years locked in a fort by the son who took his throne, in a room chosen because the white tomb he built was visible from its window.',
+      'Doença aos setenta e quatro anos, após oito anos trancado em um forte pelo filho que lhe tomou o trono, em um quarto escolhido porque o túmulo branco que ele construíra era visível de sua janela.',
+    ],
   },
   {
     id: 'rani-lakshmibai',
@@ -4084,6 +5269,10 @@ export const FIGURES = [
     deed: [
       'A widowed queen who refused to surrender her small Indian state to the British, and died in armour on horseback at twenty-nine leading its defence.',
       'Uma rainha viúva que se recusou a entregar seu pequeno estado indiano aos britânicos, e morreu de armadura a cavalo aos vinte e nove anos liderando sua defesa.',
+    ],
+    end: [
+      'Cut down in the saddle at twenty-nine, fighting in a cavalry action dressed as a man. Her own men burned the body at once so that it could not be taken.',
+      'Abatida na sela aos vinte e nove anos, lutando em uma ação de cavalaria vestida de homem. Seus próprios soldados queimaram o corpo imediatamente para que não fosse capturado.',
     ],
   },
   {
@@ -4098,6 +5287,10 @@ export const FIGURES = [
     deed: [
       'A castrated Muslim court official who commanded seven treasure-fleet voyages to Arabia and Africa, in ships several times the size of any European vessel.',
       'Um oficial muçulmano castrado da corte que comandou sete viagens da frota do tesouro à Arábia e à África, em navios várias vezes maiores que qualquer embarcação europeia.',
+    ],
+    end: [
+      'Illness at sea on the seventh and last of the voyages, at about sixty-two. He was buried in the water; the tomb built for him at home is empty.',
+      'Doença no mar na sétima e última das viagens, com cerca de sessenta e dois anos. Foi sepultado na água; o túmulo construído para ele em sua terra está vazio.',
     ],
   },
   {
@@ -4114,6 +5307,10 @@ export const FIGURES = [
       'A lady-in-waiting at the Heian court who wrote what is often called the world\'s first novel, about a prince and the women around him.',
       'Uma dama de companhia da corte Heian que escreveu o que se costuma chamar o primeiro romance do mundo, sobre um príncipe e as mulheres à sua volta.',
     ],
+    end: [
+      'Unknown, at about thirty-six. Like almost everything else about her, including her real name, the manner of her death simply is not recorded.',
+      'Desconhecida, com cerca de trinta e seis anos. Como quase tudo mais a seu respeito, inclusive seu nome verdadeiro, o modo de sua morte simplesmente não foi registrado.',
+    ],
   },
   {
     id: 'tokugawa-ieyasu',
@@ -4126,6 +5323,10 @@ export const FIGURES = [
     deed: [
       'Won a decisive battle in 1600, founded a shogunate that ruled Japan for two and a half centuries, and closed the country to foreigners.',
       'Venceu uma batalha decisiva em 1600, fundou um xogunato que governou o Japão por dois séculos e meio e fechou o país aos estrangeiros.',
+    ],
+    end: [
+      'A cancer of the stomach at seventy-three — or, as the story he told went, a plate of sea bream fried in sesame oil that he could not stop eating.',
+      'Um câncer de estômago aos setenta e três anos — ou, como dizia a história que ele mesmo contava, um prato de pargo frito em óleo de gergelim que não conseguiu parar de comer.',
     ],
   },
   {
@@ -4140,6 +5341,10 @@ export const FIGURES = [
     deed: [
       'Undefeated in sixty-one duels, some fought with a wooden oar, he retired to a cave and wrote a book on strategy still read in boardrooms.',
       'Invicto em sessenta e um duelos, alguns travados com um remo de madeira, retirou-se para uma caverna e escreveu um livro de estratégia ainda lido no mundo dos negócios.',
+    ],
+    end: [
+      'Cancer of the chest at sixty-one, in the cave where he had gone to write down his method. He died sitting upright, in armour, with a blade across his knees.',
+      'Câncer no peito aos sessenta e um anos, na caverna onde se recolhera para escrever seu método. Morreu sentado, ereto, de armadura, com uma lâmina sobre os joelhos.',
     ],
   },
   {
@@ -4156,6 +5361,10 @@ export const FIGURES = [
       'Possibly the richest person who ever lived; on pilgrimage to Mecca he gave away so much gold that he wrecked the economy of Egypt for a decade.',
       'Possivelmente a pessoa mais rica que já viveu; em peregrinação a Meca distribuiu tanto ouro que arruinou a economia do Egito por uma década.',
     ],
+    end: [
+      'Unrecorded, at about fifty-seven. The chronicles that describe his fortune in such detail lose interest entirely in how he came to the end of it.',
+      'Não registrada, com cerca de cinquenta e sete anos. As crônicas que descrevem sua fortuna em tanto detalhe perdem todo o interesse em como ele chegou ao fim dela.',
+    ],
   },
   {
     id: 'shaka',
@@ -4170,6 +5379,10 @@ export const FIGURES = [
       'Rejected as an illegitimate son, he remade the Zulu into a disciplined army with a short stabbing spear, and was murdered by his half-brothers.',
       'Rejeitado como filho ilegítimo, transformou os zulus num exército disciplinado armado com uma lança curta de estocada, e foi assassinado pelos meios-irmãos.',
     ],
+    end: [
+      'Stabbed by his own two half-brothers and a trusted adviser at forty-one, at his royal homestead, after grief for his mother had turned into mass killing.',
+      'Apunhalado pelos próprios dois meios-irmãos e por um conselheiro de confiança, aos quarenta e um anos, em sua residência real, depois que o luto pela mãe se transformou em matança em massa.',
+    ],
   },
   {
     id: 'haile-selassie',
@@ -4182,6 +5395,10 @@ export const FIGURES = [
     deed: [
       'Appealed to the League of Nations against an Italian invasion and was ignored, reigned forty-four years, and is worshipped as divine by a Jamaican religion.',
       'Apelou à Liga das Nações contra uma invasão italiana e foi ignorado, reinou quarenta e quatro anos, e é adorado como divino por uma religião jamaicana.',
+    ],
+    end: [
+      'Officially complications after surgery at eighty-three, in a palace where the army held him prisoner. He was almost certainly smothered; the body was buried under a lavatory floor.',
+      'Oficialmente complicações após uma cirurgia, aos oitenta e três anos, em um palácio onde o exército o mantinha prisioneiro. Foi quase certamente asfixiado; o corpo foi enterrado sob o piso de um banheiro.',
     ],
   },
   {
@@ -4196,6 +5413,10 @@ export const FIGURES = [
       'Led the first sub-Saharan colony to independence, championed a united continent, and was deposed by a coup while abroad.',
       'Conduziu a primeira colônia da África subsaariana à independência, defendeu um continente unido e foi deposto por um golpe enquanto estava no exterior.',
     ],
+    end: [
+      'Skin cancer at sixty-two, in a clinic behind the iron curtain, in exile after the army took his country while he was on a plane to Hanoi.',
+      'Câncer de pele aos sessenta e dois anos, em uma clínica atrás da cortina de ferro, exilado depois que o exército tomou seu país enquanto ele estava em um avião para Hanói.',
+    ],
   },
   {
     id: 'patrice-lumumba',
@@ -4208,6 +5429,10 @@ export const FIGURES = [
     deed: [
       'First elected prime minister of a newly independent Congo, in office ten weeks before being deposed, and executed by firing squad with foreign complicity.',
       'Primeiro primeiro-ministro eleito de um Congo recém-independente, ficou dez semanas no cargo antes de ser deposto, e foi fuzilado com cumplicidade estrangeira.',
+    ],
+    end: [
+      'Shot by a firing squad against a tree at thirty-five, after being beaten and handed to his enemies. The body was cut up and dissolved in acid; a single tooth came home sixty years later.',
+      'Fuzilado por um pelotão diante de uma árvore, aos trinta e cinco anos, após ser espancado e entregue a seus inimigos. O corpo foi desmembrado e dissolvido em ácido; um único dente voltou para casa sessenta anos depois.',
     ],
   },
 ];

@@ -259,8 +259,20 @@
         <p class="record__place" id="rec-death-place">—</p>
         <p class="record__country" id="rec-death-country"></p>
         <p class="record__year" id="rec-death-year">—</p>
+        <!-- The label carries its own price, the way the Skip button does, so
+             the cost is read before the button is pressed rather than after.
+             Written by js/ui.js because the percentage comes from the rules. -->
+        <button class="record__buy" id="btn-cause" type="button"></button>
       </article>
     </div>
+
+    <!-- The cause of death, once bought. Under both records rather than inside
+         the death card: it is a whole sentence, and the cards are sized to hold
+         three short lines each and to stay equal to one another. -->
+    <section class="cause" id="cause" aria-live="polite" hidden>
+      <h3 class="cause__title" data-i18n="round.cause">Cause of death</h3>
+      <p class="cause__body" id="cause-body"></p>
+    </section>
 
     <p class="tradition-note" id="tradition-note" hidden data-i18n="round.traditionNote"></p>
 
@@ -345,6 +357,10 @@
         <div>
           <dt data-i18n="verdict.lifespan">Lived</dt>
           <dd id="verdict-life">—</dd>
+        </div>
+        <div class="broadside__ledger-wide">
+          <dt data-i18n="round.cause">Cause of death</dt>
+          <dd id="verdict-cause">—</dd>
         </div>
       </dl>
 
@@ -513,6 +529,7 @@
            stale if the scoring is retuned. -->
       <table class="awards" id="help-awards"></table>
       <p class="sheet__aside" data-i18n="help.award.note"></p>
+      <p class="sheet__aside" data-i18n="help.award.cause"></p>
     </section>
 
     <section class="sheet__part">
@@ -527,6 +544,21 @@
 
     <p class="sheet__privacy" data-i18n="help.privacy"></p>
     <button class="btn btn--primary" id="btn-help-close" type="button" data-i18n="help.close">Close</button>
+  </article>
+</dialog>
+
+<!-- ────────────────────  BUYING THE CAUSE OF DEATH  ──────────────────── -->
+<dialog class="sheet sheet--ask" id="cause-dialog">
+  <article class="sheet__body">
+    <h2 class="sheet__title" data-i18n="cause.title">Reveal the cause of death?</h2>
+    <div class="rule rule--thin" aria-hidden="true"></div>
+    <!-- Written by js/ui.js: it quotes what this round pays now and what it
+         would pay after, which only the rules layer can work out. -->
+    <p class="sheet__lead" id="cause-ask"></p>
+    <div class="sheet__actions">
+      <button class="btn btn--primary" id="btn-cause-confirm" type="button" data-i18n="cause.confirm">Reveal it</button>
+      <button class="btn" id="btn-cause-cancel" type="button" data-i18n="cause.cancel">Keep the points</button>
+    </div>
   </article>
 </dialog>
 

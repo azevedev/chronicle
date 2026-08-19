@@ -16,6 +16,7 @@ import { setLang, t, keysFor } from '../js/i18n.js';
 import {
   startSession, submitGuess, skip, nextRound, currentRound,
   hintsFor, MAX_ATTEMPTS, MAX_HINTS, DIFFICULTIES,
+  revealCause, causeFor, potentialScore, CAUSE_PENALTY,
 } from '../js/game.js';
 import { dailyPick, dayIndex } from '../js/rng.js';
 import { readFileSync } from 'node:fs';
@@ -118,6 +119,85 @@ for (const f of figures) {
     for (const w of words) {
       if (tokens.has(w) || tokens.has(`${w}s`)) {
         ok(false, 'deed hint leaks the name', `${f.id} (${i === 0 ? 'en' : 'pt'}): "${w}"`);
+      }
+    }
+  }
+}
+
+// The cause of death is a paid clue, so it is held to the deed's rule: it must
+// not hand over the name it is a clue to.
+for (const f of figures) {
+  for (let i = 0; i < 2; i++) {
+    const tokens = new Set(normalize(f.end[i]).split(' '));
+    const words = normalize(f.names[i]).split(' ').filter((w) => w.length > 3);
+    for (const w of words) {
+      if (tokens.has(w) || tokens.has(`${w}s`)) {
+        ok(false, 'cause of death leaks the name', `${f.id} (${i === 0 ? 'en' : 'pt'}): "${w}"`);
+      }
+    }
+  }
+}
+
+// A cause every figure carries, in both languages, and long enough to be a
+// sentence rather than a placeholder somebody meant to come back to.
+for (const f of figures) {
+  for (let i = 0; i < 2; i++) {
+    const text = f.end[i] ?? '';
+    if (text.length < 25) {
+      ok(false, 'cause of death is too short to be a clue', `${f.id} (${i === 0 ? 'en' : 'pt'}): "${text}"`);
+    }
+  }
+}
+
+// An age stated in a cause of death must agree with the one the record card
+// works out for itself, or the two halves of the same screen contradict each
+// other. Written out in words rather than digits — the register is set in a
+// period voice — so the words have to be read back before they can be compared.
+{
+  const EN = {
+    twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17,
+    eighteen: 18, nineteen: 19, twenty: 20, thirty: 30, forty: 40, fifty: 50,
+    sixty: 60, seventy: 70, eighty: 80, ninety: 90, hundred: 100,
+    one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9,
+  };
+  const PT = {
+    doze: 12, treze: 13, quatorze: 14, catorze: 14, quinze: 15, dezesseis: 16,
+    dezessete: 17, dezoito: 18, dezenove: 19, vinte: 20, trinta: 30, quarenta: 40,
+    cinquenta: 50, sessenta: 60, setenta: 70, oitenta: 80, noventa: 90, cem: 100,
+    um: 1, dois: 2, tres: 3, quatro: 4, cinco: 5, seis: 6, sete: 7, oito: 8, nove: 9,
+  };
+
+  // Only the forms that actually mean "this person's age at death" are matched.
+  // A bare "de trinta anos" is as likely to be thirty years of travel or a
+  // thirteen-year-old daughter, and neither is a claim about the figure.
+  const forms = [
+    { lang: 'en', table: EN, join: '-', re: (w) =>
+      new RegExp(`\\b(?:at|aged|past)\\s+(about\\s+|nearly\\s+|almost\\s+)?((?:${w})(?:-(?:${w}))?)\\b`, 'gi') },
+    { lang: 'pt', table: PT, join: ' e ', re: (w) =>
+      new RegExp(`\\b(?:aos|com)\\s+(cerca\\s+de\\s+)?((?:${w})(?:\\s+e\\s+(?:${w}))?)\\s+anos\\b`, 'gi') },
+  ];
+
+  const flat = (t) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+  for (const f of figures) {
+    const span = f.died.year - f.born.year;
+    for (const [i, form] of forms.entries()) {
+      const words = Object.keys(form.table).join('|');
+      for (const m of f.end[i].matchAll(form.re(words))) {
+        const parts = flat(m[2]).split(form.join).map((w) => w.trim()).filter(Boolean);
+        if (!parts.every((w) => w in form.table)) continue;
+        const stated = parts.reduce((n, w) => n + form.table[w], 0);
+        // The single words below twelve are here only to compound ("twenty-one").
+        // Alone after "at" they are a clock, not an age: nobody in this register
+        // died at five, and two of them died at five past nine.
+        if (stated < 12) continue;
+        // A year-only span is inexact by a year either way, and a hedged age
+        // ("nearly ninety") is inexact on purpose.
+        const slack = m[1] ? 3 : 1;
+        if (Math.abs(stated - span) > slack) {
+          ok(false, 'cause of death states an age the record contradicts',
+            `${f.id} (${form.lang}): "${m[0].trim()}" against a span of ${span}`);
+        }
       }
     }
   }
@@ -248,6 +328,64 @@ const target = byId.get('socrates');
   }
   ok(out.type === 'lost', `skipping all ${MAX_ATTEMPTS} attempts loses the round`);
   ok(round.done && !round.won, 'the round closes as a loss');
+}
+
+// Buying the cause of death: costs points, costs no attempt, releases no hint.
+{
+  const s = startSession('infinite', { seed: 61 });
+  const round = currentRound(s);
+  const before = potentialScore(round.figure, 0);
+
+  const out = revealCause(s);
+  ok(out.type === 'cause', 'revealing the cause reports a purchase');
+  ok(Boolean(out.cause?.body), 'the purchased clue has text');
+  ok(out.cause.body === causeFor(round.figure).body, 'the clue is this figure\'s cause of death');
+  ok(round.causeShown === true, 'the round records the purchase');
+  ok(round.attempt === 0, 'buying the cause costs no attempt');
+  ok(round.hintsShown === 0, 'buying the cause releases no hint from the ladder');
+
+  const after = potentialScore(round.figure, 0, true);
+  ok(after < before, 'the round is worth less once the cause is bought', `${after} vs ${before}`);
+  ok(
+    after === Math.round(before * (1 - CAUSE_PENALTY)),
+    `the cause costs exactly ${Math.round(CAUSE_PENALTY * 100)}% of the award`,
+    `${before} -> ${after}`,
+  );
+
+  // Idempotent, so the UI can leave the button wired without double-charging.
+  const again = revealCause(s);
+  ok(again.type === 'already', 'buying the cause twice is reported, not repeated');
+  ok(potentialScore(round.figure, 0, round.causeShown) === after, 'the price is charged once');
+}
+
+// The purchase is reflected in what the round actually pays out.
+{
+  const paid = startSession('infinite', { seed: 62 });
+  const rPaid = currentRound(paid);
+  revealCause(paid);
+  submitGuess(paid, rPaid.figure.names[0]);
+
+  const free = startSession('infinite', { seed: 62 });
+  const rFree = currentRound(free);
+  submitGuess(free, rFree.figure.names[0]);
+
+  ok(rPaid.figure.id === rFree.figure.id, 'the same seed gives the same figure');
+  ok(rPaid.won && rFree.won, 'both rounds were identified');
+  ok(rPaid.score < rFree.score, 'the bought clue is deducted from the award',
+    `${rPaid.score} vs ${rFree.score}`);
+  ok(rPaid.score === Math.round(rFree.score * (1 - CAUSE_PENALTY)),
+    'the deduction is the stated fraction', `${rFree.score} -> ${rPaid.score}`);
+  ok(paid.totalScore === rPaid.score, 'the session total takes the reduced award');
+}
+
+// A closed round sells nothing.
+{
+  const s = startSession('infinite', { seed: 63 });
+  const round = currentRound(s);
+  submitGuess(s, round.figure.names[0]);
+  const out = revealCause(s);
+  ok(out.type === 'closed', 'the cause cannot be bought after the round closes');
+  ok(round.causeShown === false, 'a closed round records no purchase');
 }
 
 // The hint ladder: one hint per spent attempt, capped at the number that exist.

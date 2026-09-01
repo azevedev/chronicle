@@ -190,7 +190,7 @@ const STRINGS = {
       'Famous only draws from the 100 best-known figures. All figures draws from all {n}, famous and obscure alike, and pays more for the harder ones. A figure from the best-known 100 is marked wherever they appear, so you always know which you met. The Daily Puzzle ignores this setting and always uses the best-known 100.',
     'help.begin': 'Start playing',
     'help.privacy':
-      'Your results and settings stay in this browser. There are no accounts, no cookies and no analytics. The only thing that leaves your device is the portrait on the answer sheet, which loads from Wikimedia; without it the game still works perfectly, offline included.',
+      'Your results and settings stay in this browser. There are no accounts and no cookies. An anonymous, cookieless counter records page views and load times; it cannot identify you, and the game works fully without it. The portrait on the answer sheet is the only other thing that leaves your device.',
     'help.close': 'Close',
 
     // — settings and menus —
@@ -388,7 +388,7 @@ const STRINGS = {
       'Só as famosas sorteia entre as 100 figuras mais conhecidas. Todas as figuras sorteia entre as {n}, famosas e obscuras, e paga mais pelas mais difíceis. Uma figura das 100 mais conhecidas é marcada onde quer que apareça, para você sempre saber qual encontrou. O Desafio Diário ignora este ajuste e usa sempre as 100 mais conhecidas.',
     'help.begin': 'Começar a jogar',
     'help.privacy':
-      'Seus resultados e ajustes ficam somente neste navegador. Não há contas, cookies nem análise de tráfego. A única coisa que sai do seu aparelho é o retrato na folha de resposta, carregado da Wikimedia; sem ele o jogo funciona perfeitamente, inclusive offline.',
+      'Seus resultados e ajustes ficam somente neste navegador. Não há contas nem cookies. Um contador anônimo e sem cookies registra visitas e tempos de carregamento; ele não identifica você, e o jogo funciona perfeitamente sem ele. O retrato na folha de resposta é a única outra coisa que sai do seu aparelho.',
     'help.close': 'Fechar',
 
     // — ajustes e menus —

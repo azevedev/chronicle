@@ -22,15 +22,18 @@
 
   upload.wikimedia.org is listed under img-src alone, and only because the
   verdict portrait is hotlinked from there. It cannot be a script source.
+
+  static.cloudflareinsights.com (script) and cloudflareinsights.com (connect)
+  are the Cloudflare Web Analytics beacon, allowed explicitly and nothing else.
 -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'none';
-  script-src 'self';
+  script-src 'self' https://static.cloudflareinsights.com;
   style-src 'self';
   font-src 'self';
   img-src 'self' data: https://upload.wikimedia.org;
   media-src 'self';
-  connect-src 'self';
+  connect-src 'self' https://cloudflareinsights.com;
   base-uri 'none';
   form-action 'none';
 ">
@@ -567,5 +570,7 @@
 </div>
 
 <script type="module" src="js/main.js"></script>
+<!-- Cloudflare Web Analytics -->
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "d8da24149f5046e6b3b5a3e3b3052253"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

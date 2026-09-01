@@ -99,10 +99,8 @@ const STRINGS = {
     // — clue ladder —
     'hint.field': 'Clue 1 · Occupation',
     'hint.deed': 'Clue 2 · What they are known for',
-    'hint.initials': 'Clue 3 · Initials and name length',
-    'hint.initialsBody': 'Initials {initials} · {counts}.',
-    'hint.letters': '{n} letters',
-    'hint.letters.one': '{n} letter',
+    'hint.initials': 'Clue 3 · Initials',
+    'hint.initialsBody': 'Initials {initials}.',
 
     // — the answer sheet — period voice kept, but every label states its meaning —
     'verdict.correct': 'Correct',
@@ -174,7 +172,7 @@ const STRINGS = {
       'Two pins on the map: one where the person was born, one where they died. Under them are both years and the age they reached. That is everything you start with. Where a life is known by tradition rather than by record, the puzzle says so.',
     'help.attempts.title': '2 · Your four attempts',
     'help.attempts':
-      'A name the game does not know costs you nothing — just try another. A real figure who is the wrong answer costs one attempt, and so does pressing Skip. Every attempt you spend reveals the next clue: first the occupation, then what the person is known for, then their initials and the length of their name.',
+      'A name the game does not know costs you nothing — just try another. A real figure who is the wrong answer costs one attempt, and so does pressing Skip. Every attempt you spend reveals the next clue: first the occupation, then what the person is known for, then their initials.',
     'help.award.title': '3 · Points',
     'help.award':
       'Guessing right on the first attempt, before any clue, pays the most; every attempt after that pays less. Miss on the fourth and the round scores nothing.',
@@ -299,10 +297,8 @@ const STRINGS = {
     // — escada de pistas —
     'hint.field': 'Pista 1 · Ocupação',
     'hint.deed': 'Pista 2 · Pelo que é conhecida',
-    'hint.initials': 'Pista 3 · Iniciais e tamanho do nome',
-    'hint.initialsBody': 'Iniciais {initials} · {counts}.',
-    'hint.letters': '{n} letras',
-    'hint.letters.one': '{n} letra',
+    'hint.initials': 'Pista 3 · Iniciais',
+    'hint.initialsBody': 'Iniciais {initials}.',
 
     // — folha de resposta —
     'verdict.correct': 'Acertou',
@@ -374,7 +370,7 @@ const STRINGS = {
       'Dois alfinetes no mapa: um onde a pessoa nasceu, outro onde morreu. Abaixo deles estão os dois anos e a idade que ela alcançou. É tudo o que você tem no começo. Quando uma vida é conhecida por tradição, e não por documento, o desafio avisa.',
     'help.attempts.title': '2 · Suas quatro tentativas',
     'help.attempts':
-      'Um nome que o jogo não conhece não custa nada — é só tentar outro. Uma figura real que não é a resposta custa uma tentativa, e pular custa o mesmo. Cada tentativa gasta revela a pista seguinte: primeiro a ocupação, depois pelo que a pessoa é conhecida, por fim as iniciais e o tamanho do nome.',
+      'Um nome que o jogo não conhece não custa nada — é só tentar outro. Uma figura real que não é a resposta custa uma tentativa, e pular custa o mesmo. Cada tentativa gasta revela a pista seguinte: primeiro a ocupação, depois pelo que a pessoa é conhecida, por fim as iniciais.',
     'help.award.title': '3 · Pontos',
     'help.award':
       'Acertar na primeira tentativa, antes de qualquer pista, paga o máximo; cada tentativa seguinte paga menos. Errar na quarta encerra a rodada sem pontos.',
@@ -490,11 +486,6 @@ export function t(key, vars) {
     for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, v);
   }
   return s;
-}
-
-/** Grammatical plural for the letter-count clue. */
-export function letterCount(n) {
-  return t(n === 1 ? 'hint.letters.one' : 'hint.letters', { n });
 }
 
 /** Pick the localised half of a `[en, pt]` pair, or pass a plain string through. */

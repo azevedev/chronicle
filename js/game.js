@@ -8,7 +8,7 @@
 
 import { getFigures, poolByTier, theHundred } from './data.js';
 import { resolve } from './search.js';
-import { pick, fieldLabel, letterCount, t } from './i18n.js';
+import { pick, fieldLabel, t } from './i18n.js';
 import { dailyPick, dayIndex, dayKey, hash, makeRng, shuffle } from './rng.js';
 
 /**
@@ -78,16 +78,13 @@ export function potentialScore(figure, attempt, causeShown = false) {
 }
 
 /**
- * The third hint: initials and letter counts, both derived from the *localised*
- * name so they stay truthful when the player switches language mid-round.
+ * The third hint: initials only, derived from the *localised* name so they stay
+ * truthful when the player switches language mid-round.
  */
 export function initialsHint(figure) {
   const words = pick(figure.names).split(/\s+/).filter(Boolean);
   const initials = words.map((w) => `${w[0].toUpperCase()}.`).join(' ');
-  const counts = words
-    .map((w) => letterCount([...w].filter((c) => /\p{L}/u.test(c)).length))
-    .join(', ');
-  return t('hint.initialsBody', { initials, counts });
+  return t('hint.initialsBody', { initials });
 }
 
 /** The hint texts for a round, in ladder order. */

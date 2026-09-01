@@ -559,7 +559,7 @@ section('copy');
       t('verdict.inAttempts', { n: 2, max: MAX_ATTEMPTS }),
       t('round.worth', { n: 700 }),
       t('summary.tomorrow', { time: '07h 12m' }),
-      t('hint.initialsBody', { initials: 'A. E.', counts: '6 letters' }),
+      t('hint.initialsBody', { initials: 'A. E.' }),
     ].join(' ');
     ok(!/\{[a-z]+\}/i.test(filled), `every placeholder interpolates in ${lang}`, filled);
   }

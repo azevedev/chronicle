@@ -39,7 +39,7 @@
  *   legendary  dates are traditional rather than documented (flagged in the UI)
  *   circa      dates approximate; rendered with "c."
  *
- * The THIRD hint (initials and letter counts) is generated at runtime from the
+ * The THIRD hint (initials) is generated at runtime from the
  * localised name, so it never needs authoring.
  *
  * Coordinates are the modern location of the historical place, to about a
